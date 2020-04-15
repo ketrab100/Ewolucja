@@ -1,6 +1,6 @@
 package com.company;
 
-public class Predator {
-    int Level;
-    int Age;
+public class Predator extends Animal {
+
+    public String name;
 }

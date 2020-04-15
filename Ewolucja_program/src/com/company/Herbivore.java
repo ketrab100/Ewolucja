@@ -1,6 +1,5 @@
 package com.company;
 
-public class Herbivore {
-    int Level;
-    int Age;
+public class Herbivore extends Animal {
+
 }

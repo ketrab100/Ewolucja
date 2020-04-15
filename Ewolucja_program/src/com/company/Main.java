@@ -3,7 +3,12 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	    Predator aa = new Predator();
-        System.out.println(5*5);
+	    Tiger bb = new Tiger();
+        for (int i=0;i<100;i++){
+            bb.move();
+            System.out.println("pozycja x: "+bb.positonX);
+            System.out.println("pozycja y: "+bb.positonY);
+            //System.out.println(Math.random());
+        }
     }
 }
