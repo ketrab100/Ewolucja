@@ -1,12 +1,27 @@
 package com.company;
 
+import java.util.Random;
+
 public class Animal {
     int positonX;
     int positonY;
     int speed;
 
     void move (){
-        this.positonX+=(Math.random()*100)%this.speed;
-        this.positonY+=(Math.random()*100)%this.speed;
+        Random r = new Random();
+        if (Math.random()>0.5) {
+            this.positonX+=r.nextInt(speed);
+        }
+        if (Math.random()>0.5) {
+            this.positonY+=r.nextInt(speed);
+        }
+        if (Math.random()<0.5) {
+            this.positonX-=r.nextInt(speed);
+        }
+        if (Math.random()<0.5) {
+            this.positonY-=r.nextInt(speed);
+        }
+
+
     }
 }
