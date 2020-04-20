@@ -6,6 +6,11 @@ public class Predator extends Animal {
     public Predator(int positonX, int positonY) {
         super(positonX, positonY);
     }
+
+    void makeChild() {
+        clone();
+    }
+
     /*
     Herbivore findPrey (){
 

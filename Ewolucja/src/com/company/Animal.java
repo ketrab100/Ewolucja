@@ -42,14 +42,18 @@ public abstract class Animal implements Cloneable {
     void growth(int time){
         age+=time;
     }
-/*
-    abstract Animal makeChild(){
-        return null;
 
-    }
+    abstract void makeChild();
 
- */
-    void readyToDelivery(){
 
+
+
+    boolean readyToDelivery(){
+        if (this.age+1%maxDelivery==0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
