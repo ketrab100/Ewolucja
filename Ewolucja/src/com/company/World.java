@@ -1,35 +1,37 @@
 package com.company;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class World {
     int sizeX;
     int sizeY;
     PrintStream outStream;
 
-    List<Predator> tigers = new LinkedList<Predator>();
-    Tiger tiger = new Tiger(0,0);
-    List<Predator> wolfs = new LinkedList<>();
-    Wolf wolf= new Wolf(0,0);
-    List<Fruit> fruits = new LinkedList<>();
+    List<Predator> listofPredator = new ArrayList<Predator>();
+    List<Herbivore> listofHerbivore = new ArrayList<Herbivore>();
+    List<Human> listofPeople = new ArrayList<Human>();
 
+    {
+        Random rand=new Random();
+        listofPredator.add(new PRE0(100,rand.nextInt(sizeX),rand.nextInt(sizeY)));
+        listofPredator.add(new PRE1(200,rand.nextInt(sizeX),rand.nextInt(sizeY))); //i tak dalej
+    }
 
+    {
+        Random rand=new Random();
+        listofHerbivore.add(new HERB0(1100,rand.nextInt(sizeX),rand.nextInt(sizeY))); //i tak dalej
+    }
     public World(int sizeX,int sizeY, PrintStream _outStream){
         this.outStream= _outStream;
         this.sizeX=sizeX;
         this.sizeY=sizeY;
     }
     void day(){
-        tigers.add(tiger);
-        wolfs.add(wolf);
-        spawnFruits(fruits);
-        outStream.println("dzień: ");
-        System.out.println("tygrysy");
-        predatorActivities(tigers);
-        System.out.println("wilki");
-        predatorActivities(wolfs);
+
     }
     void play(){
         day();
@@ -38,15 +40,21 @@ public class World {
         for (int i=0;i<animal.size();i++){
             Predator predator;
             predator= (Predator) animal.get(i);
-            predator.move();
+
             if(predator.readyToDelivery()){
                 predator.makeChild();
             }
-            outStream.println("pozycja x: " + predator.positonX);
-            outStream.println("pozycja y: " + predator.positonY);
+
+            if(predator.hunger(predator.id)){ //ID albo coś, nie wiem jak to działa do końca skakanie po klasach
+                predator.hunt(predator.id); //ID trzeba podać dalej
+
+            }
+
+            //outStream.println("pozycja x: " + predator.positionX);
+            //outStream.println("pozycja y: " + predator.positionY);
         }
     }
-    public  void spawnFruits(List fruits) {
+    public void spawnFruits(List fruits) {
         for (int i = 0; i < this.sizeX; i++) {
             for (int j = 0; j < this.sizeY; j++) {
                 double random = Math.random();
@@ -65,5 +73,7 @@ public class World {
             }
         }
     }
+    void beginGame(){
 
+    }
 }

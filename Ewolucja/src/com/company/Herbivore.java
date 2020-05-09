@@ -9,4 +9,8 @@ public class Herbivore extends Animal {
     void makeChild() {
 
     }
+
+    void findFruit(){
+
+    }
 }
