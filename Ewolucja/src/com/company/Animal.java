@@ -14,7 +14,7 @@ public abstract class Animal implements Cloneable {
     int stomach;
     int delivery;
     int maxDelivery;
-    int range;
+    int searchrange;
     int value;
 
     public Animal(int positionX, int positionY){
@@ -33,9 +33,13 @@ public abstract class Animal implements Cloneable {
 
         int directionY=rand.nextInt(speed*2+1)-speed;
         int help=speed-Math.abs(directionY);
-
         int directionX=rand.nextInt(help*2+1)-help;
 
+        if(directionY<1) directionY=1;
+        else if(directionY>100) directionY=100;
+
+        if(directionX<1) directionX=1;
+        else if(directionX>100) directionX=100;
         this.positionX=directionX;
         this.positionY=directionY;
     }
@@ -48,7 +52,7 @@ public abstract class Animal implements Cloneable {
             return false;
         }
     }
-    boolean hunger(int id){
+    boolean hunger(){
         if(this.stomach<=maxStomach/2)
             return true;
         else

@@ -14,17 +14,23 @@ public class World {
     List<Predator> listofPredator = new ArrayList<Predator>();
     List<Herbivore> listofHerbivore = new ArrayList<Herbivore>();
     List<Human> listofPeople = new ArrayList<Human>();
+    List<Fruit> listofFruits = new ArrayList<Fruit>();
 
     {
-        Random rand=new Random();
-        listofPredator.add(new PRE0(100,rand.nextInt(sizeX),rand.nextInt(sizeY)));
-        listofPredator.add(new PRE1(200,rand.nextInt(sizeX),rand.nextInt(sizeY))); //i tak dalej
+        Random rand = new Random();
+        {
+            listofPredator.add(new PRE0(100, rand.nextInt(sizeX), rand.nextInt(sizeY)));
+            listofPredator.add(new PRE1(200, rand.nextInt(sizeX), rand.nextInt(sizeY))); //i tak dalej
+        }
+        {
+            listofHerbivore.add(new HERB0(1100, rand.nextInt(sizeX), rand.nextInt(sizeY))); //i tak dalej
+        }
+
+        {
+            listofPeople.add(new Human(0,rand.nextInt(sizeX),rand.nextInt(sizeY)));
+        }
     }
 
-    {
-        Random rand=new Random();
-        listofHerbivore.add(new HERB0(1100,rand.nextInt(sizeX),rand.nextInt(sizeY))); //i tak dalej
-    }
     public World(int sizeX,int sizeY, PrintStream _outStream){
         this.outStream= _outStream;
         this.sizeX=sizeX;
@@ -36,10 +42,37 @@ public class World {
     void play(){
         day();
     }
-    void predatorActivities (List<Predator> animal){
-        for (int i=0;i<animal.size();i++){
-            Predator predator;
-            predator= (Predator) animal.get(i);
+    void herbivoreActivities (){
+        for(int q=0; q<listofHerbivore.size(); q++){
+            Herbivore act = listofHerbivore.get(q);
+            act.stomach--;
+
+            if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
+                listofHerbivore.remove(q);
+                q--;
+            }
+            else {
+                if (act.readyToDelivery()) act.makeChild();
+
+                else if (act.hunger())
+                    act.searchFood(listofFruits, act);
+
+                else
+                    act.moveRandom();
+
+                if (act.hunger() != true)
+                    act.delivery++;
+
+                act.delivery++;
+                act.age++;
+                listofHerbivore.set(q, act);
+            }
+        }
+    }
+
+    void predatorActivities (){
+        for (int q=0; q<listofPredator.size(); q++){
+            Predator act = listofPredator.get(q);
 
             if(predator.readyToDelivery()){
                 predator.makeChild();
@@ -54,6 +87,8 @@ public class World {
             //outStream.println("pozycja y: " + predator.positionY);
         }
     }
+
+
     public void spawnFruits(List fruits) {
         for (int i = 0; i < this.sizeX; i++) {
             for (int j = 0; j < this.sizeY; j++) {

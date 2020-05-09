@@ -8,10 +8,10 @@ public class Fruit {
     int positionY;
     int value;
 
-    Fruit(int _positionX, int _positionY, int _calories) {
+    Fruit(int _positionX, int _positionY, int _value) {
         this.positionX = _positionX;
         this.positionY = _positionY;
-        this.value = _calories;
+        this.value = _value;
     }
 }
 
