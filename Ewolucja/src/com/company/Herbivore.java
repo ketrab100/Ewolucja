@@ -40,6 +40,7 @@ public class Herbivore extends Animal {
 
         if(test==1){
             act.stomach+=food.value;
+            act.stomach=Math.max(act.stomach, act.maxStomach);
             act.positionY=food.positionY;
             act.positionX=food.positionX;
         }

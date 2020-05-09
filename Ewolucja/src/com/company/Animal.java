@@ -16,6 +16,7 @@ public abstract class Animal implements Cloneable {
     int maxDelivery;
     int searchrange;
     int value;
+    int resistance;
 
     public Animal(int positionX, int positionY){
         this.positionX=positionX;

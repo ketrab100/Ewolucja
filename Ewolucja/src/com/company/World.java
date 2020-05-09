@@ -73,18 +73,27 @@ public class World {
     void predatorActivities (){
         for (int q=0; q<listofPredator.size(); q++){
             Predator act = listofPredator.get(q);
+            act.stomach--;
 
-            if(predator.readyToDelivery()){
-                predator.makeChild();
+            if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
+                listofPredator.remove(q);
+                q--;
             }
+            else{
+                if (act.readyToDelivery()) act.makeChild();
 
-            if(predator.hunger(predator.id)){ //ID albo coś, nie wiem jak to działa do końca skakanie po klasach
-                predator.hunt(predator.id); //ID trzeba podać dalej
+                else if (act.hunger())
+                    act.hunt(listofPredator, listofHerbivore, listofPeople, act);
 
+                else
+                    act.moveRandom();
+
+                if (act.hunger() != true)
+                    act.delivery++;
+
+                act.age++;
+                listofPredator.set(q, act);
             }
-
-            //outStream.println("pozycja x: " + predator.positionX);
-            //outStream.println("pozycja y: " + predator.positionY);
         }
     }
 
