@@ -49,7 +49,7 @@ public class World {
         this.humanActivities();
         this.herbivoreActivities();
         this.predatorActivities();
-        
+
     }
     void play(){
         turn();
@@ -67,7 +67,7 @@ public class World {
                 if (act.readyToDelivery()) act.makeChild();
 
                 else if (act.hunger())
-                    act.searchFood(listofFruits, act);
+                    act.searchFood(listofFruits);
 
                 else
                     act.moveRandom();
@@ -95,7 +95,7 @@ public class World {
                 if (act.readyToDelivery()) act.makeChild();
 
                 else if (act.hunger())
-                    act.searchFood(listofPredators, listofHerbivores, listofPeople, act, q);
+                    act.searchFood(listofPredators, listofHerbivores, listofPeople, q);
 
                 else
                     act.moveRandom();
@@ -119,10 +119,19 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) act.makeChild();
+                if (act.readyToDelivery()) act.makeChild(listofPeople);
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+
+
+PATRZ searchFood, o to się pytałem                  już zmieniłem, act było na końcu po listofFruits
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ */
                 else if (act.hunger())
-                    act.searchFood(listofPredators, listofHerbivores, listofFruits, act);
+                    act.searchFood(listofPredators, listofHerbivores, listofFruits);
 
                 else
                     act.moveRandom();

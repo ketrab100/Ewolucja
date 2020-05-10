@@ -9,18 +9,21 @@ public class Human extends Animal {
 
     public Human(int id, int strenght, int positonX, int positonY) {
         super(positonX, positonY);
-        this.name="GOAT ";
+        this.name="HUMAN ";
         this.speed = 5;
         this.age=0;
+        this.level=0;
         this.maxDelivery=50;
         this.maxStomach=100;
         this.stomach=100;
     }
-    void makeChild(){
-
+    void makeChild(List<Human> listofPeople){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
+        this.delivery=0;
+        listofPeople.add(new Human(this.id+1, this.strenght, this.positionX, this.positionY));
+        //reszta statystyk i tak jest identyczna, level i wiek się zerują z tego co mi wiadomo
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits, Human act){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
         int bestof=-1;
         int bestoflist=-1;
         int cal=0;
@@ -29,9 +32,9 @@ public class Human extends Animal {
         for(int q=0; q<listofPredators.size(); q++){
             Predator prey = listofPredators.get(q);
 
-            if(act.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-act.positionX)+Math.abs(prey.positionY-act.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-act.positionX)+Math.abs(prey.positionY-act.positionY)<=searchrange){
+            if(this.strenght>prey.resistance){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
                         if(prey.value>cal){
                             bestof=q;
                             bestoflist=1;
@@ -52,9 +55,9 @@ public class Human extends Animal {
         for(int q=0; q<listofHerbivores.size(); q++){
             Herbivore prey = listofHerbivores.get(q);
 
-            if(act.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-act.positionX)+Math.abs(prey.positionY-act.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-act.positionX)+Math.abs(prey.positionY-act.positionY)<=searchrange){
+            if(this.strenght>prey.resistance){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
                         if(prey.value>cal){
                             bestof=q;
                             bestoflist=2;
@@ -74,8 +77,8 @@ public class Human extends Animal {
         }
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-act.positionX)+Math.abs(food.positionY-act.positionY)<=searchrange){
-                if(Math.abs(food.positionX-act.positionX)+Math.abs(food.positionY-act.positionY)<=speed){
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchrange){
+                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
                     if(food.value>cal){
                         bestof=q;
                         bestoflist=3;
@@ -93,7 +96,7 @@ public class Human extends Animal {
         }
 
         if(bestof==-1){
-            act.moveRandom();
+            this.moveRandom();
             return;
         }
         //nie wiem dlaczzego się podświetla
@@ -106,31 +109,31 @@ public class Human extends Animal {
         else Fruit food = listofFruits.get(bestof);
 
         if(test==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
-            act.stomach+=food.value;
-            act.stomach=Math.max(act.stomach, act.maxStomach);
-            act.positionY=food.positionY;
-            act.positionX=food.positionX;
+            this.stomach+=food.value;
+            this.stomach=Math.max(this.stomach, this.maxStomach);
+            this.positionY=food.positionY;
+            this.positionX=food.positionX;
         }
         else{
-            test=act.speed;
-            if(food.positionX>act.positionX){
-                test-=Math.min(test, Math.abs(food.positionX-act.positionX));
-                act.positionX+=speed-test;
+            test=this.speed;
+            if(food.positionX>this.positionX){
+                test-=Math.min(test, Math.abs(food.positionX-this.positionX));
+                this.positionX+=speed-test;
                 if(test!=0){
-                    if(food.positionY>act.positionY)
-                        act.positionY+=test;
+                    if(food.positionY>this.positionY)
+                        this.positionY+=test;
                     else
-                        act.positionY-=test;
+                        this.positionY-=test;
                 }
             }
             else{
-                test-=Math.min(test, Math.abs(food.positionX-act.positionX));
-                act.positionX-=speed+test;
+                test-=Math.min(test, Math.abs(food.positionX-this.positionX));
+                this.positionX-=speed+test;
                 if(test!=0){
-                    if(food.positionY>act.positionY)
-                        act.positionY+=test;
+                    if(food.positionY>this.positionY)
+                        this.positionY+=test;
                     else
-                        act.positionY-=test;
+                        this.positionY-=test;
                 }
             }
         }

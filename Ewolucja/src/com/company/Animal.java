@@ -22,13 +22,13 @@ public abstract class Animal implements Cloneable {
         this.positionX=positionX;
         this.positionY=positionY;
     }
-    public Object clone() {
+    /*public Object clone() {
         Object newObject=null;
         try { newObject = super.clone(); } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         return newObject;
-    }
+    }*/
     void moveRandom (){
         Random rand=new Random();
 
@@ -46,8 +46,8 @@ public abstract class Animal implements Cloneable {
     }
 
     boolean readyToDelivery(){
-        if (this.age+1%maxDelivery==0){
-            return true;
+        if (this.delivery>=this.maxDelivery){ //to jest dziwne, nie wiem co znaczy dokładnie, ale chyba inaczej powinno być, w sumie zmienię
+            return true;                      //chyba wiem co chiałeś zrobić, można po prostu ustawić ujemną wartość delivery na początku, opóźni to rozmnażanie
         }
         else {
             return false;

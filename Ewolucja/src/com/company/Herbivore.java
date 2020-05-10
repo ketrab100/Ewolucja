@@ -9,18 +9,19 @@ public class Herbivore extends Animal {
     }
 
     void makeChild() {
-
+        this.delivery=0;
+        clone();
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Fruit> listofFruits, Herbivore act){ //to chyba trzeba przerobić na wskaźnik na listę
+    void searchFood(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
         int bestof=-1;
         int test=0;
         int cal=0;
 
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-act.positionX)+Math.abs(food.positionY-act.positionY)<=searchrange){
-                if(Math.abs(food.positionX-act.positionX)+Math.abs(food.positionY-act.positionY)<=speed){
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchrange){
+                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
                     if(food.value>cal){
                         bestof=q;
                         cal=food.value;
@@ -35,38 +36,38 @@ public class Herbivore extends Animal {
             }
         }
         if(bestof==-1) {
-            act.moveRandom();
+            this.moveRandom();
             return;
         }
 
         Fruit food = listofFruits.get(bestof);
 
         if(test==1){
-            act.stomach+=food.value;
-            act.stomach=Math.max(act.stomach, act.maxStomach);
-            act.positionY=food.positionY;
-            act.positionX=food.positionX;
+            this.stomach+=food.value;
+            this.stomach=Math.max(this.stomach, this.maxStomach);
+            this.positionY=food.positionY;
+            this.positionX=food.positionX;
         }
         else{
-            test=act.speed;
-            if(food.positionX>act.positionX){
-                test-=Math.min(test, Math.abs(food.positionX-act.positionX));
-                act.positionX+=speed-test;
+            test=this.speed;
+            if(food.positionX>this.positionX){
+                test-=Math.min(test, Math.abs(food.positionX-this.positionX));
+                this.positionX+=speed-test;
                 if(test!=0){
-                    if(food.positionY>act.positionY)
-                        act.positionY+=test;
+                    if(food.positionY>this.positionY)
+                        this.positionY+=test;
                     else
-                        act.positionY-=test;
+                        this.positionY-=test;
                 }
             }
             else{
-                test-=Math.min(test, Math.abs(food.positionX-act.positionX));
-                act.positionX-=speed+test;
+                test-=Math.min(test, Math.abs(food.positionX-this.positionX));
+                this.positionX-=speed+test;
                 if(test!=0){
-                    if(food.positionY>act.positionY)
-                        act.positionY+=test;
+                    if(food.positionY>this.positionY)
+                        this.positionY+=test;
                     else
-                        act.positionY-=test;
+                        this.positionY-=test;
                 }
             }
         }
