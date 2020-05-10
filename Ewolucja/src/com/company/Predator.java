@@ -13,14 +13,15 @@ public class Predator extends Animal {
         clone();
     }
 
-    void hunt(List<Predator> listofPredator, List<Herbivore> listofHerbivore, List<Human> listofPeople, Predator act){
+    //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople, Predator act, int iterator){
         int bestof=-1;
         int bestoflist=-1;
         int cal=0;
         int test=0;
 
-        for(int q=0; q<listofPredator.size(); q++){
-            Predator prey = listofPredator.get(q);
+        for(int q=0; q<listofPredators.size(); q++){
+            Predator prey = listofPredators.get(q);
 
             if(act.strenght>prey.resistance){
                 if(Math.abs(prey.positionX-act.positionX)+Math.abs(prey.positionY-act.positionY)<=searchrange){
@@ -42,8 +43,8 @@ public class Predator extends Animal {
                 }
             }
         }
-        for(int q=0; q<listofHerbivore.size(); q++){
-            Herbivore prey = listofHerbivore.get(q);
+        for(int q=0; q<listofHerbivores.size(); q++){
+            Herbivore prey = listofHerbivores.get(q);
 
             if(act.strenght>prey.resistance){
                 if(Math.abs(prey.positionX-act.positionX)+Math.abs(prey.positionY-act.positionY)<=searchrange){
@@ -88,13 +89,16 @@ public class Predator extends Animal {
                 }
             }
         }
-        if(bestof==-1) return;
-
+        if(bestof==-1){
+            act.moveRandom();
+            return;
+        }
+        //nie wiem dlaczzego się podświetla
         if(bestoflist==1)
-            Predator food = listofPredator.get(bestof);
+            Predator food = listofPredators.get(bestof);
 
         else if(bestoflist==2)
-            Herbivore food = listofHerbivore.get(bestof);
+            Herbivore food = listofHerbivores.get(bestof);
 
         else Human food = listofPeople.get(bestof);
 
@@ -127,11 +131,13 @@ public class Predator extends Animal {
                 }
             }
         }
-        if(bestoflist==1)
-            listofPredator.remove(bestof); //tu trzeba przekazać spowrotem i sprawdzić, czy już był jego ruch, ewentualnie przesunąć iterator
+        if(bestoflist==1) {
+            listofPredators.remove(bestof);
 
+            if(iterator<bestof) iterator--;
+        }
         else if(bestoflist==2)
-            listofHerbivore.remove(bestof);
+            listofHerbivores.remove(bestof);
 
         else listofPeople.remove(bestof);
     }

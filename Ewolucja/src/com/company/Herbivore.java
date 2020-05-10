@@ -11,7 +11,7 @@ public class Herbivore extends Animal {
     void makeChild() {
 
     }
-
+    //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
     void searchFood(List<Fruit> listofFruits, Herbivore act){ //to chyba trzeba przerobić na wskaźnik na listę
         int bestof=-1;
         int test=0;
@@ -34,7 +34,10 @@ public class Herbivore extends Animal {
                     }
             }
         }
-        if(bestof==-1) return;
+        if(bestof==-1) {
+            act.moveRandom();
+            return;
+        }
 
         Fruit food = listofFruits.get(bestof);
 

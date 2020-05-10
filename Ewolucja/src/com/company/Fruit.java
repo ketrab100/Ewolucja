@@ -13,5 +13,6 @@ public class Fruit {
         this.positionY = _positionY;
         this.value = _value;
     }
+
 }
 

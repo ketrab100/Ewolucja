@@ -9,46 +9,58 @@ import java.util.Random;
 public class World {
     int sizeX;
     int sizeY;
+    int weather=3;
+    int quantity;
     PrintStream outStream;
 
-    List<Predator> listofPredator = new ArrayList<Predator>();
-    List<Herbivore> listofHerbivore = new ArrayList<Herbivore>();
+    List<Predator> listofPredators = new ArrayList<Predator>();
+    List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
     List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
-    {
+    void beginGame(){
         Random rand = new Random();
         {
-            listofPredator.add(new PRE0(100, rand.nextInt(sizeX), rand.nextInt(sizeY)));
-            listofPredator.add(new PRE1(200, rand.nextInt(sizeX), rand.nextInt(sizeY))); //i tak dalej
+            listofPredators.add(new PRE0(100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            listofPredators.add(new PRE1(200, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
         }
         {
-            listofHerbivore.add(new HERB0(1100, rand.nextInt(sizeX), rand.nextInt(sizeY))); //i tak dalej
+            listofHerbivores.add(new HERB0(1100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
         }
 
         {
-            listofPeople.add(new Human(0,rand.nextInt(sizeX),rand.nextInt(sizeY)));
+            listofPeople.add(new Human(0, 5, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
         }
+        this.spawnFruits();
     }
 
     public World(int sizeX,int sizeY, PrintStream _outStream){
         this.outStream= _outStream;
         this.sizeX=sizeX;
         this.sizeY=sizeY;
+        this.quantity=sizeX/10+sizeY/10;
     }
-    void day(){
+    void turn(){
+        Random rand = new Random();
+        weather=rand.nextInt(5);
+        //pogoda 0-chmury, słaby wzrost | 1-przelotne chmury, trochę słabszy wzrost | 2-czyste niebo, normalnie
+        //3-słoneczny dzień, lepszy wzrost | 4-upał, brak wzrostu | 5-susza, rośliny umierają
 
+        this.humanActivities();
+        this.herbivoreActivities();
+        this.predatorActivities();
+        
     }
     void play(){
-        day();
+        turn();
     }
     void herbivoreActivities (){
-        for(int q=0; q<listofHerbivore.size(); q++){
-            Herbivore act = listofHerbivore.get(q);
+        for(int q=0; q<listofHerbivores.size(); q++){
+            Herbivore act = listofHerbivores.get(q);
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
-                listofHerbivore.remove(q);
+                listofHerbivores.remove(q);
                 q--;
             }
             else {
@@ -65,25 +77,25 @@ public class World {
 
                 act.delivery++;
                 act.age++;
-                listofHerbivore.set(q, act);
+                listofHerbivores.set(q, act);
             }
         }
     }
 
     void predatorActivities (){
-        for (int q=0; q<listofPredator.size(); q++){
-            Predator act = listofPredator.get(q);
+        for (int q=0; q<listofPredators.size(); q++){
+            Predator act = listofPredators.get(q);
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
-                listofPredator.remove(q);
+                listofPredators.remove(q);
                 q--;
             }
             else{
                 if (act.readyToDelivery()) act.makeChild();
 
                 else if (act.hunger())
-                    act.hunt(listofPredator, listofHerbivore, listofPeople, act);
+                    act.searchFood(listofPredators, listofHerbivores, listofPeople, act, q);
 
                 else
                     act.moveRandom();
@@ -92,32 +104,94 @@ public class World {
                     act.delivery++;
 
                 act.age++;
-                listofPredator.set(q, act);
+                listofPredators.set(q, act);
             }
         }
     }
 
+    void humanActivities (){
+        for(int q=0; q<listofPeople.size(); q++){
+            Human act= listofPeople.get(q);
+            act.stomach--;
 
-    public void spawnFruits(List fruits) {
-        for (int i = 0; i < this.sizeX; i++) {
-            for (int j = 0; j < this.sizeY; j++) {
-                double random = Math.random();
-                if (random >= 0.9) {
-                    Fruit superFruit = new Fruit(i, j, 3);
-                    fruits.add(superFruit);
-                } else if (random > 0.7) {
-                    Fruit berries = new Fruit(i, j, 2);
-                    fruits.add(berries);
-                } else if (random > 0.5) {
+            if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
+                listofPeople.remove(q);
+                q--;
+            }
+            else{
+                if (act.readyToDelivery()) act.makeChild();
 
-                    Fruit grass = new Fruit(i, j, 1);
-                    fruits.add(grass);
+                else if (act.hunger())
+                    act.searchFood(listofPredators, listofHerbivores, listofFruits, act);
 
+                else
+                    act.moveRandom();
+
+                if (act.hunger() != true)
+                    act.delivery++;
+
+                act.delivery++;
+                act.age++;
+                act.level++;
+
+                if(act.age%10==0){
+                    act.strenght++;
+                }
+                if(act.level%20==0){
+                    act.level=0;
+                    act.resistance++;
+                }
+                listofPeople.set(q, act);
+            }
+        }
+    }
+
+    void spawnFruits(){
+        int act=quantity;
+
+        if(weather==0) act*=0.5;
+        else if(weather==1) act*=0.75;
+        else if(weather==3) act*=1.5;
+        else if(weather==4) return;
+        else{
+            act*=0.25;
+            for(int q=act; q<act; q++){
+                if(!listofFruits.isEmpty()){
+                    listofFruits.remove(0);
                 }
             }
+            return;
+        }
+        for(int q=0; q<act; q++){
+            Random rand = new Random();
+            listofFruits.add(new Fruit(rand.nextInt(sizeX)+1,rand.nextInt(sizeY)+1, rand.nextInt(10)+1));
         }
     }
-    void beginGame(){
 
-    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
