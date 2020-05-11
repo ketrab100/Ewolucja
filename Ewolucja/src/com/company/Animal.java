@@ -62,32 +62,14 @@ public abstract class Animal implements Cloneable {
             return false;
     }
 
-    void eatFood(List<Fruit> listofFruits, List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople, int idCheckTab[], int iterator){
+    void eatFood(){
         int movementLeft;
 
-        if(this.target.isInRange==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
+        if(this.target.isInRange==1){
             this.stomach+=this.target.value;
             this.stomach=Math.max(this.stomach, this.maxStomach);
             this.positionY=this.target.positionY;
             this.positionX=this.target.positionX;
-
-            idCheckTab[this.target.id]=0;
-
-            if(this.target.iteratorlist==0)
-                listofFruits.remove(this.target.iterator);
-
-            else if(this.target.iteratorlist==1) {
-                listofPredators.remove(this.target.iterator);
-
-                if((this.id-(this.id/100)*100)>0 && (this.id-(this.id/100)*100)<=10 && iterator>this.target.iterator)
-                    iterator--;
-            }
-            else if(this.target.iteratorlist==2)
-                listofHerbivores.remove(this.target.iterator);
-
-            else if(this.target.iteratorlist==3){
-                listofPeople.remove(this.target.iterator);
-            }
         }
         else{
             movementLeft=this.speed;

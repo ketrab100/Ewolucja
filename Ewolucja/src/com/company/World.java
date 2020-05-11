@@ -78,7 +78,9 @@ public class World {
                         act.moveRandom();
                     }
                     else{
-                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                        act.eatFood();
+                        if(act.target.isInRange==1)
+                            this.deleteTarget(act.target);
                     }
                 }
                 else
@@ -113,7 +115,13 @@ public class World {
                         act.moveRandom();
                     }
                     else{
-                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                        act.eatFood();
+                        if(act.target.isInRange==1) {
+                            this.deleteTarget(act.target);
+                            
+                            if ((act.id - (act.id / 100) * 100) > 0 && (act.id - (act.id / 100) * 100) <= 10 && q > act.target.iterator)
+                                q--;
+                        }
                     }
                 }
                 else
@@ -148,7 +156,9 @@ public class World {
                         act.moveRandom();
                     }
                     else{
-                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                        act.eatFood();
+                        if(act.target.isInRange==1)
+                            this.deleteTarget(act.target);
                     }
                 }
                 else
@@ -194,7 +204,22 @@ public class World {
             listofFruits.add(new Fruit(rand.nextInt(sizeX)+1,rand.nextInt(sizeY)+1, rand.nextInt(10)+1));
         }
     }
+    void deleteTarget(Target target){
+        idCheckTab[target.id]=0;
 
+        if(target.iteratorlist==0)
+            listofFruits.remove(target.iterator);
+
+        else if(target.iteratorlist==1)
+            listofPredators.remove(target.iterator);
+
+        else if(target.iteratorlist==2)
+            listofHerbivores.remove(target.iterator);
+
+        else if(target.iteratorlist==3){
+            listofPeople.remove(target.iterator);
+        }
+    }
 
 }
 
