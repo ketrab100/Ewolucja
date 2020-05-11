@@ -95,13 +95,15 @@ public class Predator extends Animal {
             return;
         }
         //nie wiem dlaczzego się podświetla
-        if(bestoflist==1)
+        if(bestoflist==1) {
             Predator food = listofPredators.get(bestof);
-
-        else if(bestoflist==2)
+        }
+        else if(bestoflist==2) {
             Herbivore food = listofHerbivores.get(bestof);
-
-        else Human food = listofPeople.get(bestof);
+        }
+        else{
+            Human food = listofPeople.get(bestof);
+        }
 
         if(test==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
             this.stomach+=food.value;
