@@ -6,12 +6,13 @@ import java.util.Random;
 public class Fruit {
     int positionX;
     int positionY;
-    int calories;
+    int value;
 
-    Fruit(int _positionX, int _positionY, int _calories) {
+    Fruit(int _positionX, int _positionY, int _value) {
         this.positionX = _positionX;
         this.positionY = _positionY;
-        this.calories = _calories;
+        this.value = _value;
     }
+
 }
 
