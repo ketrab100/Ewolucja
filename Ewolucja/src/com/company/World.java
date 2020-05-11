@@ -11,6 +11,7 @@ public class World {
     int sizeY;
     int weather=3;
     int quantity;
+    int idCheckTab[]= new int[25000];
     PrintStream outStream;
 
     List<Predator> listofPredators = new ArrayList<Predator>();
@@ -18,18 +19,21 @@ public class World {
     List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
-    void beginGame(){
+    void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
         Random rand = new Random();
-        {
-            listofPredators.add(new PRE0(100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
-            listofPredators.add(new PRE1(200, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+        for(int q=0; q<animalQuantity; q++){
+            listofPredators.add(new PRE0(1000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            idCheckTab[1000+q]=1;
+            listofPredators.add(new PRE1(2000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            idCheckTab[2000+q]=1;
         }
-        {
-            listofHerbivores.add(new HERB0(1100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+        for(int q=0; q<animalQuantity; q++){
+            listofHerbivores.add(new HERB0(11000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            idCheckTab[11000+q]=1;
         }
-
-        {
-            listofPeople.add(new Human(0, 5, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+        for(int q=0; q<humanQuantity; q++){
+            listofPeople.add(new Human(q, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            idCheckTab[q]=1;
         }
         this.spawnFruits();
     }
@@ -52,7 +56,8 @@ public class World {
 
     }
     void play(){
-        turn();
+        while(!listofPeople.isEmpty())
+            turn();
     }
     void herbivoreActivities (){
         for(int q=0; q<listofHerbivores.size(); q++){
@@ -95,7 +100,7 @@ public class World {
                 if (act.readyToDelivery()) act.makeChild();
 
                 else if (act.hunger())
-                    act.searchFood(listofPredators, listofHerbivores, listofPeople, q);
+                    act.searchFood(listofPredators, listofHerbivores, listofPeople, q, idCheckTab);
 
                 else
                     act.moveRandom();
@@ -119,7 +124,7 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) act.makeChild(listofPeople);
+                if (act.readyToDelivery()) act.makeChild(listofPeople, idCheckTab);
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -131,7 +136,7 @@ PATRZ searchFood, o to się pytałem                  już zmieniłem, act było
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
                 else if (act.hunger())
-                    act.searchFood(listofPredators, listofHerbivores, listofFruits);
+                    act.searchFood(listofPredators, listofHerbivores, listofFruits, idCheckTab);
 
                 else
                     act.moveRandom();

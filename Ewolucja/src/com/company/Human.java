@@ -17,17 +17,22 @@ public class Human extends Animal {
         this.maxStomach=100;
         this.stomach=100;
     }
-    void makeChild(List<Human> listofPeople){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
+    void makeChild(List<Human> listofPeople, int idCheckTab[]){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
         this.delivery=0;
-        listofPeople.add(new Human(this.id+1, this.strenght, this.positionX, this.positionY));
-        //reszta statystyk i tak jest identyczna, level i wiek się zerują z tego co mi wiadomo
+        int newbornID=0;
+        while(idCheckTab[newbornID]!=0)
+            newbornID++;
+
+        listofPeople.add(new Human(newbornID, this.strenght, this.positionX, this.positionY));
+        idCheckTab[newbornID]=1;
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits, int idCheckTab[]){
         int bestof=-1;
         int bestoflist=-1;
-        int cal=0;
-        int test=0;
+        int calories=0;
+        int isInRange=0;
+        int movementLeft;
 
         for(int q=0; q<listofPredators.size(); q++){
             Predator prey = listofPredators.get(q);
@@ -35,18 +40,18 @@ public class Human extends Animal {
             if(this.strenght>prey.resistance){
                 if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
                     if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                        if(prey.value>cal){
+                        if(prey.value>calories){
                             bestof=q;
                             bestoflist=1;
-                            cal= prey.value;
-                            test=1;
+                            calories= prey.value;
+                            isInRange=1;
                         }
                     }
-                    else if(test==0){
-                        if(prey.value>cal){
+                    else if(isInRange==0){
+                        if(prey.value>calories){
                             bestof=q;
                             bestoflist=1;
-                            cal= prey.value;
+                            calories= prey.value;
                         }
                     }
                 }
@@ -58,18 +63,18 @@ public class Human extends Animal {
             if(this.strenght>prey.resistance){
                 if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
                     if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                        if(prey.value>cal){
+                        if(prey.value>calories){
                             bestof=q;
                             bestoflist=2;
-                            cal= prey.value;
-                            test=1;
+                            calories= prey.value;
+                            isInRange=1;
                         }
                     }
-                    else if(test==0){
-                        if(prey.value>cal){
+                    else if(isInRange==0){
+                        if(prey.value>calories){
                             bestof=q;
                             bestoflist=2;
-                            cal= prey.value;
+                            calories= prey.value;
                         }
                     }
                 }
@@ -79,18 +84,18 @@ public class Human extends Animal {
             Fruit food = listofFruits.get(q);
             if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchrange){
                 if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
-                    if(food.value>cal){
+                    if(food.value>calories){
                         bestof=q;
                         bestoflist=3;
-                        cal=food.value;
-                        test=1;
+                        calories=food.value;
+                        isInRange=1;
                     }
                 }
-                else if(test==0)
-                    if(food.value>cal){
+                else if(isInRange==0)
+                    if(food.value>calories){
                         bestof=q;
                         bestoflist=3;
-                        cal=food.value;
+                        calories=food.value;
                     }
             }
         }
@@ -99,7 +104,7 @@ public class Human extends Animal {
             this.moveRandom();
             return;
         }
-        //nie wiem dlaczzego się podświetla
+
         if(bestoflist==1) {
             Predator food = listofPredators.get(bestof);
         }
@@ -110,35 +115,38 @@ public class Human extends Animal {
             Fruit food = listofFruits.get(bestof);
         }
 
-        if(test==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
+        if(isInRange==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
             this.stomach+=food.value;
             this.stomach=Math.max(this.stomach, this.maxStomach);
             this.positionY=food.positionY;
             this.positionX=food.positionX;
         }
         else{
-            test=this.speed;
+            movementLeft=this.speed;
             if(food.positionX>this.positionX){
-                test-=Math.min(test, Math.abs(food.positionX-this.positionX));
-                this.positionX+=speed-test;
-                if(test!=0){
+                movementLeft-=Math.min(movementLeft, Math.abs(food.positionX-this.positionX));
+                this.positionX+=speed-movementLeft;
+                if(movementLeft!=0){
                     if(food.positionY>this.positionY)
-                        this.positionY+=test;
+                        this.positionY+=movementLeft;
                     else
-                        this.positionY-=test;
+                        this.positionY-=movementLeft;
                 }
             }
             else{
-                test-=Math.min(test, Math.abs(food.positionX-this.positionX));
-                this.positionX-=speed+test;
-                if(test!=0){
+                isInRange-=Math.min(movementLeft, Math.abs(food.positionX-this.positionX));
+                this.positionX-=speed+movementLeft;
+                if(movementLeft!=0){
                     if(food.positionY>this.positionY)
-                        this.positionY+=test;
+                        this.positionY+=movementLeft;
                     else
-                        this.positionY-=test;
+                        this.positionY-=movementLeft;
                 }
             }
         }
+        idCheckTab[food.id]=0;
+
+        //to jest źle
         if(bestoflist==1)
             listofPredators.remove(bestof);
 
