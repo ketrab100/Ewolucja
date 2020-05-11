@@ -29,7 +29,7 @@ public class Herbivore extends Animal {
 
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchrange){
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchRange){
                 if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
                     if(food.value>calories){
                         bestof=q;

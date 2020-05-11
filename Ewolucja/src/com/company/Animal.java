@@ -15,7 +15,7 @@ public abstract class Animal implements Cloneable {
     int stomach;
     int delivery;
     int maxDelivery;
-    int searchrange;
+    int searchRange;
     int value;
     int resistance;
     Target target;

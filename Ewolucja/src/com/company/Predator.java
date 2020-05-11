@@ -32,8 +32,8 @@ public class Predator extends Animal {
             Predator prey = listofPredators.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=1;
@@ -55,8 +55,8 @@ public class Predator extends Animal {
             Herbivore prey = listofHerbivores.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=2;
@@ -78,8 +78,8 @@ public class Predator extends Animal {
             Human prey = listofPeople.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=3;
