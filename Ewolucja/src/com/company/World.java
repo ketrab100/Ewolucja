@@ -11,6 +11,12 @@ public class World {
     int weather=3;
     int quantity;
     int idCheckTab[]= new int[250000];
+
+    {
+        for (int q = 0; q < 250000; q++) {
+            idCheckTab[q] = 0;
+        }
+    }
     PrintStream outStream;
 
     List<Predator> listofPredators = new ArrayList<Predator>();
@@ -68,7 +74,7 @@ public class World {
                 q--;
             }
             else {
-                if (act.readyToDelivery()) act.makeChild( listofHerbivores, idCheckTab);
+                if (act.readyToDelivery())  listofHerbivores.add(act.makeChild(idCheckTab));
 
                 else if (act.hunger()) {
                     act.searchFood(listofFruits);
@@ -85,7 +91,7 @@ public class World {
                 else
                     act.moveRandom();
 
-                if (act.hunger() != true)
+                if (!act.hunger())
                     act.delivery++;
 
                 act.delivery++;
@@ -105,7 +111,7 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) act.makeChild(listofPredators, idCheckTab);
+                if (act.readyToDelivery()) listofPredators.add(act.makeChild(idCheckTab));
 
                 else if (act.hunger()) {
                     act.searchFood(listofPredators, listofHerbivores, listofPeople);
@@ -126,7 +132,7 @@ public class World {
                 else
                     act.moveRandom();
 
-                if (act.hunger() != true)
+                if (!act.hunger())
                     act.delivery++;
 
                 act.age++;
@@ -146,7 +152,7 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) act.makeChild(listofPeople, idCheckTab);
+                if (act.readyToDelivery()) listofPeople.add(act.makeChild(idCheckTab));
 
                 else if (act.hunger()) {
                     act.searchFood(listofPredators, listofHerbivores, listofFruits);
@@ -163,7 +169,7 @@ public class World {
                 else
                     act.moveRandom();
 
-                if (act.hunger() != true)
+                if (!act.hunger())
                     act.delivery++;
 
                 act.delivery++;
@@ -219,7 +225,6 @@ public class World {
             listofPeople.remove(target.numberOnTheList);
         }
     }
-
 }
 
 
