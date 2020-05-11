@@ -1,5 +1,6 @@
 package com.company;
 
+import java.sql.SQLOutput;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -30,6 +31,15 @@ public class Main {
 
         earth.beginGame(animalQuantity,humanQuantity,humanStrenght); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
 
-        earth.play();
+        //earth.play();
+        //PRE0 tiger = new PRE0(1,1,1);
+        for (int i=0;i<100;i++){
+            System.out.printf("day" + i + "\n");
+            earth.turn();
+            for (int j=0 ; j<earth.listofPredators.size();j++){
+                Predator tiger1 = earth.listofPredators.get(j);
+                System.out.println(tiger1.id);
+            }
+        }
     }
 }

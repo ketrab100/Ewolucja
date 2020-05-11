@@ -49,8 +49,8 @@ public class World {
         //pogoda 0-chmury, słaby wzrost | 1-przelotne chmury, trochę słabszy wzrost | 2-czyste niebo, normalnie
         //3-słoneczny dzień, lepszy wzrost | 4-upał, brak wzrostu | 5-susza, rośliny umierają
 
-        this.humanActivities();
-        this.herbivoreActivities();
+        //this.humanActivities();
+        //this.herbivoreActivities();
         this.predatorActivities();
 
     }

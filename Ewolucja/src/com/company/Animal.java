@@ -18,7 +18,7 @@ public abstract class Animal implements Cloneable {
     int searchRange;
     int value;
     int resistance;
-    Target target;
+    Target target = new Target();
 
     public Animal(int positionX, int positionY){
         this.positionX=positionX;
@@ -70,6 +70,7 @@ public abstract class Animal implements Cloneable {
             this.stomach=Math.max(this.stomach, this.maxStomach);
             this.positionY=this.target.positionY;
             this.positionX=this.target.positionX;
+            this.target=null;
         }
         else{
             movementLeft=this.speed;
