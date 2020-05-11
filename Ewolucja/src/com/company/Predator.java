@@ -11,11 +11,11 @@ public class Predator extends Animal {
 
     void makeChild() {
         this.delivery=0;
-        //clone();
+        clone();
     }
 
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople, int iterator, int idCheckTab[]){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople, int iterator){
         int bestof=-1;
         int bestoflist=-1;
         int cal=0;
@@ -132,8 +132,6 @@ public class Predator extends Animal {
                 }
             }
         }
-        idCheckTab[food.id]=0;
-
         if(bestoflist==1) {
             listofPredators.remove(bestof);
 

@@ -17,18 +17,13 @@ public class Human extends Animal {
         this.maxStomach=100;
         this.stomach=100;
     }
-    void makeChild(List<Human> listofPeople, int idCheckTab[]){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
+    void makeChild(List<Human> listofPeople){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
         this.delivery=0;
-        int act=0;
-        while(idCheckTab[act]!=0)
-            act++;
-
-        listofPeople.add(new Human(act, this.strenght, this.positionX, this.positionY));
-        idCheckTab[act]=1;
+        listofPeople.add(new Human(this.id+1, this.strenght, this.positionX, this.positionY));
         //reszta statystyk i tak jest identyczna, level i wiek się zerują z tego co mi wiadomo
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits, int idCheckTab[]){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
         int bestof=-1;
         int bestoflist=-1;
         int cal=0;
@@ -106,14 +101,14 @@ public class Human extends Animal {
         }
         //nie wiem dlaczzego się podświetla
         if(bestoflist==1)
-            Predator food =  listofPredators.get(bestof);
+            Predator food = listofPredators.get(bestof);
 
         else if(bestoflist==2)
             Herbivore food = listofHerbivores.get(bestof);
 
         else Fruit food = listofFruits.get(bestof);
 
-        if(test==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony, napisałem do gulowatego z tym
+        if(test==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
             this.stomach+=food.value;
             this.stomach=Math.max(this.stomach, this.maxStomach);
             this.positionY=food.positionY;
@@ -142,8 +137,6 @@ public class Human extends Animal {
                 }
             }
         }
-        idCheckTab[food.id]=0;
-
         if(bestoflist==1)
             listofPredators.remove(bestof);
 

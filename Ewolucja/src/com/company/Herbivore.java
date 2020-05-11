@@ -10,7 +10,7 @@ public class Herbivore extends Animal {
 
     void makeChild() {
         this.delivery=0;
-        //clone();
+        clone();
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
     void searchFood(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
@@ -40,7 +40,7 @@ public class Herbivore extends Animal {
             return;
         }
 
-        Fruit food = listofFruits.get(bestof); // może być źle
+        Fruit food = listofFruits.get(bestof);
 
         if(test==1){
             this.stomach+=food.value;
