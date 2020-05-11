@@ -7,14 +7,20 @@ public class Human extends Animal {
     int level;
 
     public Human(int id, int strenght, int positonX, int positonY) {
-        super(positonX, positonY);
-        this.name="HUMAN ";
-        this.speed = 5;
+        super(id, positonX, positonY);
+        this.target.numberOnTheList=-1;
+        this.value=15;
+        this.searchRange=5;
+        this.strenght=strenght;
+        this.name="HUMAN      ";
+        this.speed = 3;
         this.age=0;
         this.level=0;
-        this.maxDelivery=50;
-        this.maxStomach=100;
-        this.stomach=100;
+        this.delivery=0;
+        this.maxDelivery=20;
+        this.maxStomach=25;
+        this.stomach=25;
+        this.resistance=2;
     }
     Human makeChild(int[] idCheckTab){
         this.delivery=0;
@@ -37,8 +43,8 @@ public class Human extends Animal {
             Predator prey = listofPredators.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=1;
@@ -60,8 +66,8 @@ public class Human extends Animal {
             Herbivore prey = listofHerbivores.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=2;
@@ -81,8 +87,8 @@ public class Human extends Animal {
         }
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchRange){
-                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange){
+                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.speed){
                     if(food.value>calories){
                         bestof=q;
                         bestoflist=0;
@@ -93,7 +99,7 @@ public class Human extends Animal {
                 else if(isInRange==0)
                     if(food.value>calories){
                         bestof=q;
-                        bestoflist=3;
+                        bestoflist=0;
                         calories=food.value;
                     }
             }

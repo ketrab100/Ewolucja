@@ -11,7 +11,7 @@ public class Main {
         int sizeX=100;
         int sizeY=100;
         int animalQuantity=1;
-        int humanQuantity=2;
+        int humanQuantity=10;
         int humanStrenght=5;
 
         //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day

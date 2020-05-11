@@ -8,8 +8,8 @@ import java.util.Random;
 public class World {
     int sizeX;
     int sizeY;
-    int weather=3;
     int quantity;
+    int weather=3;
     int currentTurn=100;
     int[] idCheckTab= new int[250000];
     int[][] statistics = new int[50][250000];
@@ -29,18 +29,23 @@ public class World {
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
         Random rand = new Random();
         for(int q=0; q<animalQuantity; q++){
-            listofPredators.add(new PRE0(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
-            idCheckTab[1000+q]=1;
-            listofPredators.add(new PRE1(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
-            idCheckTab[2000+q]=1;
+            this.listofPredators.add(new PRE0(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            this.idCheckTab[1+q*100]=1;
+            this.statistics[1][100]=animalQuantity;
+            this.listofPredators.add(new PRE1(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.idCheckTab[2+q*100]=1;
+            this.statistics[2][100]=animalQuantity;
         }
         for(int q=0; q<animalQuantity; q++){
-            listofHerbivores.add(new HERB0(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
-            idCheckTab[11000+q]=1;
+            this.listofHerbivores.add(new HERB0(11, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.idCheckTab[11+q*100]=1;
+            this.statistics[11][100]=animalQuantity;
+            //System.out.println("ja pierdole " + this.listofHerbivores.size() + " " + this.listofHerbivores.get(q).id + " " + this.listofHerbivores.get(q).positionY);
         }
         for(int q=0; q<humanQuantity; q++){
-            listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
-            idCheckTab[q]=1;
+            this.listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            this.idCheckTab[0+q*100]=1;
+            this.statistics[0][100]=humanQuantity;
         }
         this.spawnFruits();
     }
@@ -52,37 +57,51 @@ public class World {
         this.quantity=sizeX/10+sizeY/10;
     }
     void turn() throws InterruptedException {
+        /* //do testowania statystyk
+        for(int q=0; q<11; q++){
+            for(int w=0; w<10; w++){
+                System.out.print(this.statistics[q][w+100]);
+            }
+            System.out.println();
+        }*/
+        for(int q=0; q<250000; q++)
+            if(idCheckTab[q]!=0)System.out.print(q + " ");
+
         this.systemOut();
-        Thread.sleep(5000);
+        System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
+        Thread.sleep(2000);
+        this.currentTurn++;
         Random rand = new Random();
-        weather=rand.nextInt(5);
+        this.weather=rand.nextInt(6);
         //pogoda 0-chmury, słaby wzrost | 1-przelotne chmury, trochę słabszy wzrost | 2-czyste niebo, normalnie
         //3-słoneczny dzień, lepszy wzrost | 4-upał, brak wzrostu | 5-susza, rośliny umierają
 
         this.humanActivities();
         this.herbivoreActivities();
         this.predatorActivities();
-        currentTurn++;
+        this.spawnFruits();
     }
     void play() throws InterruptedException {
-        while(!listofPeople.isEmpty())
-            turn();
+        while(!this.listofPeople.isEmpty()) {
+            this.turn();
+            System.out.print("XD");
+        }
     }
     void herbivoreActivities (){
-        for(int q=0; q<listofHerbivores.size(); q++){
-            Herbivore act = listofHerbivores.get(q);
-            statistics[act.id%100][currentTurn]++;
+        for(int q=0; q<this.listofHerbivores.size(); q++){
+            Herbivore act = this.listofHerbivores.get(q);
+            this.statistics[act.id%100][currentTurn]++;
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
-                listofHerbivores.remove(q);
+                this.listofHerbivores.remove(q);
                 q--;
             }
             else {
-                if (act.readyToDelivery())  listofHerbivores.add(act.makeChild(idCheckTab));
+                if (act.readyToDelivery())  this.listofHerbivores.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFood(listofFruits);
+                    act.searchFood(this.listofFruits);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
@@ -97,40 +116,44 @@ public class World {
                     act.moveRandom();
 
                 if (!act.hunger())
-                    act.delivery++;
+                    act.delivery+=2;
 
                 act.delivery++;
                 act.age++;
-                listofHerbivores.set(q, act);
+                this.listofHerbivores.set(q, act);
             }
         }
     }
 
     void predatorActivities (){
-        for (int q=0; q<listofPredators.size(); q++){
-            Predator act = listofPredators.get(q);
-            statistics[act.id%100][currentTurn]++;
+        for (int q=0; q<this.listofPredators.size(); q++){
+            Predator act = this.listofPredators.get(q);
+            this.statistics[act.id%100][currentTurn]++;
             act.stomach--;
+            //System.out.print(act.id + " " + act.delivery + " " + act.maxDelivery + "    ");
 
             if(act.stomach==0) {
-                listofPredators.remove(q);
+                this.listofPredators.remove(q);
                 q--;
             }
             else{
-                if (act.readyToDelivery()) listofPredators.add(act.makeChild(idCheckTab));
+                if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFood(listofPredators, listofHerbivores, listofPeople);
+                    act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
                     }
                     else{
                         act.eatFood();
+
                         if(act.target.isInRange==1) {
                             this.deleteTarget(act.target);
-                            
-                            if ((act.id%100) > 0 && (act.id%100) <= 10 && q > act.target.numberOnTheList)
+
+                            //System.out.println(act.id + " " + act.target.id + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+                            if ((act.target.id%100) > 0 && (act.target.id%100) <= 10 && q > act.target.numberOnTheList)
                                 q--;
                         }
                     }
@@ -142,26 +165,26 @@ public class World {
                     act.delivery++;
 
                 act.age++;
-                listofPredators.set(q, act);
+                this.listofPredators.set(q, act);
             }
         }
     }
 
     void humanActivities (){
-        statistics[0][currentTurn]=listofPeople.size();
-        for(int q=0; q<listofPeople.size(); q++){
-            Human act= listofPeople.get(q);
+        this.statistics[0][currentTurn]=this.listofPeople.size();
+        for(int q=0; q<this.listofPeople.size(); q++){
+            Human act= this.listofPeople.get(q);
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
-                listofPeople.remove(q);
+                this.listofPeople.remove(q);
                 q--;
             }
             else{
-                if (act.readyToDelivery()) listofPeople.add(act.makeChild(idCheckTab));
+                if (act.readyToDelivery()) this.listofPeople.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFood(listofPredators, listofHerbivores, listofFruits);
+                    act.searchFood(this.listofPredators, this.listofHerbivores, this.listofFruits);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
@@ -189,7 +212,7 @@ public class World {
                     act.level=0;
                     act.resistance++;
                 }
-                listofPeople.set(q, act);
+                this.listofPeople.set(q, act);
             }
         }
     }
@@ -197,102 +220,102 @@ public class World {
     void spawnFruits(){
         int act=quantity;
 
-        if(weather==0) act*=0.5;
-        else if(weather==1) act*=0.75;
-        else if(weather==3) act*=1.5;
-        else if(weather==4) return;
+        if(this.weather==0) act*=0.5;
+        else if(this.weather==1) act*=0.75;
+        else if(this.weather==3) act*=1.5;
+        else if(this.weather==4) return;
         else{
             act*=0.25;
             for(int q=0; q<act; q++){
-                if(!listofFruits.isEmpty()){
-                    listofFruits.remove(0);
+                if(!this.listofFruits.isEmpty()){
+                    this.listofFruits.remove(0);
                 }
             }
             return;
         }
         for(int q=0; q<act; q++){
             Random rand = new Random();
-            listofFruits.add(new Fruit(rand.nextInt(sizeX)+1,rand.nextInt(sizeY)+1, rand.nextInt(10)+1));
+            this.listofFruits.add(new Fruit(rand.nextInt(this.sizeX)+1,rand.nextInt(this.sizeY)+1, rand.nextInt(10)+1));
         }
     }
     void deleteTarget(Target target){
-        idCheckTab[target.id]=0;
+        //System.out.print(target.id + " " + idCheckTab[target.id] + " " + target.typeOf + " ");
 
         if(target.typeOf ==0)
-            listofFruits.remove(target.numberOnTheList);
+            this.listofFruits.remove(target.numberOnTheList);
 
-        else if(target.typeOf ==1)
-            listofPredators.remove(target.numberOnTheList);
+        else{
+            this.idCheckTab[target.id]=0;
+            //System.out.println(idCheckTab[target.id]);
 
-        else if(target.typeOf ==2)
-            listofHerbivores.remove(target.numberOnTheList);
+            if(target.typeOf ==1)
+                this.listofPredators.remove(target.numberOnTheList);
 
-        else if(target.typeOf ==3){
-            listofPeople.remove(target.numberOnTheList);
+            else if(target.typeOf ==2)
+                this.listofHerbivores.remove(target.numberOnTheList);
+
+            else if(target.typeOf ==3) {
+                this.listofPeople.remove(target.numberOnTheList);
+            }
         }
     }
     void systemOut(){
+        System.out.print("Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is: ");System.out.println(this.weather);
         int fillUp=8;
         int divider=10;
-        System.out.print("Animal type | ");
-        while((currentTurn-100)/divider>=10){
-            divider++;
-            fillUp--;
-        }
-        System.out.print(currentTurn-100); for(int w=0; w<fillUp; w++) System.out.print(" ");
+        System.out.print("Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
 
-        System.out.print(" | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
         for(int q=0; q<=20; q++){
             System.out.print("Animal name | ");
             fillUp=8;
             divider=10;
-            while((statistics[q][currentTurn])/divider>=10){
+            while((this.statistics[q][this.currentTurn])/divider>=10){
                 divider++;
                 fillUp--;
             }
-            System.out.print(statistics[q][currentTurn]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            System.out.print(this.statistics[q][this.currentTurn]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
             fillUp=8;
             divider=10;
-            while((statistics[q][currentTurn-1])/divider>=10){
+            while((this.statistics[q][this.currentTurn-1])/divider>=10){
                 divider++;
                 fillUp--;
             }
-            System.out.print(statistics[q][currentTurn-1]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            System.out.print(this.statistics[q][this.currentTurn-1]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
             fillUp=8;
             divider=10;
-            while((statistics[q][currentTurn-10])/divider>=10){
+            while((this.statistics[q][this.currentTurn-10])/divider>=10){
                 divider++;
                 fillUp--;
             }
-            System.out.print(statistics[q][currentTurn-10]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            System.out.print(this.statistics[q][this.currentTurn-10]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
             fillUp=8;
             divider=10;
-            while((statistics[q][currentTurn-20])/divider>=10){
+            while((this.statistics[q][this.currentTurn-20])/divider>=10){
                 divider++;
                 fillUp--;
             }
-            System.out.print(statistics[q][currentTurn-20]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            System.out.print(this.statistics[q][this.currentTurn-20]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
             fillUp=8;
             divider=10;
-            while((statistics[q][currentTurn-50])/divider>=10){
+            while((this.statistics[q][this.currentTurn-50])/divider>=10){
                 divider++;
                 fillUp--;
             }
-            System.out.print(statistics[q][currentTurn-50]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            System.out.print(this.statistics[q][this.currentTurn-50]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
             fillUp=9;
             divider=10;
-            while((statistics[q][currentTurn-100])/divider>=10){
+            while((this.statistics[q][this.currentTurn-100])/divider>=10){
                 divider++;
                 fillUp--;
             }
-            System.out.print(statistics[q][currentTurn-100]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            System.out.print(this.statistics[q][this.currentTurn-100]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
-            System.out.print(statistics[q][100]); for(int w=0; w<fillUp; w++) System.out.print(" ");
+            System.out.print(this.statistics[q][100]); for(int w=0; w<fillUp; w++) System.out.print(" ");
 
             System.out.print("\n");
         }

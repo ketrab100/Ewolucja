@@ -5,13 +5,14 @@ import java.util.List;
 public class Predator extends Animal {
     int strenght;
 
-    public Predator(int positonX, int positonY) {
-        super(positonX, positonY);
+    public Predator(int id, int positonX, int positonY){
+        super(id, positonX, positonY);
+        this.target.numberOnTheList=-1;
     }
 
     Predator makeChild(int[] idCheckTab){
         this.delivery=0;
-        int newbornID=this.id-(this.id/100)*100;
+        int newbornID=this.id%100;
         while(idCheckTab[newbornID]!=0 && newbornID<240000) {
             newbornID+=100;
         }
@@ -30,8 +31,8 @@ public class Predator extends Animal {
             Predator prey = listofPredators.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=1;
@@ -53,8 +54,8 @@ public class Predator extends Animal {
             Herbivore prey = listofHerbivores.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=2;
@@ -76,8 +77,8 @@ public class Predator extends Animal {
             Human prey = listofPeople.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=3;
@@ -120,6 +121,7 @@ public class Predator extends Animal {
                 this.target.positionX = _food.positionX;
                 this.target.positionY = _food.positionY;
                 this.target.value = _food.value;
+                this.target.id= _food.id;
             }
         }
     }

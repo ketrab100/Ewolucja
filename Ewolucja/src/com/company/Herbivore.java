@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Herbivore extends Animal {
 
-    public Herbivore(int positonX, int positonY) {
-        super(positonX, positonY);
+    public Herbivore(int id, int positonX, int positonY) {
+        super(id, positonX, positonY);
     }
 
     Herbivore makeChild(int[] idCheckTab){
         this.delivery=0;
-        int newbornID=this.id-(this.id/100)*100;
+        int newbornID=this.id%100;
         while(idCheckTab[newbornID]!=0 && newbornID<240000) {
             newbornID+=100;
         }
@@ -28,8 +28,8 @@ public class Herbivore extends Animal {
 
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchRange){
-                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange){
+                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.speed){
                     if(food.value>calories){
                         bestof=q;
                         calories=food.value;

@@ -20,9 +20,10 @@ public abstract class Animal implements Cloneable {
     int resistance;
     Target target = new Target();
 
-    public Animal(int positionX, int positionY){
+    public Animal(int id, int positionX, int positionY){
         this.positionX=positionX;
         this.positionY=positionY;
+        this.id=id;
     }
     public Object clone() {
         Object newObject=null;
@@ -56,7 +57,7 @@ public abstract class Animal implements Cloneable {
         }
     }
     boolean hunger(){
-        if(this.stomach<=maxStomach/2)
+        if(this.stomach<=this.maxStomach/2)
             return true;
         else
             return false;
@@ -75,11 +76,11 @@ public abstract class Animal implements Cloneable {
             movementLeft=this.speed;
             if(this.target.positionX>this.positionX){
                 movementLeft-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
-                this.positionX+=speed-movementLeft;
+                this.positionX+=this.speed-movementLeft;
             }
             else{
                 this.target.isInRange-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
-                this.positionX-=speed+movementLeft;
+                this.positionX-=this.speed+movementLeft;
             }
             if(movementLeft!=0){
                 if(this.target.positionY>this.positionY)
