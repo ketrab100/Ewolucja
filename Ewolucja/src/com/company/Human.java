@@ -104,15 +104,26 @@ public class Human extends Animal {
             this.moveRandom();
             return;
         }
-
+        Food food = new Food();
         if(bestoflist==1) {
-            Predator food = listofPredators.get(bestof);
+           Predator _food = listofPredators.get(bestof);
+           food.positionX=_food.positionX;
+           food.positionY=_food.positionY;
+           food.value=_food.value;
+           food.id=_food.id;
         }
         else if(bestoflist==2) {
-            Herbivore food = listofHerbivores.get(bestof);
+            Herbivore _food = listofHerbivores.get(bestof);
+            food.positionX=_food.positionX;
+            food.positionY=_food.positionY;
+            food.value=_food.value;
+            food.id=_food.id;
         }
         else {
-            Fruit food = listofFruits.get(bestof);
+            Fruit _food = listofFruits.get(bestof);
+            food.positionX=_food.positionX;
+            food.positionY=_food.positionY;
+            food.value=_food.value;
         }
 
         if(isInRange==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
