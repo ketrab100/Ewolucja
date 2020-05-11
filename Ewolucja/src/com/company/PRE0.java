@@ -6,7 +6,7 @@ public class PRE0 extends Predator {
 
     public PRE0(int id, int positonX, int positonY) {
         super(positonX, positonY);
-        this.name="TIGER";
+        this.name="TIGER      ";
         this.speed = 5;
         this.age=0;
         this.maxDelivery=50;

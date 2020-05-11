@@ -8,10 +8,10 @@ public class Herbivore extends Animal {
         super(positonX, positonY);
     }
 
-    Herbivore makeChild(int idCheckTab[]){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
+    Herbivore makeChild(int[] idCheckTab){
         this.delivery=0;
         int newbornID=this.id-(this.id/100)*100;
-        while(idCheckTab[newbornID]!=0) {
+        while(idCheckTab[newbornID]!=0 && newbornID<240000) {
             newbornID+=100;
         }
         Herbivore child =(Herbivore) this.clone();
@@ -25,7 +25,6 @@ public class Herbivore extends Animal {
         int bestoflist=0;
         int isInRange=0;
         int calories=0;
-        int movementLeft;
 
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);

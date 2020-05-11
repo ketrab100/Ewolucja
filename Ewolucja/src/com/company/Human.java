@@ -16,17 +16,17 @@ public class Human extends Animal {
         this.maxStomach=100;
         this.stomach=100;
     }
-    Human makeChild(int idCheckTab[]){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
+    Human makeChild(int[] idCheckTab){
         this.delivery=0;
-        int newbornID=100;
-        while(idCheckTab[newbornID]!=0) {
+        int newbornID=0;
+        while(idCheckTab[newbornID]!=0 && newbornID<240000){
             newbornID+=100;
         }
         Human child = new Human(newbornID, this.strenght, this.positionX, this.positionY);
         idCheckTab[newbornID]=1;
         return child;
     }
-    //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
+
     void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
         int bestof=-1;
         int bestoflist=-1;

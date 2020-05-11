@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         int sizeX=100;
         int sizeY=100;

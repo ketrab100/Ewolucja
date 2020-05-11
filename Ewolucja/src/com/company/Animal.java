@@ -48,8 +48,8 @@ public abstract class Animal implements Cloneable {
     }
 
     boolean readyToDelivery(){
-        if (this.delivery>=this.maxDelivery){ //to jest dziwne, nie wiem co znaczy dokładnie, ale chyba inaczej powinno być, w sumie zmienię
-            return true;                      //chyba wiem co chiałeś zrobić, można po prostu ustawić ujemną wartość delivery na początku, opóźni to rozmnażanie
+        if (this.delivery>=this.maxDelivery){
+            return true;
         }
         else {
             return false;
@@ -76,22 +76,16 @@ public abstract class Animal implements Cloneable {
             if(this.target.positionX>this.positionX){
                 movementLeft-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
                 this.positionX+=speed-movementLeft;
-                if(movementLeft!=0){
-                    if(this.target.positionY>this.positionY)
-                        this.positionY+=movementLeft;
-                    else
-                        this.positionY-=movementLeft;
-                }
             }
             else{
                 this.target.isInRange-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
                 this.positionX-=speed+movementLeft;
-                if(movementLeft!=0){
-                    if(this.target.positionY>this.positionY)
-                        this.positionY+=movementLeft;
-                    else
-                        this.positionY-=movementLeft;
-                }
+            }
+            if(movementLeft!=0){
+                if(this.target.positionY>this.positionY)
+                    this.positionY+=movementLeft;
+                else
+                    this.positionY-=movementLeft;
             }
         }
     }
