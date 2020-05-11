@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.List;
-import java.util.Vector;
 
 public class Human extends Animal {
     int strenght;
@@ -38,8 +37,8 @@ public class Human extends Animal {
             Predator prey = listofPredators.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=1;
@@ -61,8 +60,8 @@ public class Human extends Animal {
             Herbivore prey = listofHerbivores.get(q);
 
             if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchrange){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=searchRange){
                         if(prey.value>calories){
                             bestof=q;
                             bestoflist=2;
@@ -82,7 +81,7 @@ public class Human extends Animal {
         }
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchrange){
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=searchRange){
                 if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
                     if(food.value>calories){
                         bestof=q;
@@ -101,12 +100,12 @@ public class Human extends Animal {
         }
 
         if(bestof==-1){
-            this.target.iterator=bestof;
+            this.target.numberOnTheList =bestof;
         }
         else {
             this.target.isInRange = isInRange;
-            this.target.iterator = bestof;
-            this.target.iteratorlist = bestoflist;
+            this.target.numberOnTheList = bestof;
+            this.target.typeOf = bestoflist;
 
             if (bestoflist == 1) {
                 Predator _food = listofPredators.get(bestof);

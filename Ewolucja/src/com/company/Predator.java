@@ -15,8 +15,8 @@ public class Predator extends Animal {
         while(idCheckTab[newbornID]!=0) {
             newbornID+=100;
         }
-
-        listofPredators.add(new this.clone());
+        Predator child = (Predator) this.clone();
+        listofPredators.add(child);
         listofPredators.get(listofPredators.size()-1).id=newbornID;
         idCheckTab[newbornID]=1;
     }
@@ -98,12 +98,12 @@ public class Predator extends Animal {
             }
         }
         if(bestof==-1){
-            this.target.iterator=bestof;
+            this.target.numberOnTheList =bestof;
         }
         else {
             this.target.isInRange = isInRange;
-            this.target.iterator = bestof;
-            this.target.iteratorlist = bestoflist;
+            this.target.numberOnTheList = bestof;
+            this.target.typeOf = bestoflist;
 
             if (bestoflist == 1) {
                 Predator _food = listofPredators.get(bestof);

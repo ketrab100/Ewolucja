@@ -13,9 +13,5 @@ public class PRE1 extends Predator {
         this.maxStomach=100;
         this.stomach=100;
     }
-    PRE0 lilTiger(){
-        PRE0 lil = new PRE0(this.positionX,this.positionY);
-        return lil;
-    }
 
 }

@@ -2,7 +2,6 @@ package com.company;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -74,7 +73,7 @@ public class World {
                 else if (act.hunger()) {
                     act.searchFood(listofFruits);
 
-                    if(act.target.iterator==-1){
+                    if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
                     }
                     else{
@@ -111,7 +110,7 @@ public class World {
                 else if (act.hunger()) {
                     act.searchFood(listofPredators, listofHerbivores, listofPeople);
 
-                    if(act.target.iterator==-1){
+                    if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
                     }
                     else{
@@ -119,7 +118,7 @@ public class World {
                         if(act.target.isInRange==1) {
                             this.deleteTarget(act.target);
                             
-                            if ((act.id - (act.id / 100) * 100) > 0 && (act.id - (act.id / 100) * 100) <= 10 && q > act.target.iterator)
+                            if ((act.id - (act.id / 100) * 100) > 0 && (act.id - (act.id / 100) * 100) <= 10 && q > act.target.numberOnTheList)
                                 q--;
                         }
                     }
@@ -152,7 +151,7 @@ public class World {
                 else if (act.hunger()) {
                     act.searchFood(listofPredators, listofHerbivores, listofFruits);
 
-                    if(act.target.iterator==-1){
+                    if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
                     }
                     else{
@@ -207,17 +206,17 @@ public class World {
     void deleteTarget(Target target){
         idCheckTab[target.id]=0;
 
-        if(target.iteratorlist==0)
-            listofFruits.remove(target.iterator);
+        if(target.typeOf ==0)
+            listofFruits.remove(target.numberOnTheList);
 
-        else if(target.iteratorlist==1)
-            listofPredators.remove(target.iterator);
+        else if(target.typeOf ==1)
+            listofPredators.remove(target.numberOnTheList);
 
-        else if(target.iteratorlist==2)
-            listofHerbivores.remove(target.iterator);
+        else if(target.typeOf ==2)
+            listofHerbivores.remove(target.numberOnTheList);
 
-        else if(target.iteratorlist==3){
-            listofPeople.remove(target.iterator);
+        else if(target.typeOf ==3){
+            listofPeople.remove(target.numberOnTheList);
         }
     }
 

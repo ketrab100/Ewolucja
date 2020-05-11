@@ -14,8 +14,8 @@ public class Herbivore extends Animal {
         while(idCheckTab[newbornID]!=0) {
             newbornID+=100;
         }
-
-        listofHerbivores.add(new this.clone());
+        Herbivore child =(Herbivore) this.clone();
+        listofHerbivores.add(child);
         listofHerbivores.get(listofHerbivores.size()-1).id=newbornID;
         idCheckTab[newbornID]=1;
     }
@@ -45,12 +45,12 @@ public class Herbivore extends Animal {
             }
         }
         if(bestof==-1){
-            this.target.iterator=bestof;
+            this.target.numberOnTheList =bestof;
         }
         else {
             this.target.isInRange = isInRange;
-            this.target.iterator = bestof;
-            this.target.iteratorlist = bestoflist;
+            this.target.numberOnTheList = bestof;
+            this.target.typeOf = bestoflist;
             Fruit _food = listofFruits.get(bestof);
             this.target.positionX = _food.positionX;
             this.target.positionY = _food.positionY;

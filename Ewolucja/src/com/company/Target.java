@@ -5,7 +5,7 @@ public class Target {
     int positionY;
     int value;
     int id;
-    int iterator;
-    int iteratorlist;
+    int numberOnTheList;
+    int typeOf;
     int isInRange;
 }
