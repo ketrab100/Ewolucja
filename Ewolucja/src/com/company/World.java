@@ -105,7 +105,10 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) act.makeChild(listofPredators, idCheckTab);
+                if (act.readyToDelivery()){
+                    //act.makeChild(listofPredators, idCheckTab);
+                    this.listofPredators.add(act.makeChild());
+                }
 
                 else if (act.hunger()) {
                     act.searchFood(listofPredators, listofHerbivores, listofPeople);
