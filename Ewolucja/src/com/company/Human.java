@@ -28,12 +28,11 @@ public class Human extends Animal {
         idCheckTab[newbornID]=1;
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits, int idCheckTab[]){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
         int bestof=-1;
         int bestoflist=-1;
         int calories=0;
         int isInRange=0;
-        int movementLeft;
 
         for(int q=0; q<listofPredators.size(); q++){
             Predator prey = listofPredators.get(q);
@@ -87,7 +86,7 @@ public class Human extends Animal {
                 if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=speed){
                     if(food.value>calories){
                         bestof=q;
-                        bestoflist=3;
+                        bestoflist=0;
                         calories=food.value;
                         isInRange=1;
                     }
@@ -102,32 +101,33 @@ public class Human extends Animal {
         }
 
         if(bestof==-1){
-            this.moveRandom();
-            return;
-        }
-
-        Food food = new Food();
-        if(bestoflist==1) {
-            Predator _food = listofPredators.get(bestof);
-            food.positionX=_food.positionX;
-            food.positionY=_food.positionY;
-            food.value=_food.value;
-            food.id=_food.id;
-        }
-        else if(bestoflist==2) {
-            Herbivore _food = listofHerbivores.get(bestof);
-            food.positionX=_food.positionX;
-            food.positionY=_food.positionY;
-            food.value=_food.value;
-            food.id=_food.id;
+            this.target.iterator=bestof;
         }
         else {
-            Fruit _food = listofFruits.get(bestof);
-            food.positionX=_food.positionX;
-            food.positionY=_food.positionY;
-            food.value=_food.value;
-        }
+            this.target.isInRange = isInRange;
+            this.target.iterator = bestof;
+            this.target.iteratorlist = bestoflist;
 
+            if (bestoflist == 1) {
+                Predator _food = listofPredators.get(bestof);
+                this.target.positionX = _food.positionX;
+                this.target.positionY = _food.positionY;
+                this.target.value = _food.value;
+                this.target.id = _food.id;
+            } else if (bestoflist == 2) {
+                Herbivore _food = listofHerbivores.get(bestof);
+                this.target.positionX = _food.positionX;
+                this.target.positionY = _food.positionY;
+                this.target.value = _food.value;
+                this.target.id = _food.id;
+            } else {
+                Fruit _food = listofFruits.get(bestof);
+                this.target.positionX = _food.positionX;
+                this.target.positionY = _food.positionY;
+                this.target.value = _food.value;
+            }
+        }
+        /*
         if(isInRange==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
             this.stomach+=food.value;
             this.stomach=Math.max(this.stomach, this.maxStomach);
@@ -156,16 +156,6 @@ public class Human extends Animal {
                         this.positionY-=movementLeft;
                 }
             }
-        }
-        idCheckTab[food.id]=0;
-
-        //to jest źle
-        if(bestoflist==1)
-            listofPredators.remove(bestof);
-
-        else if(bestoflist==2)
-            listofHerbivores.remove(bestof);
-
-        else listofFruits.remove(bestof);
+        }*/
     }
 }

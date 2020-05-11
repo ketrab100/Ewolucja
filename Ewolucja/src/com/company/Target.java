@@ -1,6 +1,6 @@
 package com.company;
 
-public class Food {
+public class Target {
     int positionX;
     int positionY;
     int value;

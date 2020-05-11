@@ -71,9 +71,16 @@ public class World {
             else {
                 if (act.readyToDelivery()) act.makeChild( listofHerbivores, idCheckTab);
 
-                else if (act.hunger())
+                else if (act.hunger()) {
                     act.searchFood(listofFruits);
 
+                    if(act.target.iterator==-1){
+                        act.moveRandom();
+                    }
+                    else{
+                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                    }
+                }
                 else
                     act.moveRandom();
 
@@ -99,9 +106,16 @@ public class World {
             else{
                 if (act.readyToDelivery()) act.makeChild(listofPredators, idCheckTab);
 
-                else if (act.hunger())
-                    act.searchFood(listofPredators, listofHerbivores, listofPeople, q, idCheckTab);
+                else if (act.hunger()) {
+                    act.searchFood(listofPredators, listofHerbivores, listofPeople);
 
+                    if(act.target.iterator==-1){
+                        act.moveRandom();
+                    }
+                    else{
+                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                    }
+                }
                 else
                     act.moveRandom();
 
@@ -117,6 +131,7 @@ public class World {
     void humanActivities (){
         for(int q=0; q<listofPeople.size(); q++){
             Human act= listofPeople.get(q);
+
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
@@ -125,19 +140,17 @@ public class World {
             }
             else{
                 if (act.readyToDelivery()) act.makeChild(listofPeople, idCheckTab);
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+                else if (act.hunger()) {
+                    act.searchFood(listofPredators, listofHerbivores, listofFruits);
 
-
-PATRZ searchFood, o to się pytałem                  już zmieniłem, act było na końcu po listofFruits
-
-
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- */
-                else if (act.hunger())
-                    act.searchFood(listofPredators, listofHerbivores, listofFruits, idCheckTab);
-
+                    if(act.target.iterator==-1){
+                        act.moveRandom();
+                    }
+                    else{
+                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                    }
+                }
                 else
                     act.moveRandom();
 

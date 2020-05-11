@@ -22,12 +22,11 @@ public class Predator extends Animal {
     }
 
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople, int iterator, int idCheckTab[]){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople){
         int bestof=-1;
         int bestoflist=-1;
         int calories=0;
         int isInRange=0;
-        int movementLeft;
 
         for(int q=0; q<listofPredators.size(); q++){
             Predator prey = listofPredators.get(q);
@@ -99,61 +98,31 @@ public class Predator extends Animal {
             }
         }
         if(bestof==-1){
-            this.moveRandom();
-            return;
+            this.target.iterator=bestof;
         }
-        //nie wiem dlaczzego się podświetla
-        if(bestoflist==1) {
-            Predator food = listofPredators.get(bestof);
-        }
-        else if(bestoflist==2) {
-            Herbivore food = listofHerbivores.get(bestof);
-        }
-        else{
-            Human food = listofPeople.get(bestof);
-        }
+        else {
+            this.target.isInRange = isInRange;
+            this.target.iterator = bestof;
+            this.target.iteratorlist = bestoflist;
 
-        if(isInRange==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
-            this.stomach+=food.value;
-            this.stomach=Math.max(this.stomach, this.maxStomach);
-            this.positionY=food.positionY;
-            this.positionX=food.positionX;
-        }
-        else{
-            movementLeft=this.speed;
-            if(food.positionX>this.positionX){
-                movementLeft-=Math.min(movementLeft, Math.abs(food.positionX-this.positionX));
-                this.positionX+=speed-movementLeft;
-                if(movementLeft!=0){
-                    if(food.positionY>this.positionY)
-                        this.positionY+=movementLeft;
-                    else
-                        this.positionY-=movementLeft;
-                }
-            }
-            else{
-                movementLeft-=Math.min(movementLeft, Math.abs(food.positionX-this.positionX));
-                this.positionX-=speed+movementLeft;
-                if(movementLeft!=0){
-                    if(food.positionY>this.positionY)
-                        this.positionY+=movementLeft;
-                    else
-                        this.positionY-=movementLeft;
-                }
+            if (bestoflist == 1) {
+                Predator _food = listofPredators.get(bestof);
+                this.target.positionX = _food.positionX;
+                this.target.positionY = _food.positionY;
+                this.target.value = _food.value;
+                this.target.id = _food.id;
+            } else if (bestoflist == 2) {
+                Herbivore _food = listofHerbivores.get(bestof);
+                this.target.positionX = _food.positionX;
+                this.target.positionY = _food.positionY;
+                this.target.value = _food.value;
+                this.target.id = _food.id;
+            } else {
+                Human _food = listofPeople.get(bestof);
+                this.target.positionX = _food.positionX;
+                this.target.positionY = _food.positionY;
+                this.target.value = _food.value;
             }
         }
-        idCheckTab[food.id]=0;
-
-        //to jest źle
-
-        if(bestoflist==1) {
-            listofPredators.remove(bestof);
-
-            if(iterator<bestof) iterator--;
-        }
-        else if(bestoflist==2)
-            listofHerbivores.remove(bestof);
-
-        else listofPeople.remove(bestof);
     }
 }
