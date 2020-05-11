@@ -19,9 +19,10 @@ public class Human extends Animal {
     }
     void makeChild(List<Human> listofPeople, int idCheckTab[]){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
         this.delivery=0;
-        int newbornID=0;
-        while(idCheckTab[newbornID]!=0)
-            newbornID++;
+        int newbornID=100;
+        while(idCheckTab[newbornID]!=0) {
+            newbornID+=100;
+        }
 
         listofPeople.add(new Human(newbornID, this.strenght, this.positionX, this.positionY));
         idCheckTab[newbornID]=1;
@@ -104,13 +105,14 @@ public class Human extends Animal {
             this.moveRandom();
             return;
         }
+
         Food food = new Food();
         if(bestoflist==1) {
-           Predator _food = listofPredators.get(bestof);
-           food.positionX=_food.positionX;
-           food.positionY=_food.positionY;
-           food.value=_food.value;
-           food.id=_food.id;
+            Predator _food = listofPredators.get(bestof);
+            food.positionX=_food.positionX;
+            food.positionY=_food.positionY;
+            food.value=_food.value;
+            food.id=_food.id;
         }
         else if(bestoflist==2) {
             Herbivore _food = listofHerbivores.get(bestof);

@@ -11,7 +11,7 @@ public class World {
     int sizeY;
     int weather=3;
     int quantity;
-    int idCheckTab[]= new int[25000];
+    int idCheckTab[]= new int[250000];
     PrintStream outStream;
 
     List<Predator> listofPredators = new ArrayList<Predator>();
@@ -22,17 +22,17 @@ public class World {
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
         Random rand = new Random();
         for(int q=0; q<animalQuantity; q++){
-            listofPredators.add(new PRE0(1000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            listofPredators.add(new PRE0(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
             idCheckTab[1000+q]=1;
-            listofPredators.add(new PRE1(2000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            listofPredators.add(new PRE1(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
             idCheckTab[2000+q]=1;
         }
         for(int q=0; q<animalQuantity; q++){
-            listofHerbivores.add(new HERB0(11000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            listofHerbivores.add(new HERB0(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
             idCheckTab[11000+q]=1;
         }
         for(int q=0; q<humanQuantity; q++){
-            listofPeople.add(new Human(q, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
             idCheckTab[q]=1;
         }
         this.spawnFruits();
@@ -69,7 +69,7 @@ public class World {
                 q--;
             }
             else {
-                if (act.readyToDelivery()) act.makeChild();
+                if (act.readyToDelivery()) act.makeChild( listofHerbivores, idCheckTab);
 
                 else if (act.hunger())
                     act.searchFood(listofFruits);
@@ -97,7 +97,7 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) act.makeChild();
+                if (act.readyToDelivery()) act.makeChild(listofPredators, idCheckTab);
 
                 else if (act.hunger())
                     act.searchFood(listofPredators, listofHerbivores, listofPeople, q, idCheckTab);

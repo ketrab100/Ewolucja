@@ -22,13 +22,13 @@ public abstract class Animal implements Cloneable {
         this.positionX=positionX;
         this.positionY=positionY;
     }
-    /*public Object clone() {
+    public Object clone() {
         Object newObject=null;
         try { newObject = super.clone(); } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         return newObject;
-    }*/
+    }
     void moveRandom (){
         Random rand=new Random();
 

@@ -8,9 +8,16 @@ public class Herbivore extends Animal {
         super(positonX, positonY);
     }
 
-    void makeChild() {
+    void makeChild(List<Herbivore> listofHerbivores, int idCheckTab[]){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
         this.delivery=0;
-        //clone();
+        int newbornID=this.id-(this.id/100)*100;
+        while(idCheckTab[newbornID]!=0) {
+            newbornID+=100;
+        }
+
+        listofHerbivores.add(new this.clone());
+        listofHerbivores.get(listofHerbivores.size()-1).id=newbornID;
+        idCheckTab[newbornID]=1;
     }
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
     void searchFood(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
