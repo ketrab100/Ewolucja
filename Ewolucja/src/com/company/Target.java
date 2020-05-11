@@ -1,10 +1,6 @@
 package com.company;
 
-public class Food {
-<<<<<<< HEAD
-
-}
-=======
+public class Target {
     int positionX;
     int positionY;
     int value;
@@ -13,4 +9,3 @@ public class Food {
     int iteratorlist;
     int isInRange;
 }
->>>>>>> huta

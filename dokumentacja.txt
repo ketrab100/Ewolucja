@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 aaaaaaaaaaadadasdasd
 dupa
 HGADSADGHSA
+=======
+ahsdhashdgjhasgdha
+XDDDDD
+test
+>>>>>>> huta

@@ -11,7 +11,11 @@ public class World {
     int sizeY;
     int weather=3;
     int quantity;
+<<<<<<< HEAD
     int idCheckTab[]= new int[25000];
+=======
+    int idCheckTab[]= new int[250000];
+>>>>>>> huta
     PrintStream outStream;
 
     List<Predator> listofPredators = new ArrayList<Predator>();
@@ -21,6 +25,7 @@ public class World {
 
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
         Random rand = new Random();
+<<<<<<< HEAD
 
         for(int q=0; q<animalQuantity; q++){
             listofPredators.add(new PRE0(1000+q, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
@@ -34,6 +39,20 @@ public class World {
         }
         for(int q=0; q<humanQuantity; q++){
             listofPeople.add(new Human(q, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+=======
+        for(int q=0; q<animalQuantity; q++){
+            listofPredators.add(new PRE0(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            idCheckTab[1000+q]=1;
+            listofPredators.add(new PRE1(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            idCheckTab[2000+q]=1;
+        }
+        for(int q=0; q<animalQuantity; q++){
+            listofHerbivores.add(new HERB0(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            idCheckTab[11000+q]=1;
+        }
+        for(int q=0; q<humanQuantity; q++){
+            listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+>>>>>>> huta
             idCheckTab[q]=1;
         }
         this.spawnFruits();
@@ -55,15 +74,21 @@ public class World {
         this.herbivoreActivities();
         this.predatorActivities();
 
+<<<<<<< HEAD
         //nie mam pomysłu jak to na razie posortować, więc będzie po kolei, najlepiej gatunkami, potem wiekiem
 
         System.out.println("");
+=======
+>>>>>>> huta
     }
     void play(){
         while(!listofPeople.isEmpty())
             turn();
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> huta
     }
     void herbivoreActivities (){
         for(int q=0; q<listofHerbivores.size(); q++){
@@ -75,6 +100,7 @@ public class World {
                 q--;
             }
             else {
+<<<<<<< HEAD
                 if (act.readyToDelivery()){
                     act.makeChild();
                 }
@@ -86,6 +112,24 @@ public class World {
                     act.moveRandom();
 
                 if (!act.isHungry())
+=======
+                if (act.readyToDelivery()) act.makeChild( listofHerbivores, idCheckTab);
+
+                else if (act.hunger()) {
+                    act.searchFood(listofFruits);
+
+                    if(act.target.iterator==-1){
+                        act.moveRandom();
+                    }
+                    else{
+                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                    }
+                }
+                else
+                    act.moveRandom();
+
+                if (act.hunger() != true)
+>>>>>>> huta
                     act.delivery++;
 
                 act.delivery++;
@@ -105,11 +149,26 @@ public class World {
                 q--;
             }
             else{
+<<<<<<< HEAD
                 if (act.readyToDelivery()) act.makeChild();
 
                 else if (act.hunger())
                     act.searchFood(listofPredators, listofHerbivores, listofPeople, q, idCheckTab);
 
+=======
+                if (act.readyToDelivery()) act.makeChild(listofPredators, idCheckTab);
+
+                else if (act.hunger()) {
+                    act.searchFood(listofPredators, listofHerbivores, listofPeople);
+
+                    if(act.target.iterator==-1){
+                        act.moveRandom();
+                    }
+                    else{
+                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                    }
+                }
+>>>>>>> huta
                 else
                     act.moveRandom();
 
@@ -125,6 +184,10 @@ public class World {
     void humanActivities (){
         for(int q=0; q<listofPeople.size(); q++){
             Human act= listofPeople.get(q);
+<<<<<<< HEAD
+=======
+
+>>>>>>> huta
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
@@ -133,6 +196,7 @@ public class World {
             }
             else{
                 if (act.readyToDelivery()) act.makeChild(listofPeople, idCheckTab);
+<<<<<<< HEAD
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -146,6 +210,19 @@ PATRZ searchFood, o to się pytałem                  już zmieniłem, act było
                 else if (act.hunger())
                     act.searchFood(listofPredators, listofHerbivores, listofFruits, idCheckTab);
 
+=======
+
+                else if (act.hunger()) {
+                    act.searchFood(listofPredators, listofHerbivores, listofFruits);
+
+                    if(act.target.iterator==-1){
+                        act.moveRandom();
+                    }
+                    else{
+                        act.eatFood(listofFruits, listofPredators, listofHerbivores, listofPeople, idCheckTab, q);
+                    }
+                }
+>>>>>>> huta
                 else
                     act.moveRandom();
 
