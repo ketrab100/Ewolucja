@@ -14,11 +14,7 @@ public class World {
     int[] idCheckTab= new int[250000];
     int[][] statistics = new int[50][250000];
     int[] names = new int [50]; //to ma być tablica stringów z nazwami zwierząt
-    {
-        for (int q = 0; q < 250000; q++) {
-            idCheckTab[q] = 0;
-        }
-    }
+
     PrintStream outStream;
 
     List<Animal> listofPredators = new ArrayList<Animal>();
@@ -101,7 +97,7 @@ public class World {
                 if (act.readyToDelivery())  this.listofHerbivores.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFruit(this.listofFruits);
+                    act.searchFood(this.listofFruits);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
@@ -140,7 +136,7 @@ public class World {
                 if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    //act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
+                    act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
@@ -185,8 +181,7 @@ public class World {
 
                 else if (act.hunger()) {
 
-                    act.searchFruit(this.listofFruits);
-                    act.searchPrey(this.listofHerbivores);
+                    act.searchFood(this.listofFruits, this.listofPredators, this.listofHerbivores);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();

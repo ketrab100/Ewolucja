@@ -19,6 +19,9 @@ public class Herbivore extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
+    void searchFood(List<Fruit> listofFruits){
+        this.searchFruit(listofFruits);
+    }
 }
 
 

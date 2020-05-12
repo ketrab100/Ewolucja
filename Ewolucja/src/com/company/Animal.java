@@ -155,5 +155,18 @@ public abstract class Animal implements Cloneable {
                 }
             }
         }
+        if(bestof==-1){
+            this.target.numberOnTheList =bestof;
+        }
+        else {
+            this.target.isInRange = isInRange;
+            this.target.numberOnTheList = bestof;
+            this.target.typeOf = bestoflist;
+            Animal _food = listofPreys.get(bestof);
+            this.target.positionX = _food.positionX;
+            this.target.positionY = _food.positionY;
+            this.target.value = _food.value;
+            this.target.id = _food.id;
+        }
     }
 }
