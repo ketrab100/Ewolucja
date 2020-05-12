@@ -6,6 +6,7 @@ import java.util.Random;
 
 public abstract class Animal implements Cloneable {
     String name;
+    int strenght;
     int id;
     int positionX;
     int positionY;
@@ -63,31 +64,96 @@ public abstract class Animal implements Cloneable {
             return false;
     }
 
-    void eatFood(){
-        int movementLeft;
-
-        if(this.target.isInRange==1){
-            this.stomach+=this.target.value;
-            this.stomach=Math.max(this.stomach, this.maxStomach);
-            this.positionY=this.target.positionY;
-            this.positionX=this.target.positionX;
-        }
-        else{
-            movementLeft=this.speed;
-            if(this.target.positionX>this.positionX){
-                movementLeft-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
-                this.positionX+=this.speed-movementLeft;
-            }
-            else{
-                this.target.isInRange-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
-                this.positionX-=this.speed+movementLeft;
-            }
-            if(movementLeft!=0){
-                if(this.target.positionY>this.positionY)
-                    this.positionY+=movementLeft;
-                else
-                    this.positionY-=movementLeft;
-            }
+    void eatFood() {
+        if (this.target.isInRange == 1) {
+            this.stomach += this.target.value;
+            this.stomach = Math.max(this.stomach, this.maxStomach);
+            this.positionY = this.target.positionY;
+            this.positionX = this.target.positionX;
         }
     }
+    void moveToFood(){
+        int movementLeft = this.speed;
+
+        movementLeft=this.speed;
+        if(this.target.positionX>this.positionX){
+            movementLeft-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
+            this.positionX+=this.speed-movementLeft;
+        }
+        else{
+            this.target.isInRange-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
+            this.positionX-=this.speed+movementLeft;
+        }
+        if(movementLeft!=0){
+            if(this.target.positionY>this.positionY)
+                this.positionY+=movementLeft;
+            else
+                this.positionY-=movementLeft;
+        }
+    }
+    void searchFruit(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
+        int bestof=-1;
+        int bestoflist=0;
+        int isInRange=0;
+        int calories=0;
+
+        for(int q=0; q<listofFruits.size(); q++){
+            Fruit food = listofFruits.get(q);
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange){
+                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.speed){
+                    if(food.value>calories){
+                        bestof=q;
+                        calories=food.value;
+                        isInRange=1;
+                    }
+                }
+                else if(isInRange==0)
+                    if(food.value>calories){
+                        bestof=q;
+                        calories=food.value;
+                    }
+            }
+        }
+        if(bestof==-1){
+            this.target.numberOnTheList =bestof;
+        }
+        else {
+            this.target.isInRange = isInRange;
+            this.target.numberOnTheList = bestof;
+            this.target.typeOf = bestoflist;
+            Fruit _food = listofFruits.get(bestof);
+            this.target.positionX = _food.positionX;
+            this.target.positionY = _food.positionY;
+            this.target.value = _food.value;
+        }
+    }
+    void searchPrey(List<Target> listofPreys){
+        int bestof=-1;
+        int bestoflist=-1;
+        int calories=0;
+        int isInRange=0;
+
+        for(int q=0; q<listofPreys.size(); q++){
+            Object prey = listofPreys.get(q);
+
+            if(this.strenght>prey.resistance){
+                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
+                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
+                        if(prey.value>calories){
+                            bestof=q;
+                            bestoflist=1;
+                            calories= prey.value;
+                            isInRange=1;
+                        }
+                    }
+                    else if(isInRange==0){
+                        if(prey.value>calories){
+                            bestof=q;
+                            bestoflist=1;
+                            calories= prey.value;
+                        }
+                    }
+                }
+            }
+        }
 }

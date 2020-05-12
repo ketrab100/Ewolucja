@@ -19,43 +19,6 @@ public class Herbivore extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
-    //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
-    void searchFood(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
-        int bestof=-1;
-        int bestoflist=0;
-        int isInRange=0;
-        int calories=0;
-
-        for(int q=0; q<listofFruits.size(); q++){
-            Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange){
-                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.speed){
-                    if(food.value>calories){
-                        bestof=q;
-                        calories=food.value;
-                        isInRange=1;
-                    }
-                }
-                else if(isInRange==0)
-                    if(food.value>calories){
-                        bestof=q;
-                        calories=food.value;
-                    }
-            }
-        }
-        if(bestof==-1){
-            this.target.numberOnTheList =bestof;
-        }
-        else {
-            this.target.isInRange = isInRange;
-            this.target.numberOnTheList = bestof;
-            this.target.typeOf = bestoflist;
-            Fruit _food = listofFruits.get(bestof);
-            this.target.positionX = _food.positionX;
-            this.target.positionY = _food.positionY;
-            this.target.value = _food.value;
-        }
-    }
 }
 
 

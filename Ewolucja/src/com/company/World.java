@@ -184,15 +184,19 @@ public class World {
                 if (act.readyToDelivery()) this.listofPeople.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFood(this.listofPredators, this.listofHerbivores, this.listofFruits);
+
+                    act.searchFruit(this.listofFruits);
+                    act.searchPrey(this.listofHerbivores);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
                     }
                     else{
-                        act.eatFood();
-                        if(act.target.isInRange==1)
+                        if(act.target.isInRange==1) {
                             this.deleteTarget(act.target);
+                            act.eatFood();
+                        }
+                        else act.moveToFood();
                     }
                 }
                 else
@@ -260,65 +264,35 @@ public class World {
         }
     }
     void systemOut(){
-        System.out.print("Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is: ");System.out.println(this.weather);
-        int fillUp=8;
-        int divider=10;
+        System.out.print("Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is: ");
+        if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
+        System.out.println();
+
         System.out.print("Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
 
         for(int q=0; q<=20; q++){
             System.out.print("Animal name | ");
-            fillUp=8;
-            divider=10;
-            while((this.statistics[q][this.currentTurn])/divider>=10){
-                divider++;
-                fillUp--;
-            }
-            System.out.print(this.statistics[q][this.currentTurn]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+            printout(8, q, 0);
+            printout(8, q, 1);
+            printout(8, q, 10);
+            printout(8, q, 20);
+            printout(8, q, 50);
+            printout(9, q, 100);
 
-            fillUp=8;
-            divider=10;
-            while((this.statistics[q][this.currentTurn-1])/divider>=10){
-                divider++;
-                fillUp--;
-            }
-            System.out.print(this.statistics[q][this.currentTurn-1]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
-
-            fillUp=8;
-            divider=10;
-            while((this.statistics[q][this.currentTurn-10])/divider>=10){
-                divider++;
-                fillUp--;
-            }
-            System.out.print(this.statistics[q][this.currentTurn-10]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
-
-            fillUp=8;
-            divider=10;
-            while((this.statistics[q][this.currentTurn-20])/divider>=10){
-                divider++;
-                fillUp--;
-            }
-            System.out.print(this.statistics[q][this.currentTurn-20]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
-
-            fillUp=8;
-            divider=10;
-            while((this.statistics[q][this.currentTurn-50])/divider>=10){
-                divider++;
-                fillUp--;
-            }
-            System.out.print(this.statistics[q][this.currentTurn-50]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
-
-            fillUp=9;
-            divider=10;
-            while((this.statistics[q][this.currentTurn-100])/divider>=10){
-                divider++;
-                fillUp--;
-            }
-            System.out.print(this.statistics[q][this.currentTurn-100]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
-
-            System.out.print(this.statistics[q][100]); for(int w=0; w<fillUp; w++) System.out.print(" ");
+            System.out.print(this.statistics[q][100]);
 
             System.out.print("\n");
         }
+    }
+    void printout(int fillUp, int currentAnimal, int actualTurn){
+        int divider=1;
+        while((this.statistics[currentAnimal][this.currentTurn-actualTurn])/divider>=10){
+            divider*=10;
+            fillUp--;
+        }
+        //System.out.println(fillUp + " " + divider);
+        System.out.print(this.statistics[currentAnimal][this.currentTurn-actualTurn]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+
     }
 }
 

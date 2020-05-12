@@ -32,7 +32,7 @@ public class Human extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
-
+    /*
     void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
         int bestof=-1;
         int bestoflist=-1;
@@ -132,35 +132,5 @@ public class Human extends Animal {
                 this.target.value = _food.value;
             }
         }
-        /*
-        if(isInRange==1){ //tu się wyświetla żarcie na czerwono, ale nie ma błędu, bo jeśli się nie przerwie to food na pewno zostanie stworzony
-            this.stomach+=food.value;
-            this.stomach=Math.max(this.stomach, this.maxStomach);
-            this.positionY=food.positionY;
-            this.positionX=food.positionX;
-        }
-        else{
-            movementLeft=this.speed;
-            if(food.positionX>this.positionX){
-                movementLeft-=Math.min(movementLeft, Math.abs(food.positionX-this.positionX));
-                this.positionX+=speed-movementLeft;
-                if(movementLeft!=0){
-                    if(food.positionY>this.positionY)
-                        this.positionY+=movementLeft;
-                    else
-                        this.positionY-=movementLeft;
-                }
-            }
-            else{
-                isInRange-=Math.min(movementLeft, Math.abs(food.positionX-this.positionX));
-                this.positionX-=speed+movementLeft;
-                if(movementLeft!=0){
-                    if(food.positionY>this.positionY)
-                        this.positionY+=movementLeft;
-                    else
-                        this.positionY-=movementLeft;
-                }
-            }
-        }*/
     }
 }

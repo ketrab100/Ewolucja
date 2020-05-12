@@ -8,4 +8,5 @@ public class Target {
     int numberOnTheList;
     int typeOf;
     int isInRange;
+    int resistance;
 }

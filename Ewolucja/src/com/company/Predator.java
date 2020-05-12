@@ -3,7 +3,6 @@ package com.company;
 import java.util.List;
 
 public class Predator extends Animal {
-    int strenght;
 
     public Predator(int id, int positonX, int positonY){
         super(id, positonX, positonY);
@@ -21,7 +20,7 @@ public class Predator extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
-    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople){
+    void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Human> listofPeople){ //rozbić
         int bestof=-1;
         int bestoflist=-1;
         int calories=0;
