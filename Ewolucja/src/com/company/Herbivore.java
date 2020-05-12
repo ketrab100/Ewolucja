@@ -20,6 +20,12 @@ public class Herbivore extends Animal {
         return child;
     }
     void searchFood(List<Fruit> listofFruits){
+        this.target.numberOnTheList=-1;
+        this.target.typeOf=-1;
+        this.target.isInRange=0;
+        this.target.value=0;
+        this.target.id=99;
+
         this.searchFruit(listofFruits);
     }
 }

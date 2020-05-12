@@ -21,8 +21,14 @@ public class Predator extends Animal {
         return child;
     }
     void searchFood(List<Animal> listofPredators, List<Animal> listofHerbivores, List<Animal> listofPeople){
-        this.searchPrey(listofPredators);
-        this.searchPrey(listofHerbivores);
-        this.searchPrey(listofPeople);
+        this.target.numberOnTheList=-1;
+        this.target.typeOf=-1;
+        this.target.isInRange=0;
+        this.target.value=0;
+        this.target.id=99;
+
+        this.searchPrey(listofPredators, 1);
+        this.searchPrey(listofHerbivores, 2);
+        this.searchPrey(listofPeople, 3);
     }
 }

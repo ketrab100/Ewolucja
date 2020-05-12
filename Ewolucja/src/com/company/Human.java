@@ -32,8 +32,14 @@ public class Human extends Animal {
         return child;
     }
     void searchFood(List<Fruit> listofFruits, List<Animal> listofPredators, List<Animal> listofHerbivores){
+        this.target.numberOnTheList=-1;
+        this.target.typeOf=-1;
+        this.target.isInRange=0;
+        this.target.value=0;
+        this.target.id=99;
+
         this.searchFruit(listofFruits);
-        this.searchPrey(listofPredators);
-        this.searchPrey(listofHerbivores);
+        this.searchPrey(listofPredators, 1);
+        this.searchPrey(listofHerbivores, 2);
     }
 }

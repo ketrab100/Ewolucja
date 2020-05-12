@@ -20,7 +20,7 @@ public class Main {
         System.out.println("jakies pierdoly ze start gry"); //nowy ekran
         System.out.println("Zacznij standardowo"); //startuje bez zmian
         System.out.println("dodkonaj zmian"); //ekran zmian
-        Scanner scanner = new Scanner(System.in);
+        /*Scanner scanner = new Scanner(System.in);
         {
             System.out.println("wybierz rozmiar mapy (oś x a potem oś y)"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
             sizeX = scanner.nextInt();
@@ -31,8 +31,8 @@ public class Main {
             humanStrenght = scanner.nextInt();
             System.out.println("liczba zwierząt na poczatku"); //jeśli wciścnie to zmieni tą wartość
             animalQuantity = scanner.nextInt();
-            //możemy dodać opcję zmiany np. 2 zwirząt w sensie statystyk
-        }
+            //możemy dodać opcję zmiany np. 2 zwierząt w sensie statystyk
+        }*/
         World earth = new World(sizeX, sizeY,System.out);
 
         earth.beginGame(animalQuantity,humanQuantity,humanStrenght); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day

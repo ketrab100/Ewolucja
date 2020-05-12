@@ -75,7 +75,6 @@ public abstract class Animal implements Cloneable {
     void moveToFood(){
         int movementLeft = this.speed;
 
-        movementLeft=this.speed;
         if(this.target.positionX>this.positionX){
             movementLeft-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
             this.positionX+=this.speed-movementLeft;
@@ -92,46 +91,38 @@ public abstract class Animal implements Cloneable {
         }
     }
     void searchFruit(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
-        int bestof=-1;
-        int bestoflist=0;
-        int isInRange=0;
-        int calories=0;
-
+        /*
+        this.target.numberOnTheList=-1;
+        this.target.typeOf=-1;
+        this.target.isInRange=0;
+        this.target.value=0;
+         */
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange){
-                if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.speed){
-                    if(food.value>calories){
-                        bestof=q;
-                        calories=food.value;
-                        isInRange=1;
+            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange) {
+                if (Math.abs(food.positionX - this.positionX) + Math.abs(food.positionY - this.positionY) <= this.speed) {
+                    if (food.value > this.target.value) {
+                        this.target.numberOnTheList = q;
+                        this.target.typeOf = 0;
+                        this.target.value = food.value;
+                        this.target.isInRange = 1;
+                    }
+                } else if (this.target.isInRange == 0){
+                    if (food.value > this.target.value) {
+                        this.target.numberOnTheList = q;
+                        this.target.typeOf = 0;
+                        this.target.value = food.value;
                     }
                 }
-                else if(isInRange==0)
-                    if(food.value>calories){
-                        bestof=q;
-                        calories=food.value;
-                    }
             }
         }
-        if(bestof==-1){
-            this.target.numberOnTheList =bestof;
-        }
-        else {
-            this.target.isInRange = isInRange;
-            this.target.numberOnTheList = bestof;
-            this.target.typeOf = bestoflist;
-            Fruit _food = listofFruits.get(bestof);
-            this.target.positionX = _food.positionX;
-            this.target.positionY = _food.positionY;
-            this.target.value = _food.value;
+        if(this.target.typeOf==0) {
+            this.target.id=99;
+            this.target.positionX = listofFruits.get(this.target.numberOnTheList).positionX;
+            this.target.positionY = listofFruits.get(this.target.numberOnTheList).positionY;
         }
     }
-    void searchPrey(List<Animal> listofPreys) {
-        int bestof = -1;
-        int bestoflist = -1;
-        int calories = 0;
-        int isInRange = 0;
+    void searchPrey(List<Animal> listofPreys, int currentList) {
 
         for (int q = 0; q < listofPreys.size(); q++) {
             Animal prey = listofPreys.get(q);
@@ -139,34 +130,27 @@ public abstract class Animal implements Cloneable {
             if (this.strenght > prey.resistance) {
                 if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.searchRange) {
                     if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.speed) {
-                        if (prey.value > calories) {
-                            bestof = q;
-                            bestoflist = 1;
-                            calories = prey.value;
-                            isInRange = 1;
+                        if (prey.value > this.target.value) {
+                            this.target.numberOnTheList = q;
+                            this.target.typeOf=currentList;
+                            this.target.value = prey.value;
+                            this.target.id = prey.id;
+                            this.target.isInRange = 1;
                         }
-                    } else if (isInRange == 0) {
-                        if (prey.value > calories) {
-                            bestof = q;
-                            bestoflist = 1;
-                            calories = prey.value;
+                    } else if (this.target.isInRange == 0) {
+                        if (prey.value > this.target.value) {
+                            this.target.numberOnTheList = q;
+                            this.target.typeOf=currentList;
+                            this.target.value = prey.value;
+                            this.target.id = prey.id;
                         }
                     }
                 }
             }
         }
-        if(bestof==-1){
-            this.target.numberOnTheList =bestof;
-        }
-        else {
-            this.target.isInRange = isInRange;
-            this.target.numberOnTheList = bestof;
-            this.target.typeOf = bestoflist;
-            Animal _food = listofPreys.get(bestof);
-            this.target.positionX = _food.positionX;
-            this.target.positionY = _food.positionY;
-            this.target.value = _food.value;
-            this.target.id = _food.id;
+        if (this.target.typeOf==currentList) {
+            this.target.positionX = listofPreys.get(this.target.numberOnTheList).positionX;
+            this.target.positionY = listofPreys.get(this.target.numberOnTheList).positionY;
         }
     }
 }
