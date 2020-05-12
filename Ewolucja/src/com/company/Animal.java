@@ -26,6 +26,7 @@ public abstract class Animal implements Cloneable {
         this.positionY=positionY;
         this.id=id;
     }
+
     public Object clone() {
         Object newObject=null;
         try { newObject = super.clone(); } catch (CloneNotSupportedException e) {
@@ -33,6 +34,7 @@ public abstract class Animal implements Cloneable {
         }
         return newObject;
     }
+
     void moveRandom (){
         Random rand=new Random();
 
@@ -57,7 +59,7 @@ public abstract class Animal implements Cloneable {
             return false;
         }
     }
-    boolean hunger(){
+    boolean isHungry(){
         if(this.stomach<=this.maxStomach/2)
             return true;
         else

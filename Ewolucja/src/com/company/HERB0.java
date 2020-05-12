@@ -16,5 +16,6 @@ public class HERB0 extends Herbivore {
         this.maxStomach=25;
         this.stomach=25;
         this.resistance=10;
+
     }
 }

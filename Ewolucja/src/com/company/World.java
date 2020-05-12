@@ -64,7 +64,7 @@ public class World {
         for(int q=0; q<250000; q++)
             if(idCheckTab[q]!=0)System.out.print(q + " ");
         */
-        System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
+        //System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
         this.systemOut();
 
         Thread.sleep(2000);
@@ -107,7 +107,7 @@ public class World {
             else {
                 if (act.readyToDelivery())  this.listofHerbivores.add(act.makeChild(this.idCheckTab));
 
-                else if (act.hunger()) {
+                else if (act.isHungry()) {
                     act.searchFood(this.listofFruits);
 
                     if(act.target.numberOnTheList ==-1){
@@ -126,7 +126,7 @@ public class World {
                 else
                     act.moveRandom();
 
-                if (!act.hunger())
+                if (!act.isHungry())
                     act.delivery+=2;
 
                 act.delivery++;
@@ -149,7 +149,7 @@ public class World {
             else{
                 if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 
-                else if (act.hunger()) {
+                else if (act.isHungry()) {
                     act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
 
                     if(act.target.numberOnTheList ==-1){
@@ -171,7 +171,7 @@ public class World {
                 else
                     act.moveRandom();
 
-                if (!act.hunger())
+                if (!act.isHungry())
                     act.delivery++;
 
                 act.age++;
@@ -193,7 +193,7 @@ public class World {
             else{
                 if (act.readyToDelivery()) this.listofPeople.add(act.makeChild(this.idCheckTab));
 
-                else if (act.hunger()) {
+                else if (act.isHungry()) {
                     act.searchFood(this.listofFruits, this.listofPredators, this.listofHerbivores);
 
                     if(act.target.numberOnTheList ==-1){
@@ -212,7 +212,7 @@ public class World {
                 else
                     act.moveRandom();
 
-                if (!act.hunger())
+                if (!act.isHungry())
                     act.delivery++;
 
                 act.delivery++;
@@ -279,6 +279,7 @@ public class World {
         if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
         if(!listofPeople.isEmpty())
             System.out.print("Strenght of strongest Human is: " + listofPeople.get(0).strenght);
+        System.out.println("Today is "+listofPeople.size()+" alive");
 
         System.out.println();
 
