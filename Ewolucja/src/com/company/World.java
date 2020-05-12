@@ -161,6 +161,7 @@ public class World {
                     act.delivery++;
 
                 act.age++;
+                System.out.println(listofPredators.size() + " " + q);
                 this.listofPredators.set(q, act);
             }
         }
