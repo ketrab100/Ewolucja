@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
@@ -19,11 +20,17 @@ public class Main {
         System.out.println("jakies pierdoly ze start gry"); //nowy ekran
         System.out.println("Zacznij standardowo"); //startuje bez zmian
         System.out.println("dodkonaj zmian"); //ekran zmian
+        Scanner scanner = new Scanner(System.in);
         {
-            System.out.println("wybierz rozmiar mapy"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
+            System.out.println("wybierz rozmiar mapy (oś x a potem oś y)"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
+            sizeX = scanner.nextInt();
+            sizeY = scanner.nextInt();
             System.out.println("liczba ludzi na poczatku"); //jeśli wciśnie to zmieni tą wartość
+            humanQuantity = scanner.nextInt();
             System.out.println("sila czlowieka na poczatku"); //zmienia siłę
+            humanStrenght = scanner.nextInt();
             System.out.println("liczba zwierząt na poczatku"); //jeśli wciścnie to zmieni tą wartość
+            animalQuantity = scanner.nextInt();
             //możemy dodać opcję zmiany np. 2 zwirząt w sensie statystyk
         }
         World earth = new World(sizeX, sizeY,System.out);
