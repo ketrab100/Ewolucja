@@ -127,33 +127,33 @@ public abstract class Animal implements Cloneable {
             this.target.value = _food.value;
         }
     }
-    void searchPrey(List<Target> listofPreys){
-        int bestof=-1;
-        int bestoflist=-1;
-        int calories=0;
-        int isInRange=0;
+    void searchPrey(List<Animal> listofPreys) {
+        int bestof = -1;
+        int bestoflist = -1;
+        int calories = 0;
+        int isInRange = 0;
 
-        for(int q=0; q<listofPreys.size(); q++){
-            Object prey = listofPreys.get(q);
+        for (int q = 0; q < listofPreys.size(); q++) {
+            Animal prey = listofPreys.get(q);
 
-            if(this.strenght>prey.resistance){
-                if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.searchRange){
-                    if(Math.abs(prey.positionX-this.positionX)+Math.abs(prey.positionY-this.positionY)<=this.speed){
-                        if(prey.value>calories){
-                            bestof=q;
-                            bestoflist=1;
-                            calories= prey.value;
-                            isInRange=1;
+            if (this.strenght > prey.resistance) {
+                if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.searchRange) {
+                    if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.speed) {
+                        if (prey.value > calories) {
+                            bestof = q;
+                            bestoflist = 1;
+                            calories = prey.value;
+                            isInRange = 1;
                         }
-                    }
-                    else if(isInRange==0){
-                        if(prey.value>calories){
-                            bestof=q;
-                            bestoflist=1;
-                            calories= prey.value;
+                    } else if (isInRange == 0) {
+                        if (prey.value > calories) {
+                            bestof = q;
+                            bestoflist = 1;
+                            calories = prey.value;
                         }
                     }
                 }
             }
         }
+    }
 }

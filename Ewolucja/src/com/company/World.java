@@ -21,9 +21,9 @@ public class World {
     }
     PrintStream outStream;
 
-    List<Predator> listofPredators = new ArrayList<Predator>();
-    List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
-    List<Human> listofPeople = new ArrayList<Human>();
+    List<Animal> listofPredators = new ArrayList<Animal>();
+    List<Animal> listofHerbivores = new ArrayList<Animal>();
+    List<Animal> listofPeople = new ArrayList<Animal>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
@@ -89,7 +89,7 @@ public class World {
     }
     void herbivoreActivities (){
         for(int q=0; q<this.listofHerbivores.size(); q++){
-            Herbivore act = this.listofHerbivores.get(q);
+            Herbivore act = (Herbivore) this.listofHerbivores.get(q);
             this.statistics[act.id%100][currentTurn]++;
             act.stomach--;
 
@@ -101,7 +101,7 @@ public class World {
                 if (act.readyToDelivery())  this.listofHerbivores.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFood(this.listofFruits);
+                    act.searchFruit(this.listofFruits);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
@@ -127,7 +127,7 @@ public class World {
 
     void predatorActivities (){
         for (int q=0; q<this.listofPredators.size(); q++){
-            Predator act = this.listofPredators.get(q);
+            Predator act = (Predator) this.listofPredators.get(q);
             this.statistics[act.id%100][currentTurn]++;
             act.stomach--;
             //System.out.print(act.id + " " + act.delivery + " " + act.maxDelivery + "    ");
@@ -140,7 +140,7 @@ public class World {
                 if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 
                 else if (act.hunger()) {
-                    act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
+                    //act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
 
                     if(act.target.numberOnTheList ==-1){
                         act.moveRandom();
@@ -173,7 +173,7 @@ public class World {
     void humanActivities (){
         this.statistics[0][currentTurn]=this.listofPeople.size();
         for(int q=0; q<this.listofPeople.size(); q++){
-            Human act= this.listofPeople.get(q);
+            Human act= (Human) this.listofPeople.get(q);
             act.stomach--;
 
             if(act.stomach==0) {//nie wiem, czy to jest na pewno dobrze
