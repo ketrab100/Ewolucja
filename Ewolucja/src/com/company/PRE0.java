@@ -8,7 +8,7 @@ public class PRE0 extends Predator {
         super(id, positonX, positonY);
         this.name="TIGER      ";
         this.value=15;
-        this.searchRange=15;
+        this.searchRange=20;
         this.speed = 8;
         this.age=0;
         this.delivery=0;

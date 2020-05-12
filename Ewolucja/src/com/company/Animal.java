@@ -67,7 +67,7 @@ public abstract class Animal implements Cloneable {
     void eatFood() {
         if (this.target.isInRange == 1) {
             this.stomach += this.target.value;
-            this.stomach = Math.max(this.stomach, this.maxStomach);
+            this.stomach = Math.min(this.stomach, this.maxStomach);
             this.positionY = this.target.positionY;
             this.positionX = this.target.positionX;
         }
@@ -90,7 +90,7 @@ public abstract class Animal implements Cloneable {
                 this.positionY-=movementLeft;
         }
     }
-    void searchFruit(List<Fruit> listofFruits){ //to chyba trzeba przerobić na wskaźnik na listę
+    void searchFruit(List<Fruit> listofFruits){
         /*
         this.target.numberOnTheList=-1;
         this.target.typeOf=-1;
@@ -107,7 +107,8 @@ public abstract class Animal implements Cloneable {
                         this.target.value = food.value;
                         this.target.isInRange = 1;
                     }
-                } else if (this.target.isInRange == 0){
+                }
+                else if (this.target.isInRange == 0){
                     if (food.value > this.target.value) {
                         this.target.numberOnTheList = q;
                         this.target.typeOf = 0;

@@ -9,10 +9,10 @@ public class Human extends Animal {
         super(id, positonX, positonY);
         this.target.numberOnTheList=-1;
         this.value=15;
-        this.searchRange=5;
+        this.searchRange=15;
         this.strenght=strenght;
         this.name="HUMAN      ";
-        this.speed = 3;
+        this.speed = 5;
         this.age=0;
         this.level=0;
         this.delivery=0;
@@ -23,11 +23,14 @@ public class Human extends Animal {
     }
     Human makeChild(int[] idCheckTab){
         this.delivery=0;
+        this.stomach*=0.75;
         int newbornID=0;
         while(idCheckTab[newbornID]!=0 && newbornID<240000){
             newbornID+=100;
         }
-        Human child = new Human(newbornID, this.strenght, this.positionX, this.positionY);
+        Human child = (Human) this.clone();
+        child.id=newbornID;
+        child.level=0;
         idCheckTab[newbornID]=1;
         return child;
     }
@@ -39,7 +42,7 @@ public class Human extends Animal {
         this.target.id=99;
 
         this.searchFruit(listofFruits);
-        this.searchPrey(listofPredators, 1);
-        this.searchPrey(listofHerbivores, 2);
+        //this.searchPrey(listofPredators, 1);
+        //this.searchPrey(listofHerbivores, 2);
     }
 }

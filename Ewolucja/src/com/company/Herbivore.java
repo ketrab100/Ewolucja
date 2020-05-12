@@ -10,6 +10,7 @@ public class Herbivore extends Animal {
 
     Herbivore makeChild(int[] idCheckTab){
         this.delivery=0;
+        this.stomach*=0.75;
         int newbornID=this.id%100;
         while(idCheckTab[newbornID]!=0 && newbornID<240000) {
             newbornID+=100;

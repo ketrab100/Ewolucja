@@ -7,9 +7,9 @@ public class HERB0 extends Herbivore {
     public HERB0(int id, int positonX, int positonY) {
         super(id, positonX, positonY);
         this.value=12;
-        this.searchRange=8;
+        this.searchRange=20;
         this.name="GOAT ";
-        this.speed = 5;
+        this.speed = 6;
         this.age=0;
         this.delivery=0;
         this.maxDelivery=20;
