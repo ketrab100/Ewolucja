@@ -125,7 +125,7 @@ public abstract class Animal implements Cloneable {
             this.target.positionY = listofFruits.get(this.target.numberOnTheList).positionY;
         }
     }
-    void searchPrey(List<Animal> listofPreys, int currentList) {
+    void searchPrey(List<? extends Animal> listofPreys, int currentList) {
 
         for (int q = 0; q < listofPreys.size(); q++) {
             Animal prey = listofPreys.get(q);

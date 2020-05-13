@@ -34,7 +34,7 @@ public class Human extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
-    void searchFood(List<Fruit> listofFruits, List<Animal> listofPredators, List<Animal> listofHerbivores){
+    void searchFood(List<Fruit> listofFruits, List<Predator> listofPredators, List<Herbivore> listofHerbivores){
         this.target.numberOnTheList=-1;
         this.target.typeOf=-1;
         this.target.isInRange=0;

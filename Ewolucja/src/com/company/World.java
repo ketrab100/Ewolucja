@@ -18,9 +18,9 @@ public class World {
 
     PrintStream outStream;
 
-    List<Animal> listofPredators = new ArrayList<Animal>();
-    List<Animal> listofHerbivores = new ArrayList<Animal>();
-    List<Animal> listofPeople = new ArrayList<Animal>();
+    List<Predator> listofPredators = new ArrayList<Predator>();
+    List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
+    List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
@@ -34,10 +34,12 @@ public class World {
             this.statistics[2][100]=animalQuantity;
         }
         for(int q=0; q<animalQuantity; q++){
-            this.listofHerbivores.add(new HERB0(11, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.listofHerbivores.add(new HERB0(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
             this.idCheckTab[11+q*100]=1;
             this.statistics[11][100]=animalQuantity;
-            //System.out.println("ja pierdole " + this.listofHerbivores.size() + " " + this.listofHerbivores.get(q).id + " " + this.listofHerbivores.get(q).positionY);
+            this.listofHerbivores.add(new HERB1(12+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.idCheckTab[12+q*100]=1;
+            this.statistics[12][100]=animalQuantity;
         }
         for(int q=0; q<humanQuantity; q++){
             this.listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
@@ -82,7 +84,7 @@ public class World {
     void play() throws InterruptedException {
         while(!this.listofPeople.isEmpty()) {
             this.turn();
-            System.out.print("XD");
+            //System.out.print("XD");
         }
         this.systemOut();
         System.out.println(this.listofPeople.size());
