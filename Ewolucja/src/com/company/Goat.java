@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Vector;
 
-public class Goat extends Herbivore {
+class Goat extends Herbivore {
 
     public Goat() {
         this.value=12;

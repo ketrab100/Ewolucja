@@ -17,8 +17,6 @@ public class World {
     String[] animalTypes = new String[50];
     //int[][] pomocnaukowa = new int [200][200];
 
-    PrintStream outStream;
-
     List<Predator> listofPredators = new ArrayList<Predator>();
     List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
     List<Human> listofPeople = new ArrayList<Human>();
@@ -29,9 +27,13 @@ public class World {
 
         this.addToWorld(animalQuantity[1],Tiger.class,1);
         this.addToWorld(animalQuantity[2],Wolf.class,2);
+        this.addToWorld(animalQuantity[3],Snake.class, 3);
+        this.addToWorld(animalQuantity[4],Dog.class, 4);
 
         this.addToWorld(animalQuantity[11],Goat.class,11);
         this.addToWorld(animalQuantity[12],Cow.class,12);
+        this.addToWorld(animalQuantity[13],Sheep.class, 13);
+        this.addToWorld(animalQuantity[14],Horse.class, 14);
 
         this.statistics[0][100]=animalQuantity[0];
         for(int q=0; q<animalQuantity[0]; q++){
@@ -45,7 +47,7 @@ public class World {
         this.spawnFruits();
     }
 
-    public World(PrintStream _outStream){
+    public World(){
         this.fillanimalTypes();
         this.animalQuantity[0]=5;
 
@@ -55,7 +57,6 @@ public class World {
         for(int q=11; q<=20; q++){
             this.animalQuantity[q]=5;
         }
-        this.outStream= _outStream;
     }
 
     void turn() throws InterruptedException {

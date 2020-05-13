@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.List;
 
-public class Human extends Animal {
+class Human extends Animal {
     int level;
 
     public Human() {

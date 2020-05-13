@@ -161,5 +161,8 @@ public abstract class Animal implements Cloneable {
             this.target.positionY = listofPreys.get(this.target.numberOnTheList).positionY;
         }
     }
+    public String classNameToString(){
+        return this.getClass().getSimpleName();
+    }
 
 }

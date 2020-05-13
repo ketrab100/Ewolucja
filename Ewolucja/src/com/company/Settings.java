@@ -6,14 +6,16 @@ public class Settings{
 
     World workInProgress;
 
-    public Settings(World currentGame){
-        this.workInProgress=currentGame;
+    public Settings(){
     }
 
     int check=0;
     int humanStrenght=5;
     Scanner scanner = new Scanner(System.in);
 
+    void getWorldToSetUp(World world){
+        this.workInProgress=world;
+    }
     void mainWindow(){
         System.out.println("1 Pick map size"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
         System.out.println("2 Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
@@ -35,8 +37,6 @@ public class Settings{
 
         for(int q=0; q<=20; q++){
             System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.animalQuantity[q]);
-        }
-        for(int q=0; q<=20; q++){
             this.workInProgress.animalQuantity[q]=this.scanner.nextInt();
         }
     }

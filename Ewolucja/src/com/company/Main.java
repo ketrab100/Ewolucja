@@ -14,16 +14,19 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        World currentGame = new World(System.out);
+        World currentGame = new World();
 
         System.out.println("Welcome to EVOLUTION \n");
         System.out.println("jakies pierdoly ze start gry"); //nowy ekran
         System.out.println("Zacznij standardowo"); //startuje bez zmian
         System.out.println("dodkonaj zmian"); //ekran zmian
         check=scanner.nextInt();
-        if(check==1){}
+        if(check==1){
+
+        }
         else{
-            Settings settings = new Settings(currentGame);
+            Settings settings = new Settings();
+            settings.getWorldToSetUp(currentGame);
             settings.mainWindow();
             //możemy dodać opcję zmiany np. 2 zwierząt w sensie statystyk
             currentGame=settings.workInProgress;
