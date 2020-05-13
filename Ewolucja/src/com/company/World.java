@@ -26,18 +26,18 @@ public class World {
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
         Random rand = new Random();
         for(int q=0; q<animalQuantity; q++){
-            this.listofPredators.add(new PRE0(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
+            this.listofPredators.add(new Tiger(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
             this.idCheckTab[1+q*100]=1;
             this.statistics[1][100]=animalQuantity;
-            this.listofPredators.add(new PRE1(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.listofPredators.add(new Wolf(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
             this.idCheckTab[2+q*100]=1;
             this.statistics[2][100]=animalQuantity;
         }
         for(int q=0; q<animalQuantity; q++){
-            this.listofHerbivores.add(new HERB0(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.listofHerbivores.add(new Goat(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
             this.idCheckTab[11+q*100]=1;
             this.statistics[11][100]=animalQuantity;
-            this.listofHerbivores.add(new HERB1(12+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
+            this.listofHerbivores.add(new Cow(12+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
             this.idCheckTab[12+q*100]=1;
             this.statistics[12][100]=animalQuantity;
         }

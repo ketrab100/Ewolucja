@@ -2,21 +2,21 @@ package com.company;
 
 import java.util.Vector;
 
-public class PRE0 extends Predator {
+public class Wolf extends Predator {
 
-    public PRE0(int id, int positonX, int positonY) {
+    public Wolf(int id, int positonX, int positonY) {
         super(id, positonX, positonY);
-        this.name="TIGER      ";
-        this.value=15;
+        this.name="WOLF       ";
+        this.value=10;
         this.searchRange=20;
-        this.speed = 8;
+        this.speed = 10;
         this.age=0;
         this.delivery=0;
         this.maxDelivery=20;
         this.maxStomach=25;
         this.stomach=25;
-        this.strenght=30;
-        this.resistance=35;
+        this.strenght=20;
+        this.resistance=21;
     }
 
 }

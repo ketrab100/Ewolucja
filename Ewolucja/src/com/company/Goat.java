@@ -2,9 +2,9 @@ package com.company;
 
 import java.util.Vector;
 
-public class HERB0 extends Herbivore {
+public class Goat extends Herbivore {
 
-    public HERB0(int id, int positonX, int positonY) {
+    public Goat(int id, int positonX, int positonY) {
         super(id, positonX, positonY);
         this.value=12;
         this.searchRange=20;
