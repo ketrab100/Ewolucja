@@ -10,7 +10,7 @@ public class Goat extends Herbivore {
         this.speed = 6;
         this.age=0;
         this.delivery=0;
-        this.maxDelivery=20;
+        this.maxDelivery=15;
         this.maxStomach=25;
         this.stomach=25;
         this.resistance=10;

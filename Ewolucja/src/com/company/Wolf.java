@@ -11,7 +11,7 @@ public class Wolf extends Predator {
         this.age=0;
         this.delivery=0;
         this.maxDelivery=20;
-        this.maxStomach=25;
+        this.maxStomach=20;
         this.stomach=25;
         this.strenght=20;
         this.resistance=21;

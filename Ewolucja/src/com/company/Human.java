@@ -9,7 +9,6 @@ public class Human extends Animal {
         this.target.numberOnTheList=-1;
         this.value=15;
         this.searchRange=15;
-        this.strenght=strenght;
         this.speed = 5;
         this.age=0;
         this.level=0;

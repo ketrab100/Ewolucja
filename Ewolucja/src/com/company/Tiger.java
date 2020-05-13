@@ -10,7 +10,7 @@ public class Tiger extends Predator {
         this.speed = 8;
         this.age=0;
         this.delivery=0;
-        this.maxDelivery=20;
+        this.maxDelivery=25;
         this.maxStomach=25;
         this.stomach=25;
         this.strenght=30;

@@ -6,15 +6,16 @@ import java.util.List;
 import java.util.Random;
 
 public class World {
-    int sizeX;
-    int sizeY;
+    int sizeX=100;
+    int sizeY=100;
     int quantity;
     int weather=3;
     int currentTurn=100;
     int[] idCheckTab= new int[250000];
     int[][] statistics = new int[50][250000];
-    int[] names = new int [50]; //to ma być tablica stringów z nazwami zwierząt
-    int[][] pomocnaukowa = new int [200][200];
+    int[] animalQuantity = new int[50];
+    String[] animalTypes = new String[50];
+    //int[][] pomocnaukowa = new int [200][200];
 
     PrintStream outStream;
 
@@ -23,53 +24,40 @@ public class World {
     List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
-    void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
-        addToWorld(animalQuantity,Tiger.class,1);
-        addToWorld(animalQuantity,Wolf.class,2);
-        addToWorld(animalQuantity,Goat.class,11);
-        addToWorld(animalQuantity,Cow.class,12);
-        addToWorld(humanQuantity,Human.class,0);
+    void beginGame(int humanStrenght){
+        this.quantity=(this.sizeX*this.sizeY)/150;
+
+        this.addToWorld(animalQuantity[1],Tiger.class,1);
+        this.addToWorld(animalQuantity[2],Wolf.class,2);
+
+        this.addToWorld(animalQuantity[11],Goat.class,11);
+        this.addToWorld(animalQuantity[12],Cow.class,12);
+
+        Human human= new Human();
+        this.statistics[0][100]=animalQuantity[0];
+        for(int q=0; q<animalQuantity[0]; q++){
+            human.randomInitialization(this.sizeX, this.sizeY);
+            human.strenght=humanStrenght;
+            human.id=0+q*100;
+            this.idCheckTab[0+q*100]=1;
+            this.listofPeople.add(human);
+        }
         this.spawnFruits();
     }
-    public  void  addToWorld(int howMuch, Class<? extends Animal> animalClass,int idStartNumer) {
-        for (int i = 0; i < howMuch; i++) {
-            Animal animal = null;
-            try {
-                animal = animalClass.newInstance();
-                animal.randomInitialization(sizeX,sizeY);
-                if (animal instanceof Predator) {
-                    animal.id = i * 100+idStartNumer;
-                    listofPredators.add((Predator) animal);
-                    this.idCheckTab[idStartNumer+i*100]=1;
-                    this.statistics[idStartNumer][100]=howMuch;
-                }
-                if (animal instanceof Herbivore) {
-                    animal.id = i * 100+idStartNumer;
-                    listofHerbivores.add((Herbivore) animal);
-                    this.idCheckTab[idStartNumer+i*100]=1;
-                    this.statistics[idStartNumer][100]=howMuch;
-                }
-                if (animal instanceof Human) {
-                    animal.id = i * 100+idStartNumer;
-                    listofPeople.add((Human) animal);
-                    this.idCheckTab[idStartNumer+i*100]=1;
-                    this.statistics[idStartNumer][100]=howMuch;
-                }
 
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+    public World(PrintStream _outStream){
+        this.fillanimalTypes();
+        this.animalQuantity[0]=4;
+
+        for(int q=1; q<=10; q++){
+            this.animalQuantity[q]=2;
         }
+        for(int q=11; q<=20; q++){
+            this.animalQuantity[q]=5;
+        }
+        this.outStream= _outStream;
     }
 
-    public World(int sizeX,int sizeY, PrintStream _outStream){
-        this.outStream= _outStream;
-        this.sizeX=sizeX;
-        this.sizeY=sizeY;
-        this.quantity=(this.sizeX*this.sizeY)/15;
-    }
     void turn() throws InterruptedException {
         /* //do testowania statystyk
         for(int q=0; q<11; q++){
@@ -81,10 +69,10 @@ public class World {
         for(int q=0; q<250000; q++)
             if(idCheckTab[q]!=0)System.out.print(q + " ");
         */
-        //System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
+        System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
         this.systemOut();
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         this.currentTurn++;
         Random rand = new Random();
         this.weather=rand.nextInt(6);
@@ -96,6 +84,7 @@ public class World {
         this.predatorActivities();
         this.spawnFruits();
     }
+
     void play() throws InterruptedException {
         while(!this.listofPeople.isEmpty()) {
             this.turn();
@@ -111,6 +100,7 @@ public class World {
         }
         */
     }
+
     void herbivoreActivities (){
         for(int q=0; q<this.listofHerbivores.size(); q++){
             Herbivore act = (Herbivore) this.listofHerbivores.get(q);
@@ -157,6 +147,8 @@ public class World {
         for (int q=0; q<this.listofPredators.size(); q++){
             Predator act = (Predator) this.listofPredators.get(q);
             this.statistics[act.id%100][currentTurn]++;
+            System.out.println(this.listofPredators.get(q).age + " " + act.age + " " + q);
+
             act.stomach--;
 
             if(act.stomach==0) {
@@ -200,7 +192,9 @@ public class World {
     void humanActivities (){
         this.statistics[0][currentTurn]=this.listofPeople.size();
         for(int q=0; q<this.listofPeople.size(); q++){
-            Human act= (Human) this.listofPeople.get(q);
+            Human act= null;
+            act =this.listofPeople.get(q);
+            //System.out.println(this.listofPeople.get(q).age + " " + act.age + " " + q);
             act.stomach--;
 
             if(act.stomach==0) {
@@ -267,10 +261,11 @@ public class World {
         for(int q=0; q<act; q++){
             Random rand = new Random();
             this.listofFruits.add(new Fruit(rand.nextInt(this.sizeX)+1,rand.nextInt(this.sizeY)+1, rand.nextInt(10)+1));
-            this.pomocnaukowa[listofFruits.get(listofFruits.size()-1).positionX][listofFruits.get(listofFruits.size()-1).positionY]++;
+            //this.pomocnaukowa[listofFruits.get(listofFruits.size()-1).positionX][listofFruits.get(listofFruits.size()-1).positionY]++;
         }
 
     }
+
     void deleteTarget(Target target){
 
         if(target.typeOf ==0)
@@ -291,31 +286,36 @@ public class World {
             }
         }
     }
+
     void systemOut(){
-        System.out.print("Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is: ");
-        if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
+        System.out.print(" Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is:");
+        if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.println(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
+
+        System.out.print(" Today are "+listofPeople.size()+" people alive ");
         if(!listofPeople.isEmpty())
-            System.out.print("Strenght of strongest Human is: " + listofPeople.get(0).strenght);
-        System.out.println("Today is "+listofPeople.size()+" alive");
+            System.out.print(" and strenght of oldest Human is: " + listofPeople.get(0).strenght + " " + listofPeople.get(0).level + " " + listofPeople.get(0).age);
 
         System.out.println();
 
-        System.out.print("Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
+        System.out.print(" Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
 
-        for(int q=0; q<=20; q++){
-            System.out.print("Animal name | ");
-            printout(8, q, 0);
-            printout(8, q, 1);
-            printout(8, q, 10);
-            printout(8, q, 20);
-            printout(8, q, 50);
-            printout(9, q, 100);
+        for(int q=0; q<=20; q++) {
+            if (this.statistics[q][100] != 0) {
+                System.out.print(animalTypes[q] + " | ");
+                printout(8, q, 0);
+                printout(8, q, 1);
+                printout(8, q, 10);
+                printout(8, q, 20);
+                printout(8, q, 50);
+                printout(9, q, 100);
 
-            System.out.print(this.statistics[q][100]);
+                System.out.print(this.statistics[q][100]);
 
-            System.out.print("\n");
+                System.out.print("\n");
+            }
         }
     }
+
     void printout(int fillUp, int currentAnimal, int actualTurn){
         int divider=1;
         while((this.statistics[currentAnimal][this.currentTurn-actualTurn])/divider>=10){
@@ -325,6 +325,58 @@ public class World {
         //System.out.println(fillUp + " " + divider);
         System.out.print(this.statistics[currentAnimal][this.currentTurn-actualTurn]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
+    }
+
+    public  void  addToWorld(int howMuch, Class<? extends Animal> animalClass,int idStartNumber) {
+
+        for (int i = 0; i < howMuch; i++) {
+            this.statistics[idStartNumber][100]=howMuch;
+            Animal animal = null;
+            try {
+                animal = animalClass.newInstance();
+                animal.randomInitialization(this.sizeX,this.sizeY);
+                if (animal instanceof Predator) {
+                    animal.id = i * 100+idStartNumber;
+                    listofPredators.add((Predator) animal);
+                    this.idCheckTab[idStartNumber+i*100]=1;
+                }
+                if (animal instanceof Herbivore) {
+                    animal.id = i * 100+idStartNumber;
+                    listofHerbivores.add((Herbivore) animal);
+                    this.idCheckTab[idStartNumber+i*100]=1;
+                }
+            }
+            catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+            catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    void fillanimalTypes(){
+        this.animalTypes[0]=" Human      ";
+        this.animalTypes[1]=" Tiger      ";
+        this.animalTypes[2]=" Wolf       ";
+        this.animalTypes[3]=" Human      ";
+        this.animalTypes[4]=" Human      ";
+        this.animalTypes[5]=" Human      ";
+        this.animalTypes[6]=" Human      ";
+        this.animalTypes[7]=" Human      ";
+        this.animalTypes[8]=" Human      ";
+        this.animalTypes[9]=" Human      ";
+        this.animalTypes[10]=" YourAnimal1";
+        this.animalTypes[11]=" Goat       ";
+        this.animalTypes[12]=" Cow        ";
+        this.animalTypes[13]=" Human      ";
+        this.animalTypes[14]=" Human      ";
+        this.animalTypes[15]=" Human      ";
+        this.animalTypes[16]=" Human      ";
+        this.animalTypes[17]=" Human      ";
+        this.animalTypes[18]=" Human      ";
+        this.animalTypes[19]=" Human      ";
+        this.animalTypes[20]=" YourAnimal2";
     }
 }
 

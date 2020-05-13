@@ -11,7 +11,7 @@ public abstract class Animal implements Cloneable {
     int positionX;
     int positionY;
     int speed;
-    int age;
+    int age=0;
     int maxStomach;
     int stomach;
     int delivery;
@@ -21,12 +21,12 @@ public abstract class Animal implements Cloneable {
     int resistance;
     Target target = new Target();
 
-    public Animal(){
-    }
+    public Animal(){ }
+
     void randomInitialization(int x, int y){
         Random random = new Random();
-        positionX=random.nextInt(x);
-        positionY=random.nextInt(y);
+        this.positionX=random.nextInt(x)+1;
+        this.positionY=random.nextInt(y)+1;
     }
 
     public Object clone() {
@@ -61,6 +61,7 @@ public abstract class Animal implements Cloneable {
             return false;
         }
     }
+
     boolean isHungry(){
         if(this.stomach<=this.maxStomach/2)
             return true;
@@ -94,6 +95,7 @@ public abstract class Animal implements Cloneable {
                 this.positionY-=movementLeft;
         }
     }
+
     void searchFruit(List<Fruit> listofFruits){
         /*
         this.target.numberOnTheList=-1;
@@ -127,6 +129,7 @@ public abstract class Animal implements Cloneable {
             this.target.positionY = listofFruits.get(this.target.numberOnTheList).positionY;
         }
     }
+
     void searchPrey(List<? extends Animal> listofPreys, int currentList) {
 
         for (int q = 0; q < listofPreys.size(); q++) {
@@ -158,4 +161,5 @@ public abstract class Animal implements Cloneable {
             this.target.positionY = listofPreys.get(this.target.numberOnTheList).positionY;
         }
     }
+
 }
