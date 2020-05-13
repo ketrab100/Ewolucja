@@ -4,8 +4,7 @@ import java.util.Vector;
 
 public class Tiger extends Predator {
 
-    public Tiger(int id, int positonX, int positonY) {
-        super(id, positonX, positonY);
+    public Tiger() {
         this.value=15;
         this.searchRange=20;
         this.speed = 8;

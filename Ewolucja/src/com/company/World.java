@@ -24,29 +24,44 @@ public class World {
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
     void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
-        Random rand = new Random();
-        for(int q=0; q<animalQuantity; q++){
-            this.listofPredators.add(new Tiger(1+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
-            this.idCheckTab[1+q*100]=1;
-            this.statistics[1][100]=animalQuantity;
-            this.listofPredators.add(new Wolf(2+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
-            this.idCheckTab[2+q*100]=1;
-            this.statistics[2][100]=animalQuantity;
-        }
-        for(int q=0; q<animalQuantity; q++){
-            this.listofHerbivores.add(new Goat(11+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
-            this.idCheckTab[11+q*100]=1;
-            this.statistics[11][100]=animalQuantity;
-            this.listofHerbivores.add(new Cow(12+q*100, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1)); //i tak dalej
-            this.idCheckTab[12+q*100]=1;
-            this.statistics[12][100]=animalQuantity;
-        }
-        for(int q=0; q<humanQuantity; q++){
-            this.listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
-            this.idCheckTab[0+q*100]=1;
-            this.statistics[0][100]=humanQuantity;
-        }
+        addToWorld(animalQuantity,Tiger.class,1);
+        addToWorld(animalQuantity,Wolf.class,2);
+        addToWorld(animalQuantity,Goat.class,11);
+        addToWorld(animalQuantity,Cow.class,12);
+        addToWorld(humanQuantity,Human.class,0);
         this.spawnFruits();
+    }
+    public  void  addToWorld(int howMuch, Class<? extends Animal> animalClass,int idStartNumer) {
+        for (int i = 0; i < howMuch; i++) {
+            Animal animal = null;
+            try {
+                animal = animalClass.newInstance();
+                animal.randomInitialization(sizeX,sizeY);
+                if (animal instanceof Predator) {
+                    animal.id = i * 100+idStartNumer;
+                    listofPredators.add((Predator) animal);
+                    this.idCheckTab[idStartNumer+i*100]=1;
+                    this.statistics[idStartNumer][100]=howMuch;
+                }
+                if (animal instanceof Herbivore) {
+                    animal.id = i * 100+idStartNumer;
+                    listofHerbivores.add((Herbivore) animal);
+                    this.idCheckTab[idStartNumer+i*100]=1;
+                    this.statistics[idStartNumer][100]=howMuch;
+                }
+                if (animal instanceof Human) {
+                    animal.id = i * 100+idStartNumer;
+                    listofPeople.add((Human) animal);
+                    this.idCheckTab[idStartNumer+i*100]=1;
+                    this.statistics[idStartNumer][100]=howMuch;
+                }
+
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public World(int sizeX,int sizeY, PrintStream _outStream){

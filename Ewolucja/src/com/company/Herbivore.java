@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Herbivore extends Animal {
 
-    public Herbivore(int id, int positonX, int positonY) {
-        super(id, positonX, positonY);
+    public Herbivore() {
+
     }
 
     Herbivore makeChild(int[] idCheckTab){

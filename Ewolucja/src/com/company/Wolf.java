@@ -4,9 +4,7 @@ import java.util.Vector;
 
 public class Wolf extends Predator {
 
-    public Wolf(int id, int positonX, int positonY) {
-        super(id, positonX, positonY);
-        this.name="WOLF       ";
+    public Wolf() {
         this.value=10;
         this.searchRange=20;
         this.speed = 10;

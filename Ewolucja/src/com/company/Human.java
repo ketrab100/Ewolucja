@@ -5,13 +5,11 @@ import java.util.List;
 public class Human extends Animal {
     int level;
 
-    public Human(int id, int strenght, int positonX, int positonY) {
-        super(id, positonX, positonY);
+    public Human() {
         this.target.numberOnTheList=-1;
         this.value=15;
         this.searchRange=15;
         this.strenght=strenght;
-        this.name="HUMAN      ";
         this.speed = 5;
         this.age=0;
         this.level=0;

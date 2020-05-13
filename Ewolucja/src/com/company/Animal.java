@@ -21,10 +21,12 @@ public abstract class Animal implements Cloneable {
     int resistance;
     Target target = new Target();
 
-    public Animal(int id, int positionX, int positionY){
-        this.positionX=positionX;
-        this.positionY=positionY;
-        this.id=id;
+    public Animal(){
+    }
+    void randomInitialization(int x, int y){
+        Random random = new Random();
+        positionX=random.nextInt(x);
+        positionY=random.nextInt(y);
     }
 
     public Object clone() {

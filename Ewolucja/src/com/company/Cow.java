@@ -5,8 +5,7 @@ final int searchRange;
 final int speed;
 final int maxDelivery;
 final int maxStomach;
-    public Cow(int id, int positonX, int positonY) {
-        super(id, positonX, positonY);
+    public Cow() {
         this.value=12;
         this.searchRange=20;
         this.name="COW ";

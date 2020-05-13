@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Predator extends Animal {
 
-    public Predator(int id, int positonX, int positonY){
-        super(id, positonX, positonY);
+    public Predator(){
         this.target.numberOnTheList=-1;
     }
 
