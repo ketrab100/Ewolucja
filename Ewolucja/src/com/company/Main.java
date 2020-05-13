@@ -7,7 +7,12 @@ import java.util.Vector;
 
 public class Main {
 
+<<<<<<< Updated upstream
     public static void main(String[] args) {
+=======
+
+    public static void main(String[] args) throws InterruptedException {
+>>>>>>> Stashed changes
 
         int sizeX=100;
         int sizeY=100;
@@ -30,6 +35,7 @@ public class Main {
         World earth = new World(sizeX, sizeY,System.out);
 
         earth.beginGame(animalQuantity,humanQuantity,humanStrenght); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
+<<<<<<< Updated upstream
 
         //earth.play();
         //PRE0 tiger = new PRE0(1,1,1);
@@ -41,5 +47,8 @@ public class Main {
                 System.out.println(tiger1.id);
             }
         }
+=======
+        earth.play();
+>>>>>>> Stashed changes
     }
 }

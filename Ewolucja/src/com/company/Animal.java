@@ -14,6 +14,8 @@ public abstract class Animal implements Cloneable {
     int maxStomach;
     int stomach;
     int delivery;
+    boolean alive;
+
     int maxDelivery;
     int searchRange;
     int value;
@@ -24,6 +26,15 @@ public abstract class Animal implements Cloneable {
         this.positionX=positionX;
         this.positionY=positionY;
     }
+<<<<<<< Updated upstream
+=======
+    public Animal(){
+
+    }
+    public  void randomIni(){
+
+    }
+>>>>>>> Stashed changes
     public Object clone() {
         Object newObject=null;
         try { newObject = super.clone(); } catch (CloneNotSupportedException e) {

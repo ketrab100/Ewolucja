@@ -13,5 +13,16 @@ public class PRE0 extends Predator {
         this.maxStomach=100;
         this.stomach=100;
     }
+    public  PRE0(){
+        this.name="Tiger";
+        super();
+    }
+    public  void randomIni(){
+        super.randomIni();
+        //losowe
+    }
+    public String toString(){
+        return this.getClass().getSimpleName();
+    }
 
 }

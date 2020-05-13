@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.PrintStream;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +15,7 @@ public class World {
     PrintStream outStream;
 
     List<Predator> listofPredators = new ArrayList<Predator>();
+<<<<<<< Updated upstream
     List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
     List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
@@ -33,8 +35,35 @@ public class World {
         for(int q=0; q<humanQuantity; q++){
             listofPeople.add(new Human(0+q*100, humanStrenght, rand.nextInt(sizeX)+1, rand.nextInt(sizeY)+1));
             idCheckTab[q]=1;
+=======
+    List<Animal> listofHerbivores = new ArrayList<Animal>();
+    List<Animal> listofPeople = new ArrayList<Animal>();
+    List<Fruit> listofFruits = new ArrayList<Fruit>();
+
+    void beginGame(int animalQuantity, int humanQuantity, int humanStrenght){
+        addToWorld(5,PRE0.class);
+
+    }
+
+    public  void  addToWorld(int howMuch, Class<? extends Animal> animalClass){
+        Animal animal = null;
+        try {
+            animal = animalClass.newInstance();
+            animal.randomIni();
+            if (animal instanceof Predator)
+                listofPredators.add((Predator)animal);
+            if (animal instanceof Herbivore)
+                listofHerbivores.add((Herbivore)animal);
+            if (animal instanceof Human)
+                listofPeople.add((Human)animal);
+
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+>>>>>>> Stashed changes
         }
-        this.spawnFruits();
+
     }
 
     public World(int sizeX,int sizeY, PrintStream _outStream){
@@ -54,9 +83,26 @@ public class World {
         this.predatorActivities();
 
     }
+<<<<<<< Updated upstream
     void play(){
         while(!listofPeople.isEmpty())
             turn();
+=======
+    void play() throws InterruptedException {
+        while(!this.listofPeople.isEmpty()) {
+            this.turn();
+            //System.out.print("XD");
+        }
+        this.systemOut();
+        System.out.println(this.listofPeople.size());
+        /*for(int q=0; q<102; q++){
+            for(int w=0; w<102; w++){
+                System.out.print(this.pomocnaukowa[q][w] + " ");
+            }
+            System.out.println();
+        }
+        */
+>>>>>>> Stashed changes
     }
     void herbivoreActivities (){
         for(int q=0; q<listofHerbivores.size(); q++){

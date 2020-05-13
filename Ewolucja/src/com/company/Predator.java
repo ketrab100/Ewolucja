@@ -8,6 +8,8 @@ public class Predator extends Animal {
     public Predator(int positonX, int positonY) {
         super(positonX, positonY);
     }
+    public Predator(){
+    }
 
     Predator makeChild(){ //napiszę jak można rozmnażać ludzi bez użycia tego clone(); zobacz, czy ci się podoba to dodam do reszty
         this.delivery=0;
@@ -116,6 +118,26 @@ public class Predator extends Animal {
                 this.target.positionX = _food.positionX;
                 this.target.positionY = _food.positionY;
                 this.target.value = _food.value;
+            }
+        }
+    }
+    void day (World earth){
+
+        this.stomach--;
+        if (stomach==0){
+            this.alive=false;
+            return;
+        }
+        if (this.isHungry()){
+            searchFood(earth.listofPredators,earth.listofHerbivores,earth.listofPeople);
+            if (target.numberOnTheList==-1) {
+                moveRandom();
+            }
+            else if (target.isInRange==1){
+                eatFood();
+            }
+            else {
+                moveToFood();
             }
         }
     }
