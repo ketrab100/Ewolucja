@@ -33,9 +33,9 @@ public class World {
         this.addToWorld(animalQuantity[11],Goat.class,11);
         this.addToWorld(animalQuantity[12],Cow.class,12);
 
-        Human human= new Human();
         this.statistics[0][100]=animalQuantity[0];
         for(int q=0; q<animalQuantity[0]; q++){
+            Human human= new Human();
             human.randomInitialization(this.sizeX, this.sizeY);
             human.strenght=humanStrenght;
             human.id=0+q*100;
@@ -47,7 +47,7 @@ public class World {
 
     public World(PrintStream _outStream){
         this.fillanimalTypes();
-        this.animalQuantity[0]=4;
+        this.animalQuantity[0]=5;
 
         for(int q=1; q<=10; q++){
             this.animalQuantity[q]=2;
@@ -147,7 +147,7 @@ public class World {
         for (int q=0; q<this.listofPredators.size(); q++){
             Predator act = (Predator) this.listofPredators.get(q);
             this.statistics[act.id%100][currentTurn]++;
-            System.out.println(this.listofPredators.get(q).age + " " + act.age + " " + q);
+            //System.out.println(this.listofPredators.get(q).age + " " + act.age + " " + q);
 
             act.stomach--;
 
@@ -289,7 +289,7 @@ public class World {
 
     void systemOut(){
         System.out.print(" Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is:");
-        if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.println(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
+        if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
 
         System.out.print(" Today are "+listofPeople.size()+" people alive ");
         if(!listofPeople.isEmpty())

@@ -16,6 +16,7 @@ public class Herbivore extends Animal {
             newbornID+=100;
         }
         Herbivore child =(Herbivore) this.clone();
+        child.age=0;
         child.id=newbornID;
         idCheckTab[newbornID]=1;
         return child;

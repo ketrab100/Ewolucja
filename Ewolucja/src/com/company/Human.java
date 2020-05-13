@@ -26,8 +26,9 @@ public class Human extends Animal {
             newbornID+=100;
         }
         Human child = (Human) this.clone();
-        child.id=newbornID;
         child.level=0;
+        child.age=0;
+        child.id=newbornID;
         idCheckTab[newbornID]=1;
         return child;
     }

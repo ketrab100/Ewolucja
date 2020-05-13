@@ -16,6 +16,7 @@ public class Predator extends Animal {
             newbornID+=100;
         }
         Predator child = (Predator) this.clone();
+        child.age=0;
         child.id=newbornID;
         idCheckTab[newbornID]=1;
         return child;
