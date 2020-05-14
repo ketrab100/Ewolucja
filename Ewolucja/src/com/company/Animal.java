@@ -49,8 +49,8 @@ public abstract class Animal implements Cloneable {
 
         if(directionX<1) directionX=1;
         else if(directionX>100) directionX=100;
-        this.positionX=directionX;
-        this.positionY=directionY;
+        this.positionX+=directionX;
+        this.positionY+=directionY;
     }
 
     boolean readyToDelivery(){

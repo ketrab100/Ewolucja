@@ -70,9 +70,9 @@ public class World {
         for(int q=0; q<250000; q++)
             if(idCheckTab[q]!=0)System.out.print(q + " ");
         */
-        System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
+        //System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
         this.systemOut();
-
+        //System.out.println(listofPredators.get(1).positionX+"   " +listofPredators.get(1).positionY);
         Thread.sleep(1000);
         this.currentTurn++;
         Random rand = new Random();
@@ -157,7 +157,8 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
+                if (act.
+                        readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 
                 else if (act.isHungry()) {
                     act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
