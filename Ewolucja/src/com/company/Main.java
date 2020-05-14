@@ -18,8 +18,8 @@ public class Main {
 
         System.out.println("Welcome to EVOLUTION \n");
         System.out.println("jakies pierdoly ze start gry"); //nowy ekran
-        System.out.println("Zacznij standardowo"); //startuje bez zmian
-        System.out.println("dodkonaj zmian"); //ekran zmian
+        System.out.println("1 - Zacznij standardowo"); //startuje bez zmian
+        System.out.println("2 - Dodkonaj zmian"); //ekran zmian
         check=scanner.nextInt();
         if(check==1){
 

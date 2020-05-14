@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Settings{
@@ -17,19 +18,24 @@ public class Settings{
         this.workInProgress=world;
     }
     void mainWindow(){
-        System.out.println("1 Pick map size"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
-        System.out.println("2 Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
-        System.out.println("3 Change quantity of animals per type"); //jeśli wciścnie to zmieni tą wartość
+        while (check!=4) {
+            System.out.flush();
+            System.out.println("1 - Pick map size"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
+        System.out.println("2 - Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
+        System.out.println("3 - Change quantity of animals per type"); //jeśli wciścnie to zmieni tą wartość
+        System.out.println("4 - Save changes and start simulation");
         this.check=this.scanner.nextInt();
-        if(check==1){
-            this.workInProgress.sizeX = scanner.nextInt();
-            this.workInProgress.sizeY = scanner.nextInt();
-        }
-        else if(check==2){
-            this.humanStrenght=scanner.nextInt();
-        }
-        else if(check==3){
-            this.animalQuantity();
+            if (check == 1) {
+                System.out.printf("X size: ");
+                this.workInProgress.sizeX = scanner.nextInt();
+                System.out.printf("Y size: ");
+                this.workInProgress.sizeY = scanner.nextInt();
+            } else if (check == 2) {
+                System.out.printf("Human strnght: ");
+                this.humanStrenght = scanner.nextInt();
+            } else if (check == 3) {
+                this.animalQuantity();
+            }
         }
     }
     void animalQuantity(){
