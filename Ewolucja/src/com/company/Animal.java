@@ -37,20 +37,25 @@ public abstract class Animal implements Cloneable {
         return newObject;
     }
 
-    void moveRandom (){
+    void moveRandom (int sizeX, int sizeY){
         Random rand=new Random();
 
-        int directionY=rand.nextInt(speed*2+1)-speed;
-        int help=speed-Math.abs(directionY);
-        int directionX=rand.nextInt(help*2+1)-help;
+        int help = rand.nextInt(this.speed*2+1)-this.speed;
+        this.positionX+=help;
+        help=this.speed-Math.abs(help);
 
-        if(directionY<1) directionY=1;
-        else if(directionY>100) directionY=100;
+        if(this.positionX<=0){
+            help+=Math.abs(this.positionX)+1;
+            this.positionX=1;
+        }
+        else if(this.positionX>sizeX){
+            help-=sizeX+this.positionX;
+            this.positionX=100;
+        }
+        this.positionY+=rand.nextInt(help*2+1)-help;
 
-        if(directionX<1) directionX=1;
-        else if(directionX>100) directionX=100;
-        this.positionX+=directionX;
-        this.positionY+=directionY;
+        if(this.positionY<=0) this.positionY=1;
+        else if(this.positionY>sizeY) this.positionY=sizeY;
     }
 
     boolean readyToDelivery(){

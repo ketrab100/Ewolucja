@@ -119,7 +119,7 @@ public class World {
                     act.searchFood(this.listofFruits);
 
                     if(act.target.numberOnTheList ==-1){
-                        act.moveRandom();
+                        act.moveRandom(this.sizeX, this.sizeY);
                     }
                     else{
                         if(act.target.isInRange==1) {
@@ -132,7 +132,7 @@ public class World {
                     }
                 }
                 else
-                    act.moveRandom();
+                    act.moveRandom(this.sizeX, this.sizeY);
 
                 if (!act.isHungry())
                     act.delivery+=2;
@@ -164,7 +164,7 @@ public class World {
                     act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
 
                     if(act.target.numberOnTheList ==-1){
-                        act.moveRandom();
+                        act.moveRandom(this.sizeX, this.sizeY);
                     }
                     else{
                         if(act.target.isInRange==1) {
@@ -180,7 +180,7 @@ public class World {
                     }
                 }
                 else
-                    act.moveRandom();
+                    act.moveRandom(this.sizeX, this.sizeY);
 
                 if (!act.isHungry())
                     act.delivery++;
@@ -210,7 +210,7 @@ public class World {
                     act.searchFood(this.listofFruits, this.listofPredators, this.listofHerbivores);
 
                     if(act.target.numberOnTheList ==-1){
-                        act.moveRandom();
+                        act.moveRandom(this.sizeX, this.sizeY);
                     }
                     else{
                         if(act.target.isInRange==1) {
@@ -223,7 +223,7 @@ public class World {
                     }
                 }
                 else
-                    act.moveRandom();
+                    act.moveRandom(this.sizeX, this.sizeY);
 
                 if (!act.isHungry())
                     act.delivery++;
