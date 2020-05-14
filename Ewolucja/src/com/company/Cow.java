@@ -14,7 +14,7 @@ public class Cow extends Herbivore {
         this.delivery=0;
         this.maxDelivery=25;
         this.maxStomach=50;
-        this.stomach=this.maxStomach;
+        this.stomach=50;
         this.resistance=15;
     }
 }

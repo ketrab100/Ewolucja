@@ -40,10 +40,14 @@ public class Settings{
     }
     void animalQuantity(){
         System.out.println(" Animal name | Current quantity");
+        System.out.println(this.workInProgress.animalTypes[0] + " | " + this.workInProgress.animalQuantity[0]);
+        this.workInProgress.animalQuantity[0]=this.scanner.nextInt();
 
-        for(int q=0; q<=20; q++){
-            System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.animalQuantity[q]);
-            this.workInProgress.animalQuantity[q]=this.scanner.nextInt();
+        for(int q=1; q<=20; q++){
+            if(this.workInProgress.animalTypes[q]!=" Human      ") {
+                System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.animalQuantity[q]);
+                this.workInProgress.animalQuantity[q] = this.scanner.nextInt();
+            }
         }
     }
 }

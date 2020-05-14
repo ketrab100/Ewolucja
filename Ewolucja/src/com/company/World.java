@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 public class World {
-    int sizeX=1000;
-    int sizeY=1000;
+    int sizeX=200;
+    int sizeY=200;
     int quantity;
     int weather=3;
     int currentTurn=100;
@@ -55,7 +55,7 @@ public class World {
             this.animalQuantity[q]=2;
         }
         for(int q=11; q<=20; q++){
-            this.animalQuantity[q]=5;
+            this.animalQuantity[q]=10;
         }
     }
 
@@ -70,7 +70,7 @@ public class World {
         for(int q=0; q<250000; q++)
             if(idCheckTab[q]!=0)System.out.print(q + " ");
         */
-        //System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
+        System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
         this.systemOut();
         //System.out.println(listofPredators.get(1).positionX+"   " +listofPredators.get(1).positionY);
         Thread.sleep(1000);
@@ -135,7 +135,7 @@ public class World {
                     act.moveRandom(this.sizeX, this.sizeY);
 
                 if (!act.isHungry())
-                    act.delivery+=2;
+                    act.delivery++;
 
                 act.delivery++;
                 act.age++;
@@ -148,7 +148,6 @@ public class World {
         for (int q=0; q<this.listofPredators.size(); q++){
             Predator act = (Predator) this.listofPredators.get(q);
             this.statistics[act.id%100][currentTurn]++;
-            //System.out.println(this.listofPredators.get(q).age + " " + act.age + " " + q);
 
             act.stomach--;
 
@@ -161,6 +160,7 @@ public class World {
                         readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 
                 else if (act.isHungry()) {
+                    //System.out.print(act.id+ " ");
                     act.searchFood(this.listofPredators, this.listofHerbivores, this.listofPeople);
 
                     if(act.target.numberOnTheList ==-1){
@@ -168,16 +168,17 @@ public class World {
                     }
                     else{
                         if(act.target.isInRange==1) {
-                            //System.out.print("ja jem " + act.id + " " + act.target.id);
+                            //System.out.print("ja jem " + act.target.id + " ");
                             this.deleteTarget(act.target);
                             act.eatFood();
-                            //System.out.print(act.stomach + "\n");
+                            //System.out.print(act.stomach);
 
                             if ((act.target.id%100) > 0 && (act.target.id%100) <= 10 && q > act.target.numberOnTheList)
                                 q--;
                         }
                         else act.moveToFood();
                     }
+                    //System.out.println();
                 }
                 else
                     act.moveRandom(this.sizeX, this.sizeY);
@@ -293,9 +294,8 @@ public class World {
         System.out.print(" Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is:");
         if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
 
-        System.out.print(" Today are "+listofPeople.size()+" people alive ");
         if(!listofPeople.isEmpty())
-            System.out.print(" and strenght of oldest Human is: " + listofPeople.get(0).strenght + " " + listofPeople.get(0).level + " " + listofPeople.get(0).age);
+            System.out.print("Strenght of oldest Human is: " + listofPeople.get(0).strenght);
 
         System.out.println();
 
