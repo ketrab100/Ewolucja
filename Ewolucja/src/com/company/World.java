@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 public class World {
-    int sizeX=100;
-    int sizeY=100;
+    int sizeX=1000;
+    int sizeY=1000;
     int quantity;
     int weather=3;
     int currentTurn=100;
@@ -360,8 +360,8 @@ public class World {
         this.animalTypes[0]=" Human      ";
         this.animalTypes[1]=" Tiger      ";
         this.animalTypes[2]=" Wolf       ";
-        this.animalTypes[3]=" Human      ";
-        this.animalTypes[4]=" Human      ";
+        this.animalTypes[3]=" Snake      ";
+        this.animalTypes[4]=" Dog        ";
         this.animalTypes[5]=" Human      ";
         this.animalTypes[6]=" Human      ";
         this.animalTypes[7]=" Human      ";
@@ -370,8 +370,8 @@ public class World {
         this.animalTypes[10]=" YourAnimal1";
         this.animalTypes[11]=" Goat       ";
         this.animalTypes[12]=" Cow        ";
-        this.animalTypes[13]=" Human      ";
-        this.animalTypes[14]=" Human      ";
+        this.animalTypes[13]=" Sheep      ";
+        this.animalTypes[14]=" Horse      ";
         this.animalTypes[15]=" Human      ";
         this.animalTypes[16]=" Human      ";
         this.animalTypes[17]=" Human      ";
