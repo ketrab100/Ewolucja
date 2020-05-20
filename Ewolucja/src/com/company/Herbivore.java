@@ -30,6 +30,13 @@ public class Herbivore extends Animal {
 
         this.searchFruit(listofFruits);
     }
+    void increaseStats() {
+        if (!this.isHungry())
+            this.delivery++;
+
+        this.delivery++;
+        this.age++;
+    }
 }
 
 
