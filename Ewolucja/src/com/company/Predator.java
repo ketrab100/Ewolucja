@@ -32,4 +32,10 @@ public class Predator extends Animal {
         this.searchPrey(listofHerbivores, 2);
         this.searchPrey(listofPeople, 3);
     }
+    void increaseStats() {
+        if (!this.isHungry())
+            this.delivery++;
+
+        this.age++;
+    }
 }

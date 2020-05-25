@@ -40,7 +40,23 @@ class Human extends Animal {
         this.target.id=99;
 
         this.searchFruit(listofFruits);
-        //this.searchPrey(listofPredators, 1);
-        //this.searchPrey(listofHerbivores, 2);
+        this.searchPrey(listofPredators, 1);
+        this.searchPrey(listofHerbivores, 2);
+    }
+    void increaseStats() {
+        if (!this.isHungry())
+            this.delivery++;
+
+        this.delivery++;
+        this.age++;
+        this.level++;
+
+        if (this.age % 10 == 0) {
+            this.strenght++;
+        }
+        if (this.level % 20 == 0) {
+            this.level = 0;
+            this.resistance++;
+        }
     }
 }

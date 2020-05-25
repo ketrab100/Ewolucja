@@ -142,11 +142,8 @@ public class World {
                 else
                     act.moveRandom(this.sizeX, this.sizeY);
 
-                if (!act.isHungry())
-                    act.delivery++;
+                act.increaseStats();
 
-                act.delivery++;
-                act.age++;
                 this.listofHerbivores.set(q, act);
             }
         }
@@ -191,10 +188,8 @@ public class World {
                 else
                     act.moveRandom(this.sizeX, this.sizeY);
 
-                if (!act.isHungry())
-                    act.delivery++;
+                act.increaseStats();
 
-                act.age++;
                 this.listofPredators.set(q, act);
             }
         }
@@ -234,20 +229,8 @@ public class World {
                 else
                     act.moveRandom(this.sizeX, this.sizeY);
 
-                if (!act.isHungry())
-                    act.delivery++;
+                act.increaseStats();
 
-                act.delivery++;
-                act.age++;
-                act.level++;
-
-                if(act.age%10==0){
-                    act.strenght++;
-                }
-                if(act.level%20==0){
-                    act.level=0;
-                    act.resistance++;
-                }
                 this.listofPeople.set(q, act);
             }
         }
