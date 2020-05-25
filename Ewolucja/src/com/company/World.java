@@ -15,14 +15,17 @@ public class World {
     int[][] statistics = new int[50][250000];
     int[] animalQuantity = new int[50];
     String[] animalTypes = new String[50];
-    //int[][] pomocnaukowa = new int [200][200];
 
     List<Predator> listofPredators = new ArrayList<Predator>();
     List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
     List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
 
-    void beginGame(int humanStrenght){
+    /**
+     * Preparing lists containing Predators Herbivores People and Fruits
+     * @param humanStrength People strength when the simulation starts
+     */
+    void beginGame(int humanStrength){
         this.quantity=(this.sizeX*this.sizeY)/150;
 
         this.addToWorld(animalQuantity[1],Tiger.class,1);
@@ -39,7 +42,7 @@ public class World {
         for(int q=0; q<animalQuantity[0]; q++){
             Human human= new Human();
             human.randomInitialization(this.sizeX, this.sizeY);
-            human.strenght=humanStrenght;
+            human.strenght=humanStrength;
             human.id=0+q*100;
             this.idCheckTab[0+q*100]=1;
             this.listofPeople.add(human);
@@ -59,7 +62,11 @@ public class World {
         }
     }
 
-    void turn() throws InterruptedException {
+    /**
+     * All actions during one day
+     *
+     */
+    void turn() {
         /* //do testowania statystyk
         for(int q=0; q<11; q++){
             for(int w=0; w<10; w++){
@@ -70,16 +77,15 @@ public class World {
         for(int q=0; q<250000; q++)
             if(idCheckTab[q]!=0)System.out.print(q + " ");
         */
-        System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
-        this.systemOut();
+        //System.out.println(this.listofFruits.size() +  " " + this.listofPeople.size() + " " + this.listofPredators.size() + " " + this.listofHerbivores.size());
+        //this.systemOut();
         //System.out.println(listofPredators.get(1).positionX+"   " +listofPredators.get(1).positionY);
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         this.currentTurn++;
         Random rand = new Random();
         this.weather=rand.nextInt(6);
         //pogoda 0-chmury, słaby wzrost | 1-przelotne chmury, trochę słabszy wzrost | 2-czyste niebo, normalnie
         //3-słoneczny dzień, lepszy wzrost | 4-upał, brak wzrostu | 5-susza, rośliny umierają
-
         this.humanActivities();
         this.herbivoreActivities();
         this.predatorActivities();
@@ -88,7 +94,9 @@ public class World {
 
     void play() throws InterruptedException {
         while(!this.listofPeople.isEmpty()) {
+            this.systemOut();
             this.turn();
+            Thread.sleep(1000);
             //System.out.print("XD");
         }
         this.systemOut();
@@ -269,6 +277,10 @@ public class World {
 
     }
 
+    /**
+     * Deleting target from right list
+     * @param target
+     */
     void deleteTarget(Target target){
 
         if(target.typeOf ==0)
@@ -290,6 +302,9 @@ public class World {
         }
     }
 
+    /**
+     * Writing simulation summary
+     */
     void systemOut(){
         System.out.print(" Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is:");
         if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
@@ -329,6 +344,12 @@ public class World {
 
     }
 
+    /**
+     * Adding animals to right list
+     * @param howMuch
+     * @param animalClass
+     * @param idStartNumber
+     */
     public  void  addToWorld(int howMuch, Class<? extends Animal> animalClass,int idStartNumber) {
 
         for (int i = 0; i < howMuch; i++) {

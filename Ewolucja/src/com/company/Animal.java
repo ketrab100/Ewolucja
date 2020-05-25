@@ -12,10 +12,10 @@ public abstract class Animal implements Cloneable {
     int positionY;
     int speed;
     int age=0;
-    int maxStomach;
+    protected int maxStomach;
     int stomach;
     int delivery;
-    int maxDelivery;
+    protected int maxDelivery;
     int searchRange;
     int value;
     int resistance;
