@@ -157,11 +157,23 @@
     <state x="227" y="407" key="com.intellij.ide.util.TipDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589205822383" />
 =======
     <state x="232" y="331" key="caller.chooser.dialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589222712274" />
+<<<<<<< Updated upstream
     <state x="227" y="407" key="com.intellij.ide.util.TipDialog" timestamp="1589283810746">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="227" y="407" key="com.intellij.ide.util.TipDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589283810746" />
     <state x="477" y="47" key="refactoring.ChangeSignatureDialog" timestamp="1589363225293">
+=======
+    <state x="227" y="407" key="com.intellij.ide.util.TipDialog" timestamp="1589998564067">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="227" y="407" key="com.intellij.ide.util.TipDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1589998564067" />
+    <state x="477" y="47" key="refactoring.ChangeSignatureDialog" timestamp="1589302850829">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="477" y="47" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1589302850829" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1589445628165">
+>>>>>>> Stashed changes
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="477" y="47" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1589363225293" />

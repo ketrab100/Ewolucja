@@ -141,4 +141,10 @@ public class Predator extends Animal {
             }
         }
     }
+    void increaseStats() {
+        if (!this.isHungry())
+            this.delivery++;
+
+        this.age++;
+    }
 }

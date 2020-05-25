@@ -26,6 +26,7 @@ public class Human extends Animal {
         listofPeople.add(new Human(newbornID, this.strenght, this.positionX, this.positionY));
         idCheckTab[newbornID]=1;
     }
+<<<<<<< Updated upstream
     //nie wiem jak działa java, ale tu trzeba przekazywać wskaźniki, potem poprawię
     void searchFood(List<Predator> listofPredators, List<Herbivore> listofHerbivores, List<Fruit> listofFruits){
         int bestof=-1;
@@ -156,5 +157,33 @@ public class Human extends Animal {
                 }
             }
         }*/
+=======
+    void searchFood(List<Fruit> listofFruits, List<Predator> listofPredators, List<Herbivore> listofHerbivores){
+        this.target.numberOnTheList=-1;
+        this.target.typeOf=-1;
+        this.target.isInRange=0;
+        this.target.value=0;
+        this.target.id=99;
+
+        this.searchFruit(listofFruits);
+        this.searchPrey(listofPredators, 1);
+        this.searchPrey(listofHerbivores, 2);
+    }
+    void increaseStats() {
+        if (!this.isHungry())
+            this.delivery++;
+
+        this.delivery++;
+        this.age++;
+        this.level++;
+
+        if (this.age % 10 == 0) {
+            this.strenght++;
+        }
+        if (this.level % 20 == 0) {
+            this.level = 0;
+            this.resistance++;
+        }
+>>>>>>> Stashed changes
     }
 }

@@ -57,6 +57,13 @@ public class Herbivore extends Animal {
             this.target.value = _food.value;
         }
     }
+    void increaseStats() {
+        if (!this.isHungry())
+            this.delivery++;
+
+        this.delivery++;
+        this.age++;
+    }
 }
 
 
