@@ -11,6 +11,7 @@ public class World {
     int quantity;
     int weather=3;
     int currentTurn=100;
+    int aliveAnimals;
     int[] idCheckTab= new int[250000];
     int[][] statistics = new int[50][250000];
     int[] animalQuantity = new int[50];
@@ -93,7 +94,7 @@ public class World {
     }
 
     void play() throws InterruptedException {
-        while(!this.listofPeople.isEmpty()) {
+        while(!this.listofPeople.isEmpty() || this.aliveAnimals>0) {
             this.systemOut();
             this.turn();
             Thread.sleep(1000);
@@ -299,8 +300,12 @@ public class World {
 
         System.out.print(" Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
 
+        this.aliveAnimals=0-this.statistics[0][this.currentTurn];
+
         for(int q=0; q<=20; q++) {
             if (this.statistics[q][100] != 0) {
+                this.aliveAnimals=this.aliveAnimals-this.statistics[q][this.currentTurn];
+
                 System.out.print(animalTypes[q] + " | ");
                 printout(8, q, 0);
                 printout(8, q, 1);
