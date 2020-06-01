@@ -237,6 +237,10 @@ public class World {
         }
     }
 
+    /**
+     * Spawning fruits in the world
+     */
+
     void spawnFruits(){
         int act=quantity;
 
