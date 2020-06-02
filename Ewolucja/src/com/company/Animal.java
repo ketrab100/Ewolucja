@@ -21,7 +21,14 @@ public abstract class Animal implements Cloneable {
     int resistance;
     Target target = new Target();
 
-    public Animal(){ }
+    public Animal(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance){
+        value = _value;
+        searchRange = _searchRange;
+        speed = _speed;
+        maxDelivery = _maxDelivery;
+        maxStomach  =_maxStomach;
+        resistance = _resistance;
+    }
 
     void randomInitialization(int x, int y){
         Random random = new Random();

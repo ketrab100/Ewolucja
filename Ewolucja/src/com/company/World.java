@@ -29,7 +29,6 @@ public class World {
      */
     void beginGame(int humanStrength){
         this.quantity=(this.sizeX*this.sizeY)/150;
-
         this.addToWorld(animalQuantity[1],Tiger.class,1);
         this.addToWorld(animalQuantity[2],Wolf.class,2);
         this.addToWorld(animalQuantity[3],Snake.class, 3);

@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Herbivore extends Animal {
 
-    public Herbivore() {
+    public Herbivore(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance) {
+        super(_value,_searchRange, _speed ,_maxDelivery, _maxStomach , _resistance);
 
     }
 
