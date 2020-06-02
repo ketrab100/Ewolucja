@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public abstract class Animal implements Cloneable {
+public class Animal implements Cloneable {
     String name;
     int strenght;
     int id;
@@ -21,13 +21,7 @@ public abstract class Animal implements Cloneable {
     int resistance;
     Target target = new Target();
 
-    public Animal(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance){
-        value = _value;
-        searchRange = _searchRange;
-        speed = _speed;
-        maxDelivery = _maxDelivery;
-        maxStomach  =_maxStomach;
-        resistance = _resistance;
+    public Animal(){
     }
 
     void randomInitialization(int x, int y){

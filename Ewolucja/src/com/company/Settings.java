@@ -38,6 +38,7 @@ public class Settings{
                 System.out.printf("Human strnght: ");
                 this.humanStrenght = scanner.nextInt();
             }
+            /*
             else if(check == 3){
                 this.workInProgress.yourAnimal1Template.id=10;
                 System.out.println("Pick value - how much worth in while eaten");
@@ -70,6 +71,8 @@ public class Settings{
                 System.out.println("Resistance - can't be eaten by animals with lower strenght");
                 this.workInProgress.yourAnimal2Template.resistance = this.scanner.nextInt();
             }
+
+             */
             else if (check == 5) {
                 this.animalQuantity();
             }

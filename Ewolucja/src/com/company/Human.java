@@ -5,8 +5,7 @@ import java.util.List;
 class Human extends Animal {
     int level;
 
-    public Human(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ) {
-        super(_value, _searchRange,_speed ,_maxDelivery,_maxStomach ,_resistance);
+    public Human() {
         this.target.numberOnTheList=-1;
         this.value=15;
         this.searchRange=15;

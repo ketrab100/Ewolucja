@@ -5,8 +5,13 @@ import java.util.List;
 public class Predator extends Animal {
 
     public Predator(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ){
-        super(_value, _searchRange,_speed ,_maxDelivery,_maxStomach ,_resistance);
-
+        value = _value;
+        searchRange = _searchRange;
+        speed = _speed;
+        maxDelivery = _maxDelivery;
+        maxStomach  =_maxStomach;
+        resistance = _resistance;
+        strenght = _strength;
         this.target.numberOnTheList=-1;
     }
 
