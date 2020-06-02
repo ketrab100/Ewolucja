@@ -11,7 +11,6 @@ public class Herbivore extends Animal {
         maxDelivery = _maxDelivery;
         maxStomach  =_maxStomach;
         resistance = _resistance;
-        stomach= _maxStomach;
     }
 
     Herbivore makeChild(int[] idCheckTab){

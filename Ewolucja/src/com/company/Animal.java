@@ -25,6 +25,7 @@ public class Animal implements Cloneable {
     }
 
     void randomInitialization(int x, int y){
+        stomach = maxStomach;
         Random random = new Random();
         this.positionX=random.nextInt(x)+1;
         this.positionY=random.nextInt(y)+1;

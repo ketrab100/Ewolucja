@@ -10,4 +10,5 @@ Animal Cow = new Herbivore(20,20,4,25,50,25);
 Animal Goat = new Herbivore(10,20,6,15,15,8);
 Animal Sheep = new Herbivore(15,5,3,15,15,6);
 Animal Horse = new Herbivore(20,10,20,20,40,30);
+
 }

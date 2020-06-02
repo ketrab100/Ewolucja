@@ -333,7 +333,7 @@ public class World {
     public  void  addPredatorToWorld(int howMuch,Predator predator,int idStartNumber) {
         this.statistics[idStartNumber][100]=howMuch;
         for(int q=0; q<howMuch; q++){
-            Predator animal = predator;
+            Predator animal = (Predator) predator.clone();
             animal.randomInitialization(this.sizeX, this.sizeY);
             animal.id=idStartNumber+q*100;
             this.idCheckTab[idStartNumber+q*100]=1;
@@ -343,7 +343,7 @@ public class World {
     public  void  addHerbivoreToWorld(int howMuch,Herbivore herbivore,int idStartNumber) {
         this.statistics[idStartNumber][100]=howMuch;
         for(int q=0; q<howMuch; q++){
-            Herbivore animal = herbivore;
+            Herbivore animal = (Herbivore) herbivore.clone();
             animal.randomInitialization(this.sizeX, this.sizeY);
             animal.id=idStartNumber+q*100;
             this.idCheckTab[idStartNumber+q*100]=1;
