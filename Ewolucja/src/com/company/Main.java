@@ -14,6 +14,13 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        check=scanner.nextInt();
+        humanStrenght=scanner.nextInt();
+
+        check=check%humanStrenght;
+
+        System.out.println(check);
+
         World currentGame = new World();
 
         System.out.println("Welcome to EVOLUTION \n");
@@ -36,8 +43,5 @@ public class Main {
         currentGame.beginGame(humanStrenght); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
 
         currentGame.play();
-    }
-    void animalQuantity(){
-
     }
 }

@@ -12,7 +12,7 @@ public class Herbivore extends Animal {
         this.delivery=0;
         this.stomach*=0.75;
         int newbornID=this.id%100;
-        while(idCheckTab[newbornID]!=0 && newbornID<240000) {
+        while(idCheckTab[newbornID]!=0 && newbornID<2400000) {
             newbornID+=100;
         }
         Herbivore child =(Herbivore) this.clone();

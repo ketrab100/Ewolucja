@@ -13,15 +13,16 @@ public class World {
     int currentTurn=100;
     int aliveAnimals;
     int[] idCheckTab= new int[250000];
-    int[][] statistics = new int[50][250000];
+    int[][] statistics = new int[50][2500000];
     int[] animalQuantity = new int[50];
+    Tiger yourAnimal1Template = new Tiger();
+    Cow yourAnimal2Template = new Cow();
     String[] animalTypes = new String[50];
 
     List<Predator> listofPredators = new ArrayList<Predator>();
     List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
     List<Human> listofPeople = new ArrayList<Human>();
     List<Fruit> listofFruits = new ArrayList<Fruit>();
-
     /**
      * Preparing lists containing Predators Herbivores People and Fruits
      * @param humanStrength People strength when the simulation starts
@@ -33,11 +34,13 @@ public class World {
         this.addToWorld(animalQuantity[2],Wolf.class,2);
         this.addToWorld(animalQuantity[3],Snake.class, 3);
         this.addToWorld(animalQuantity[4],Dog.class, 4);
+        this.addToWorld(animalQuantity[10],Tiger.class, 10);
 
         this.addToWorld(animalQuantity[11],Goat.class,11);
         this.addToWorld(animalQuantity[12],Cow.class,12);
         this.addToWorld(animalQuantity[13],Sheep.class, 13);
         this.addToWorld(animalQuantity[14],Horse.class, 14);
+        this.addToWorld(animalQuantity[20],Cow.class, 20);
 
         this.statistics[0][100]=animalQuantity[0];
         for(int q=0; q<animalQuantity[0]; q++){
@@ -340,28 +343,46 @@ public class World {
      */
     public  void  addToWorld(int howMuch, Class<? extends Animal> animalClass,int idStartNumber) {
 
-        for (int i = 0; i < howMuch; i++) {
-            this.statistics[idStartNumber][100]=howMuch;
-            Animal animal = null;
-            try {
-                animal = animalClass.newInstance();
+        this.statistics[idStartNumber][100]=howMuch;
+        if(idStartNumber==10){
+            for(int q=0; q<howMuch; q++){
+                Tiger animal = this.yourAnimal1Template;
+                animal.id = q * 100+idStartNumber;
+                this.idCheckTab[idStartNumber+q*100]=1;
                 animal.randomInitialization(this.sizeX,this.sizeY);
-                if (animal instanceof Predator) {
-                    animal.id = i * 100+idStartNumber;
-                    listofPredators.add((Predator) animal);
-                    this.idCheckTab[idStartNumber+i*100]=1;
-                }
-                if (animal instanceof Herbivore) {
-                    animal.id = i * 100+idStartNumber;
-                    listofHerbivores.add((Herbivore) animal);
-                    this.idCheckTab[idStartNumber+i*100]=1;
-                }
+                this.listofPredators.add(animal);
             }
-            catch (InstantiationException e) {
-                e.printStackTrace();
+        }
+        if(idStartNumber==20){
+            for(int q=0; q<howMuch; q++){
+                Cow animal = this.yourAnimal2Template;
+                animal.id = q * 100+idStartNumber;
+                this.idCheckTab[idStartNumber+q*100]=1;
+                animal.randomInitialization(this.sizeX,this.sizeY);
+                this.listofHerbivores.add(animal);
             }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
+        }
+        else {
+            for (int i = 0; i < howMuch; i++) {
+                Animal animal = null;
+                try {
+                    animal = animalClass.newInstance();
+                    animal.randomInitialization(this.sizeX, this.sizeY);
+                    if (animal instanceof Predator) {
+                        animal.id = i * 100 + idStartNumber;
+                        listofPredators.add((Predator) animal);
+                        this.idCheckTab[idStartNumber + i * 100] = 1;
+                    }
+                    if (animal instanceof Herbivore) {
+                        animal.id = i * 100 + idStartNumber;
+                        listofHerbivores.add((Herbivore) animal);
+                        this.idCheckTab[idStartNumber + i * 100] = 1;
+                    }
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
