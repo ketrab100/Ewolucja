@@ -37,7 +37,9 @@ public class World {
         addHerbivoreToWorld(animalQuantity[12],(Herbivore) templates.Cow,12);
         addHerbivoreToWorld(animalQuantity[13],(Herbivore) templates.Sheep,13);
         addHerbivoreToWorld(animalQuantity[14],(Herbivore) templates.Horse,14);
+
         addPeopleToWorld(humanStrength);
+
         this.spawnFruits();
     }
 
@@ -313,7 +315,6 @@ public class World {
                 System.out.print("\n");
             }
         }
-
     }
 
     void printout(int fillUp, int currentAnimal, int actualTurn){
@@ -330,7 +331,7 @@ public class World {
 
     public  void  addPredatorToWorld(int howMuch,Predator predator,int idStartNumber) {
         this.statistics[idStartNumber][100]=howMuch;
-        for(int q=0; q<5; q++){
+        for(int q=0; q<howMuch; q++){
             Predator animal = predator;
             animal.randomInitialization(this.sizeX, this.sizeY);
             while(this.idCheckTab[animal.id]==1)
@@ -341,7 +342,7 @@ public class World {
     }
     public  void  addHerbivoreToWorld(int howMuch,Herbivore herbivore,int idStartNumber) {
         this.statistics[idStartNumber][100]=howMuch;
-        for(int q=0; q<5; q++){
+        for(int q=0; q<howMuch; q++){
             Herbivore animal = herbivore;
             animal.randomInitialization(this.sizeX, this.sizeY);
             while(this.idCheckTab[animal.id]==1)
@@ -351,6 +352,7 @@ public class World {
         }
     }
     public void addPeopleToWorld(int humanStrength){
+        this.statistics[0][100]=animalQuantity[0];
         for(int q=0; q<animalQuantity[0]; q++){
             Human human= new Human();
             human.randomInitialization(this.sizeX, this.sizeY);
