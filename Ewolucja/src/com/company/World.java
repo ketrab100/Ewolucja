@@ -28,17 +28,17 @@ public class World {
      */
     void beginGame(int humanStrength){
 
-        addPredatorToWorld(animalQuantity[1],(Predator) templates.Tiger,1);
-        addPredatorToWorld(animalQuantity[2],(Predator) templates.Wolf,2);
-        addPredatorToWorld(animalQuantity[3],(Predator) templates.Snake,3);
-        addPredatorToWorld(animalQuantity[4],(Predator) templates.Dog,4);
+        this.addPredatorToWorld(animalQuantity[1],(Predator) templates.Tiger,1);
+        this.addPredatorToWorld(animalQuantity[2],(Predator) templates.Wolf,2);
+        this.addPredatorToWorld(animalQuantity[3],(Predator) templates.Snake,3);
+        this.addPredatorToWorld(animalQuantity[4],(Predator) templates.Dog,4);
 
-        addHerbivoreToWorld(animalQuantity[11],(Herbivore) templates.Goat,11);
-        addHerbivoreToWorld(animalQuantity[12],(Herbivore) templates.Cow,12);
-        addHerbivoreToWorld(animalQuantity[13],(Herbivore) templates.Sheep,13);
-        addHerbivoreToWorld(animalQuantity[14],(Herbivore) templates.Horse,14);
+        this.addHerbivoreToWorld(animalQuantity[11],(Herbivore) templates.Goat,11);
+        this.addHerbivoreToWorld(animalQuantity[12],(Herbivore) templates.Cow,12);
+        this.addHerbivoreToWorld(animalQuantity[13],(Herbivore) templates.Sheep,13);
+        this.addHerbivoreToWorld(animalQuantity[14],(Herbivore) templates.Horse,14);
 
-        addPeopleToWorld(humanStrength);
+        this.addPeopleToWorld(humanStrength);
 
         this.spawnFruits();
     }
@@ -110,6 +110,7 @@ public class World {
             this.statistics[act.id%100][currentTurn]++;
             act.stomach--;
 
+            System.out.println(act.value + " "+ act.stomach +" "+ act.maxStomach +" "+ act.id);
             if(act.stomach==0) {
                 this.listofHerbivores.remove(q);
                 q--;
@@ -334,9 +335,8 @@ public class World {
         for(int q=0; q<howMuch; q++){
             Predator animal = predator;
             animal.randomInitialization(this.sizeX, this.sizeY);
-            while(this.idCheckTab[animal.id]==1)
-                animal.id+=100;
-            this.idCheckTab[animal.id]=1;
+            animal.id=idStartNumber+q*100;
+            this.idCheckTab[idStartNumber+q*100]=1;
             this.listofPredators.add(animal);
         }
     }
@@ -345,9 +345,8 @@ public class World {
         for(int q=0; q<howMuch; q++){
             Herbivore animal = herbivore;
             animal.randomInitialization(this.sizeX, this.sizeY);
-            while(this.idCheckTab[animal.id]==1)
-                animal.id+=100;
-            this.idCheckTab[animal.id]=1;
+            animal.id=idStartNumber+q*100;
+            this.idCheckTab[idStartNumber+q*100]=1;
             this.listofHerbivores.add(animal);
         }
     }
