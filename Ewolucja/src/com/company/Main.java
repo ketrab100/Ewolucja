@@ -14,13 +14,6 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        check=scanner.nextInt();
-        humanStrenght=scanner.nextInt();
-
-        check=check%humanStrenght;
-
-        System.out.println(check);
-
         World currentGame = new World();
 
         System.out.println("Welcome to EVOLUTION \n");
@@ -28,8 +21,8 @@ public class Main {
         System.out.println("1 - Zacznij standardowo"); //startuje bez zmian
         System.out.println("2 - Dodkonaj zmian"); //ekran zmian
         check=scanner.nextInt();
-        if(check==1){
 
+        if(check==1){
         }
         else{
             Settings settings = new Settings();

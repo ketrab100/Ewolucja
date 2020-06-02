@@ -12,7 +12,7 @@ public class World {
     int weather=3;
     int currentTurn=100;
     int aliveAnimals;
-    int[] idCheckTab= new int[250000];
+    int[] idCheckTab= new int[2500000];
     int[][] statistics = new int[50][2500000];
     int[] animalQuantity = new int[50];
     Tiger yourAnimal1Template = new Tiger();
@@ -97,7 +97,8 @@ public class World {
     }
 
     void play() throws InterruptedException {
-        while(!this.listofPeople.isEmpty() || this.aliveAnimals>0) {
+        this.aliveAnimals=100;
+        while(!this.listofPeople.isEmpty() && this.aliveAnimals>0) {
             this.systemOut();
             this.turn();
             Thread.sleep(1000);
@@ -203,7 +204,7 @@ public class World {
         this.statistics[0][currentTurn]=this.listofPeople.size();
         for(int q=0; q<this.listofPeople.size(); q++){
             Human act= null;
-            act =this.listofPeople.get(q);
+            act = this.listofPeople.get(q);
             //System.out.println(this.listofPeople.get(q).age + " " + act.age + " " + q);
             act.stomach--;
 
@@ -311,8 +312,7 @@ public class World {
 
         for(int q=0; q<=20; q++) {
             if (this.statistics[q][100] != 0) {
-                this.aliveAnimals=this.aliveAnimals-this.statistics[q][this.currentTurn];
-
+                this.aliveAnimals=this.aliveAnimals+this.statistics[q][this.currentTurn];
                 System.out.print(animalTypes[q] + " | ");
                 printout(8, q, 0);
                 printout(8, q, 1);
@@ -326,6 +326,7 @@ public class World {
                 System.out.print("\n");
             }
         }
+
     }
 
     void printout(int fillUp, int currentAnimal, int actualTurn){

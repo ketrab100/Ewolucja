@@ -81,6 +81,7 @@ public abstract class Animal implements Cloneable {
             this.positionX = this.target.positionX;
         }
     }
+
     void moveToFood(){
         int movementLeft = this.speed;
 
@@ -149,7 +150,8 @@ public abstract class Animal implements Cloneable {
                             this.target.id = prey.id;
                             this.target.isInRange = 1;
                         }
-                    } else if (this.target.isInRange == 0) {
+                    }
+                    else if (this.target.isInRange == 0) {
                         if (prey.value > this.target.value) {
                             this.target.numberOnTheList = q;
                             this.target.typeOf=currentList;
