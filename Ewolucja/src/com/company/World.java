@@ -28,9 +28,15 @@ public class World {
      */
     void beginGame(int humanStrength){
 
-        addPredatorToWorld(5,(Predator) templates.Tiger,5);
-        addPredatorToWorld(2,(Predator) templates.Wolf,6);
-        addHerbivoreToWorld(10,(Herbivore) templates.Cow,15);
+        addPredatorToWorld(animalQuantity[1],(Predator) templates.Tiger,1);
+        addPredatorToWorld(animalQuantity[2],(Predator) templates.Wolf,2);
+        addPredatorToWorld(animalQuantity[3],(Predator) templates.Snake,3);
+        addPredatorToWorld(animalQuantity[4],(Predator) templates.Dog,4);
+
+        addHerbivoreToWorld(animalQuantity[11],(Herbivore) templates.Goat,11);
+        addHerbivoreToWorld(animalQuantity[12],(Herbivore) templates.Cow,12);
+        addHerbivoreToWorld(animalQuantity[13],(Herbivore) templates.Sheep,13);
+        addHerbivoreToWorld(animalQuantity[14],(Herbivore) templates.Horse,14);
         addPeopleToWorld(humanStrength);
         this.spawnFruits();
     }
