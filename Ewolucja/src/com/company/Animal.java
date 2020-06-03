@@ -5,7 +5,6 @@ import java.util.Random;
 
 
 public class Animal implements Cloneable {
-    String name;
     int strenght;
     int id;
     int positionX;
@@ -25,7 +24,7 @@ public class Animal implements Cloneable {
     }
 
     void randomInitialization(int x, int y){
-        stomach = maxStomach;
+        this.stomach = this.maxStomach;
         Random random = new Random();
         this.positionX=random.nextInt(x)+1;
         this.positionY=random.nextInt(y)+1;
@@ -60,7 +59,7 @@ public class Animal implements Cloneable {
     }
 
     boolean readyToDelivery(){
-        if (this.delivery>=this.maxDelivery){
+        if (this.delivery>=this.maxDelivery && this.stomach>=3){
             return true;
         }
         else {
@@ -112,8 +111,8 @@ public class Animal implements Cloneable {
          */
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
-            if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange) {
-                if (Math.abs(food.positionX - this.positionX) + Math.abs(food.positionY - this.positionY) <= this.speed) {
+            if(this.checkDistancetoFruit(food)) {
+                if (this.canIgetThere(food.positionX, food.positionY)) {
                     if (food.value > this.target.value) {
                         this.target.numberOnTheList = q;
                         this.target.typeOf = 0;
@@ -142,24 +141,22 @@ public class Animal implements Cloneable {
         for (int q = 0; q < listofPreys.size(); q++) {
             Animal prey = listofPreys.get(q);
 
-            if (this.strenght > prey.resistance) {
-                if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.searchRange) {
-                    if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.speed) {
-                        if (prey.value > this.target.value) {
-                            this.target.numberOnTheList = q;
-                            this.target.typeOf=currentList;
-                            this.target.value = prey.value;
-                            this.target.id = prey.id;
-                            this.target.isInRange = 1;
-                        }
+            if(this.checkDistancetoAnimal(prey)){
+                if (canIgetThere(prey.positionX, prey.positionY)) {
+                    if (prey.value > this.target.value) {
+                        this.target.numberOnTheList = q;
+                        this.target.typeOf=currentList;
+                        this.target.value = prey.value;
+                        this.target.id = prey.id;
+                        this.target.isInRange = 1;
                     }
-                    else if (this.target.isInRange == 0) {
-                        if (prey.value > this.target.value) {
-                            this.target.numberOnTheList = q;
-                            this.target.typeOf=currentList;
-                            this.target.value = prey.value;
-                            this.target.id = prey.id;
-                        }
+                }
+                else if (this.target.isInRange == 0) {
+                    if (prey.value > this.target.value) {
+                        this.target.numberOnTheList = q;
+                        this.target.typeOf=currentList;
+                        this.target.value = prey.value;
+                        this.target.id = prey.id;
                     }
                 }
             }
@@ -169,4 +166,22 @@ public class Animal implements Cloneable {
             this.target.positionY = listofPreys.get(this.target.numberOnTheList).positionY;
         }
     }
+
+    boolean checkDistancetoFruit(Fruit food){
+        if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange) return true;
+        return false;
+    }
+
+    boolean checkDistancetoAnimal(Animal prey){
+        if (this.strenght > prey.resistance) {
+            if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.searchRange) return true;
+        }
+        return false;
+    }
+
+    boolean canIgetThere(int X, int Y){
+        if(Math.abs(X - this.positionX) + Math.abs(Y - this.positionY) <= this.speed) return true;
+        return false;
+    }
+
 }
