@@ -5,24 +5,25 @@ import com.Lifeforms.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class World {
-    protected int sizeX=200;
-    protected int sizeY=200;
-    protected int quantity;
-    protected int weather=3;
-    protected int currentTurn=100;
-    protected int aliveAnimals;
-    protected int[] idCheckTab= new int[2500000];
-    protected int[][] statistics = new int[50][2500000];
-    protected int[] animalQuantity = new int[50];
-    protected Templates templates = new Templates();
-    protected String[] animalTypes = new String[50];
+    private int sizeX=200;
+    private int sizeY=200;
+    private int quantity;
+    private int weather=3;
+    private int currentTurn=100;
 
-    protected List<Predator> listofPredators = new ArrayList<Predator>();
-    protected List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
-    protected List<Human> listofPeople = new ArrayList<Human>();
-    protected List<Fruit> listofFruits = new ArrayList<Fruit>();
+    private int[] idCheckTab= new int[2500000]; //zmienić na jakiś vector czy coś
+    private int[][] statistics = new int[50][2500000];
+    private int[] animalQuantity = new int[50];
+    Templates templates = new Templates();
+    String[] animalTypes = new String[50];
+
+    private List<Predator> listofPredators = new ArrayList<Predator>();
+    private List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
+    private List<Human> listofPeople = new ArrayList<Human>();
+    private List<Fruit> listofFruits = new ArrayList<Fruit>();
     /**
      * Preparing lists containing Predators Herbivores People and Fruits
      */
@@ -79,8 +80,8 @@ public class World {
     }
 
     void play() throws InterruptedException {
-        this.aliveAnimals=100;
-        while(!this.listofPeople.isEmpty() && this.aliveAnimals>0) {
+
+        while(!this.listofPeople.isEmpty() && (this.listofHerbivores.size()+this.listofPredators.size())>0) {
             this.systemOut();
             this.turn();
             Thread.sleep(1000);
@@ -297,11 +298,8 @@ public class World {
 
         System.out.print(" Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
 
-        this.aliveAnimals=0-this.statistics[0][this.currentTurn];
-
         for(int q=0; q<=20; q++) {
             if (this.statistics[q][100] != 0) {
-                this.aliveAnimals=this.aliveAnimals+this.statistics[q][this.currentTurn];
                 System.out.print(animalTypes[q] + " | ");
                 printout(8, q, 0);
                 printout(8, q, 1);
@@ -373,6 +371,22 @@ public class World {
         }
     }
 
+    void changeAnimalQuantity(int ID, int quantity){
+        this.animalQuantity[ID]=quantity;
+    }
+
+    int howMuchAnimals(int ID){
+        return this.animalQuantity[ID];
+    }
+
+    void changeWorldSize(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("X size: ");
+        this.sizeX = scanner.nextInt();
+        System.out.printf("Y size: ");
+        this.sizeY = scanner.nextInt();
+    }
+    
     void fillanimalTypes(){
         this.animalTypes[0]=" Human      ";
         this.animalTypes[1]=" Tiger      ";

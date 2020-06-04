@@ -31,10 +31,7 @@ public class Settings{
 
             this.check=this.scanner.nextInt();
             if (check == 1) {
-                System.out.printf("X size: ");
-                this.workInProgress.sizeX = scanner.nextInt();
-                System.out.printf("Y size: ");
-                this.workInProgress.sizeY = scanner.nextInt();
+                this.workInProgress.changeWorldSize();
             }
             else if (check == 2) {
                 System.out.printf("Human streght: ");
@@ -85,13 +82,13 @@ public class Settings{
      */
     void animalQuantity(){
         System.out.println(" Animal name | Current quantity");
-        System.out.println(this.workInProgress.animalTypes[0] + " | " + this.workInProgress.animalQuantity[0]);
-        this.workInProgress.animalQuantity[0]=this.scanner.nextInt();
+        System.out.println(this.workInProgress.howMuchAnimals(0) + " | " + this.workInProgress.howMuchAnimals(0));
+        this.workInProgress.changeAnimalQuantity(0, this.scanner.nextInt());
 
         for(int q=1; q<=20; q++){
             if(this.workInProgress.animalTypes[q]!=" Human      ") {
-                System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.animalQuantity[q]);
-                this.workInProgress.animalQuantity[q] = this.scanner.nextInt();
+                System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.howMuchAnimals(q));
+                this.workInProgress.changeAnimalQuantity(q, this.scanner.nextInt());
             }
         }
     }
