@@ -20,16 +20,16 @@ public class Settings{
      * Setting all possible options
      */
     void mainWindow(){
-        while (check!=4) {
+        while (check!=6) {
             System.out.flush();
             System.out.println("1 - Pick map size"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
-        System.out.println("2 - Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
-        System.out.println("3 - Create your predator, only one can be created, default quantity: 0");
-        System.out.println("4 - Create your herbivore, only one can be created, default quantity: 0");
-        System.out.println("5 - Change quantity of animals per type"); //jeśli wciścnie to zmieni tą wartość
-        System.out.println("6 - Save changes and start simulation");
+            System.out.println("2 - Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
+            System.out.println("3 - Create your predator, only one can be created, default quantity: 0");
+            System.out.println("4 - Create your herbivore, only one can be created, default quantity: 0");
+            System.out.println("5 - Change quantity of animals per type"); //jeśli wciścnie to zmieni tą wartość
+            System.out.println("6 - Save changes and start simulation");
 
-        this.check=this.scanner.nextInt();
+            this.check=this.scanner.nextInt();
             if (check == 1) {
                 System.out.printf("X size: ");
                 this.workInProgress.sizeX = scanner.nextInt();
@@ -53,8 +53,9 @@ public class Settings{
                 int maxStomach = this.scanner.nextInt();
                 System.out.println("Strenght - can only eat animals with lower resistance");
                 int strenght = this.scanner.nextInt();
-                System.out.println("Resistance - can't be eaten by animals with lower strenght");
+                System.out.println("Resistance - can't be eaten by animals with lower strenght, can't be lower than strenght");
                 int resistance = this.scanner.nextInt();
+                resistance=Math.max(resistance,strenght);
                 workInProgress.templates.createYourAnimal1Template(value,searchRange,speed,maxDelivery,maxStomach,resistance,strenght);
             }
             else if(check == 4){
