@@ -14,9 +14,10 @@ class Human extends Animal {
         this.level=0;
         this.delivery=0;
         this.maxDelivery=20;
-        this.maxStomach=25;
-        this.stomach=25;
+        this.maxStomach=20;
+        this.stomach=20;
         this.resistance=2;
+        this.strenght=5;
     }
     Human makeChild(int[] idCheckTab){
         this.delivery=0;

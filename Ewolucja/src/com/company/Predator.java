@@ -45,4 +45,8 @@ public class Predator extends Animal {
 
         this.age++;
     }
+    boolean haveItMovedThisTurn(int q){
+        if((this.target.id%100) > 0 && (this.target.id%100) <= 10 && q > this.target.numberOnTheList) return true;
+        return false;
+    }
 }

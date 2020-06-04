@@ -10,7 +10,6 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         int check=0;
-        int humanStrenght=5;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -30,10 +29,9 @@ public class Main {
             settings.mainWindow();
             //możemy dodać opcję zmiany np. 2 zwierząt w sensie statystyk
             currentGame=settings.workInProgress;
-            humanStrenght=settings.humanStrenght;
         }
 
-        currentGame.beginGame(humanStrenght); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
+        currentGame.beginGame(); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
 
         currentGame.play();
     }
