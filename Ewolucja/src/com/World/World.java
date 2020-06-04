@@ -360,7 +360,7 @@ public class World {
     }
 
     /**
-     * Copy predator from templates, give right ID and add to the list
+     * Copy human from templates, give right ID and add to the list
      * @param human
      */
     public void addPeopleToWorld(Human human){
