@@ -1,6 +1,5 @@
 package com.company;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +26,7 @@ public class World {
      * @param humanStrength People strength when the simulation starts
      */
     void beginGame(int humanStrength){
-
+        quantity =sizeX*sizeY/150;
         this.addPredatorToWorld(animalQuantity[1],(Predator) templates.Tiger,1);
         this.addPredatorToWorld(animalQuantity[2],(Predator) templates.Wolf,2);
         this.addPredatorToWorld(animalQuantity[3],(Predator) templates.Snake,3);
@@ -110,7 +109,7 @@ public class World {
             this.statistics[act.id%100][currentTurn]++;
             act.stomach--;
 
-            System.out.println(act.value + " "+ act.stomach +" "+ act.maxStomach +" "+ act.id);
+            //System.out.println(act.value + " "+ act.stomach +" "+ act.maxStomach +" "+ act.id);
             if(act.stomach==0) {
                 this.listofHerbivores.remove(q);
                 q--;
@@ -292,7 +291,7 @@ public class World {
         if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
 
         if(!listofPeople.isEmpty())
-            System.out.print("Strenght of oldest Human is: " + listofPeople.get(0).strenght);
+            System.out.print("Strenght of oldest Human is: " + listofPeople.get(0).strength);
 
         System.out.println();
 
@@ -355,7 +354,7 @@ public class World {
         for(int q=0; q<animalQuantity[0]; q++){
             Human human= new Human();
             human.randomInitialization(this.sizeX, this.sizeY);
-            human.strenght=humanStrength;
+            human.strength =humanStrength;
             human.id=0+q*100;
             this.idCheckTab[0+q*100]=1;
             this.listofPeople.add(human);

@@ -5,20 +5,19 @@ import java.util.Random;
 
 
 public class Animal implements Cloneable {
-    String name;
-    int strenght;
+    protected int strength;
     int id;
     int positionX;
     int positionY;
-    int speed;
+    protected int speed;
     int age=0;
     protected int maxStomach;
-    int stomach;
-    int delivery;
+    protected int stomach;
+    protected int delivery;
     protected int maxDelivery;
     int searchRange;
-    int value;
-    int resistance;
+    protected int value;
+    protected int resistance;
     Target target = new Target();
 
     public Animal(){
@@ -142,7 +141,7 @@ public class Animal implements Cloneable {
         for (int q = 0; q < listofPreys.size(); q++) {
             Animal prey = listofPreys.get(q);
 
-            if (this.strenght > prey.resistance) {
+            if (this.strength > prey.resistance) {
                 if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.searchRange) {
                     if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.speed) {
                         if (prey.value > this.target.value) {

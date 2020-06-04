@@ -11,7 +11,7 @@ public class Predator extends Animal {
         maxDelivery = _maxDelivery;
         maxStomach  =_maxStomach;
         resistance = _resistance;
-        strenght = _strength;
+        strength = _strength;
         this.target.numberOnTheList=-1;
     }
 
