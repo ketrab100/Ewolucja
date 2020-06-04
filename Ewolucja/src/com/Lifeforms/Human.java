@@ -1,14 +1,9 @@
-package com.company;
+package com.Lifeforms;
 
 import java.util.List;
 
-class Human extends Animal {
+public class Human extends Animal {
     private int level;
-    private int maxStomach;
-    private int speed;
-    private int maxDelivery;
-    private int resistance;
-    private int searchRange;
 
     public Human(int strength) {
         this.target.numberOnTheList=-1;
@@ -24,7 +19,7 @@ class Human extends Animal {
         this.resistance=2;
         this.strenght=strength;
     }
-    Human makeChild(int[] idCheckTab){
+    public Human makeChild(int[] idCheckTab){
         this.delivery=0;
         this.stomach*=0.75;
         int newbornID=0;
@@ -38,7 +33,7 @@ class Human extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
-    void searchFood(List<Fruit> listofFruits, List<Predator> listofPredators, List<Herbivore> listofHerbivores){
+    public void searchFood(List<Fruit> listofFruits, List<Predator> listofPredators, List<Herbivore> listofHerbivores){
         this.target.numberOnTheList=-1;
         this.target.typeOf=-1;
         this.target.isInRange=0;
@@ -49,7 +44,7 @@ class Human extends Animal {
         this.searchPrey(listofPredators, 1);
         this.searchPrey(listofHerbivores, 2);
     }
-    void increaseStats() {
+    public void increaseStats() {
         if (!this.isHungry())
             this.delivery++;
 

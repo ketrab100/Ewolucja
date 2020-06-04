@@ -1,30 +1,30 @@
-package com.company;
+package com.Lifeforms;
 
 import java.util.List;
 import java.util.Random;
 
 
 public class Animal implements Cloneable {
-    int strenght;
-    int id;
-    int positionX;
-    int positionY;
-    int age=0;
-    int stomach;
-    int delivery;
-    int value;
 
+    protected int strenght;
+    protected int id;
+    protected int positionX;
+    protected int positionY;
+    protected int age=0;
+    protected int stomach;
+    protected int delivery;
+    protected int value;
     protected int speed;
     protected int maxStomach;
     protected int maxDelivery;
     protected int searchRange;
     protected int resistance;
-    Target target = new Target();
+    public Target target = new Target();
 
     public Animal(){
     }
 
-    void randomInitialization(int x, int y){
+    public void randomInitialization(int x, int y){
         this.stomach = this.maxStomach;
         Random random = new Random();
         this.positionX=random.nextInt(x)+1;
@@ -39,7 +39,7 @@ public class Animal implements Cloneable {
         return newObject;
     }
 
-    void moveRandom (int sizeX, int sizeY){
+    public void moveRandom (int sizeX, int sizeY){
         Random rand=new Random();
 
         int help = (rand.nextInt(this.speed*2+1)-this.speed);
@@ -59,7 +59,7 @@ public class Animal implements Cloneable {
         else if(this.positionY>sizeY) this.positionY=sizeY;
     }
 
-    boolean readyToDelivery(){
+    public boolean readyToDelivery(){
         if (this.delivery>=this.maxDelivery && this.stomach>=3){
             return true;
         }
@@ -68,14 +68,14 @@ public class Animal implements Cloneable {
         }
     }
 
-    boolean isHungry(){
+    public boolean isHungry(){
         if(this.stomach<=this.maxStomach/2)
             return true;
         else
             return false;
     }
 
-    void eatFood() {
+    public void eatFood() {
         if (this.target.isInRange == 1) {
             this.stomach += this.target.value;
             this.stomach = Math.min(this.stomach, this.maxStomach);
@@ -84,7 +84,7 @@ public class Animal implements Cloneable {
         }
     }
 
-    void moveToFood(){
+    public void moveToFood(){
         int movementLeft = this.speed;
 
         if(this.target.positionX>this.positionX){
@@ -185,4 +185,30 @@ public class Animal implements Cloneable {
         return false;
     }
 
+    public void lowerStomach(){
+        this.stomach--;
+    }
+
+    public int animalTypeID(){
+        return this.id%100;
+    }
+
+    public boolean amIDead(){
+        if(this.stomach==0) return true;
+        return false;
+    }
+
+    public int checkmyStrenght(){
+        return this.strenght;
+    }
+
+    public boolean canIreachIt(){
+        if(this.target.isInRange==1) return true;
+        return false;
+    }
+
+    public int getnewID(int id){
+        this.id=id;
+        return this.id;
+    }
 }

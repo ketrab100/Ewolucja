@@ -1,6 +1,5 @@
-package com.company;
+package com.World;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Settings{
@@ -36,10 +35,9 @@ public class Settings{
             }
             else if (check == 2) {
                 System.out.printf("Human streght: ");
-                this.workInProgress.templates.Human.strenght = scanner.nextInt();
+                this.workInProgress.templates.humanStrength = scanner.nextInt();
             }
             else if(check == 3){
-                this.workInProgress.templates.YourAnimal1.id=10;
                 System.out.println("Pick value - how much worth in while eaten");
                 int value = this.scanner.nextInt();
                 System.out.println("Pick search range - distance in which predator searches its prey");
@@ -54,10 +52,9 @@ public class Settings{
                 int strenght = this.scanner.nextInt();
                 System.out.println("Resistance - can't be eaten by animals with lower strenght");
                 int resistance = this.scanner.nextInt();
-                workInProgress.templates.createNewPredator(value,searchRange,speed,maxDelivery,maxStomach,resistance,strenght);
+                workInProgress.templates.createYourAnimal1Template(value,searchRange,speed,maxDelivery,maxStomach,resistance,strenght);
             }
             else if(check == 4){
-                this.workInProgress.templates.YourAnimal2.id=20;
                 System.out.println("Pick value - how much worth in while eaten");
                 int value = this.scanner.nextInt();
                 System.out.println("Pick search range - distance in which predator searches its prey");
@@ -70,7 +67,7 @@ public class Settings{
                 int maxStomach = this.scanner.nextInt();
                 System.out.println("Resistance - can't be eaten by animals with lower strenght");
                 int resistance = this.scanner.nextInt();
-                workInProgress.templates.createNewHerbivore(value,searchRange,speed,maxDelivery,maxStomach,resistance);
+                workInProgress.templates.createYourAnimal2Template(value,searchRange,speed,maxDelivery,maxStomach,resistance);
             }
 
             else if (check == 5) {

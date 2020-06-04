@@ -1,4 +1,4 @@
-package com.company;
+package com.World;
 
 import java.util.*;
 
@@ -12,10 +12,12 @@ public class Main {
 
         World currentGame = new World();
 
+
         System.out.println("Welcome to EVOLUTION \n");
-        System.out.println("jakies pierdoly ze start gry"); //nowy ekran
-        System.out.println("1 - Zacznij standardowo"); //startuje bez zmian
-        System.out.println("2 - Dodkonaj zmian"); //ekran zmian
+        System.out.println("This simulation let us check if people can dominate world under given circumstances. Simulation ends when population reaches 0 or there is no animals left");
+        System.out.println("While animals have fixed statistics people get stronger over time."); //nowy ekran
+        System.out.println("1 - Begin default game"); //startuje bez zmian
+        System.out.println("2 - Make changes or add your animals"); //ekran zmian
         check=scanner.nextInt();
 
         if(check==1){
@@ -27,6 +29,7 @@ public class Main {
             //możemy dodać opcję zmiany np. 2 zwierząt w sensie statystyk
             currentGame=settings.workInProgress;
         }
+
         currentGame.beginGame(); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
 
         currentGame.play();

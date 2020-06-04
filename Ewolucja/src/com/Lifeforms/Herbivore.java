@@ -1,13 +1,8 @@
-package com.company;
+package com.Lifeforms;
 
 import java.util.List;
 
 public class Herbivore extends Animal {
-    private int maxStomach;
-    private int speed;
-    private int maxDelivery;
-    private int resistance;
-    private int searchRange;
 
     public Herbivore(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance) {
         value = _value;
@@ -18,7 +13,7 @@ public class Herbivore extends Animal {
         resistance = _resistance;
     }
 
-    Herbivore makeChild(int[] idCheckTab){
+    public Herbivore makeChild(int[] idCheckTab){
         this.delivery=0;
         this.stomach*=0.75;
         int newbornID=this.id%100;
@@ -31,7 +26,7 @@ public class Herbivore extends Animal {
         idCheckTab[newbornID]=1;
         return child;
     }
-    void searchFood(List<Fruit> listofFruits){
+    public void searchFood(List<Fruit> listofFruits){
         this.target.numberOnTheList=-1;
         this.target.typeOf=-1;
         this.target.isInRange=0;
@@ -40,7 +35,7 @@ public class Herbivore extends Animal {
 
         this.searchFruit(listofFruits);
     }
-    void increaseStats() {
+    public void increaseStats() {
         if (!this.isHungry())
             this.delivery++;
 

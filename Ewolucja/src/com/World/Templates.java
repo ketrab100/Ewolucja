@@ -1,7 +1,12 @@
-package com.company;
+package com.World;
+
+import com.Lifeforms.Herbivore;
+import com.Lifeforms.Human;
+import com.Lifeforms.Predator;
 
 public class Templates {
-    private int humanStrength;
+    int humanStrength=5;
+
     Predator Tiger  = new Predator(15,15,8,30,30,35,32);
     Predator Wolf = new Predator(10,20,10,20,25,21,20);
     Predator Snake = new Predator(2,12,5,12,20,12,12);
@@ -13,15 +18,15 @@ public class Templates {
     Herbivore Sheep = new Herbivore(12,5,3,10,15,6);
     Herbivore Horse = new Herbivore(21,10,20,35,40,30);
     Herbivore YourAnimal2;
+    Human Human;
 
-    Human Human = new Human(humanStrength);
-    public  void  Templates(int humanStrength){
-        this.humanStrength = humanStrength;
-    }
-    void createNewPredator(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ){
+    void createYourAnimal1Template(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ){
         YourAnimal1 = new Predator(_value, _searchRange,_speed,_maxDelivery,_maxStomach,_resistance,_strength);
     }
-    void createNewHerbivore(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance){
+    void createYourAnimal2Template(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance){
         YourAnimal2 = new Herbivore(_value, _searchRange,_speed,_maxDelivery,_maxStomach,_resistance);
+    }
+    void createHumanTemplate(){
+        Human= new Human (this.humanStrength);
     }
 }
