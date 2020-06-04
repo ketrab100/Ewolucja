@@ -3,6 +3,11 @@ package com.company;
 import java.util.List;
 
 public class Herbivore extends Animal {
+    private int maxStomach;
+    private int speed;
+    private int maxDelivery;
+    private int resistance;
+    private int searchRange;
 
     public Herbivore(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance) {
         value = _value;

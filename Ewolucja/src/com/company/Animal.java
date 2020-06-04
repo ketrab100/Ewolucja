@@ -9,15 +9,16 @@ public class Animal implements Cloneable {
     int id;
     int positionX;
     int positionY;
-    int speed;
     int age=0;
-    protected int maxStomach;
     int stomach;
     int delivery;
-    protected int maxDelivery;
-    int searchRange;
     int value;
-    int resistance;
+
+    protected int speed;
+    protected int maxStomach;
+    protected int maxDelivery;
+    protected int searchRange;
+    protected int resistance;
     Target target = new Target();
 
     public Animal(){

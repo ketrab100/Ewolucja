@@ -41,34 +41,36 @@ public class Settings{
             else if(check == 3){
                 this.workInProgress.templates.YourAnimal1.id=10;
                 System.out.println("Pick value - how much worth in while eaten");
-                this.workInProgress.templates.YourAnimal1.value = this.scanner.nextInt();
+                int value = this.scanner.nextInt();
                 System.out.println("Pick search range - distance in which predator searches its prey");
-                this.workInProgress.templates.YourAnimal1.searchRange = this.scanner.nextInt();
+                int searchRange = this.scanner.nextInt();
                 System.out.println("Pick movement speed");
-                this.workInProgress.templates.YourAnimal1.speed = this.scanner.nextInt();
+                int speed = this.scanner.nextInt();
                 System.out.println("How much time until breed");
-                this.workInProgress.templates.YourAnimal1.maxDelivery = this.scanner.nextInt();
+                int maxDelivery = this.scanner.nextInt();
                 System.out.println("How much time until starved out");
-                this.workInProgress.templates.YourAnimal1.maxStomach = this.scanner.nextInt();
+                int maxStomach = this.scanner.nextInt();
                 System.out.println("Strenght - can only eat animals with lower resistance");
-                this.workInProgress.templates.YourAnimal1.strenght = this.scanner.nextInt();
+                int strenght = this.scanner.nextInt();
                 System.out.println("Resistance - can't be eaten by animals with lower strenght");
-                this.workInProgress.templates.YourAnimal1.resistance = this.scanner.nextInt();
+                int resistance = this.scanner.nextInt();
+                workInProgress.templates.createNewPredator(value,searchRange,speed,maxDelivery,maxStomach,resistance,strenght);
             }
             else if(check == 4){
                 this.workInProgress.templates.YourAnimal2.id=20;
                 System.out.println("Pick value - how much worth in while eaten");
-                this.workInProgress.templates.YourAnimal2.value = this.scanner.nextInt();
+                int value = this.scanner.nextInt();
                 System.out.println("Pick search range - distance in which predator searches its prey");
-                this.workInProgress.templates.YourAnimal2.searchRange = this.scanner.nextInt();
+                int searchRange = this.scanner.nextInt();
                 System.out.println("Pick movement speed");
-                this.workInProgress.templates.YourAnimal2.speed = this.scanner.nextInt();
+                int speed = this.scanner.nextInt();
                 System.out.println("How much time until breed");
-                this.workInProgress.templates.YourAnimal2.maxDelivery = this.scanner.nextInt();
+                int maxDelivery = this.scanner.nextInt();
                 System.out.println("How much time until starved out");
-                this.workInProgress.templates.YourAnimal2.maxStomach = this.scanner.nextInt();
+                int maxStomach = this.scanner.nextInt();
                 System.out.println("Resistance - can't be eaten by animals with lower strenght");
-                this.workInProgress.templates.YourAnimal2.resistance = this.scanner.nextInt();
+                int resistance = this.scanner.nextInt();
+                workInProgress.templates.createNewHerbivore(value,searchRange,speed,maxDelivery,maxStomach,resistance);
             }
 
             else if (check == 5) {

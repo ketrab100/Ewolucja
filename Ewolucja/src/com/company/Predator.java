@@ -3,6 +3,12 @@ package com.company;
 import java.util.List;
 
 public class Predator extends Animal {
+    private int maxStomach;
+    private int speed;
+    private int maxDelivery;
+    private int resistance;
+    private int strenght;
+    private int searchRange;
 
     public Predator(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ){
         value = _value;

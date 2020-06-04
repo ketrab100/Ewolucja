@@ -3,9 +3,14 @@ package com.company;
 import java.util.List;
 
 class Human extends Animal {
-    int level;
+    private int level;
+    private int maxStomach;
+    private int speed;
+    private int maxDelivery;
+    private int resistance;
+    private int searchRange;
 
-    public Human() {
+    public Human(int strength) {
         this.target.numberOnTheList=-1;
         this.value=15;
         this.searchRange=15;
@@ -17,7 +22,7 @@ class Human extends Animal {
         this.maxStomach=20;
         this.stomach=20;
         this.resistance=2;
-        this.strenght=5;
+        this.strenght=strength;
     }
     Human makeChild(int[] idCheckTab){
         this.delivery=0;

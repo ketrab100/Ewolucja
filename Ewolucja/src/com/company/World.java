@@ -153,13 +153,12 @@ public class World {
         for (int q=0; q<this.listofPredators.size(); q++){
             Predator act = (Predator) this.listofPredators.get(q);
             this.statistics[act.id%100][currentTurn]++;
-
             act.stomach--;
-
             if(act.stomach==0) {
                 this.listofPredators.remove(q);
                 q--;
             }
+
             else{
                 if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
 

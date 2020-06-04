@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 public class Main {
 
@@ -30,7 +27,6 @@ public class Main {
             //możemy dodać opcję zmiany np. 2 zwierząt w sensie statystyk
             currentGame=settings.workInProgress;
         }
-
         currentGame.beginGame(); //najpierw tworzymy, dodajemy zwierzęta na mapę pierwszy raz, później używamy funkcji day
 
         currentGame.play();
