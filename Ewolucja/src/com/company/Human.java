@@ -53,7 +53,7 @@ class Human extends Animal {
         this.level++;
 
         if (this.age % 10 == 0) {
-            this.strength++;
+            this.strenght++;
         }
         if (this.level % 20 == 0) {
             this.level = 0;
