@@ -15,8 +15,8 @@ public class Templates {
     Herbivore YourAnimal2;
 
     Human Human = new Human(humanStrength);
-    public  void  Templates(int a){
-        this.humanStrength = a;
+    public  void  Templates(int humanStrength){
+        this.humanStrength = humanStrength;
     }
     void createNewPredator(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ){
         YourAnimal1 = new Predator(_value, _searchRange,_speed,_maxDelivery,_maxStomach,_resistance,_strength);
