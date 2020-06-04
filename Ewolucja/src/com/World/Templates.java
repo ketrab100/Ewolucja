@@ -20,9 +20,29 @@ public class Templates {
     Herbivore YourAnimal2;
     Human Human;
 
+    /**
+     * Creating new predator type whit parameters
+     * @param _value
+     * @param _searchRange
+     * @param _speed
+     * @param _maxDelivery
+     * @param _maxStomach
+     * @param _resistance
+     * @param _strength
+     */
     void createYourAnimal1Template(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance, int _strength ){
         YourAnimal1 = new Predator(_value, _searchRange,_speed,_maxDelivery,_maxStomach,_resistance,_strength);
     }
+
+    /**
+     * Creating new herbivore type with parameters
+     * @param _value
+     * @param _searchRange
+     * @param _speed
+     * @param _maxDelivery
+     * @param _maxStomach
+     * @param _resistance
+     */
     void createYourAnimal2Template(int _value, int _searchRange, int _speed , int _maxDelivery, int _maxStomach , int _resistance){
         YourAnimal2 = new Herbivore(_value, _searchRange,_speed,_maxDelivery,_maxStomach,_resistance);
     }

@@ -97,6 +97,9 @@ public class World {
         }
     }
 
+    /**
+     * Each action done by every herbivore
+     */
     void herbivoreActivities (){
         for(int q=0; q<this.listofHerbivores.size(); q++){
             Herbivore act = (Herbivore) this.listofHerbivores.get(q);
@@ -137,6 +140,9 @@ public class World {
         }
     }
 
+    /**
+     * Each action done by every predators
+     */
     void predatorActivities (){
         for (int q=0; q<this.listofPredators.size(); q++){
             Predator act = (Predator) this.listofPredators.get(q);
@@ -180,6 +186,9 @@ public class World {
         }
     }
 
+    /**
+     * Each action done by people
+     */
     void humanActivities (){
         this.statistics[0][currentTurn]=this.listofPeople.size();
         for(int q=0; q<this.listofPeople.size(); q++){
@@ -224,7 +233,6 @@ public class World {
     /**
      * Spawning fruits in the world
      */
-
     void spawnFruits(){
         int act=quantity;
 
@@ -320,7 +328,11 @@ public class World {
 
     }
 
-
+    /**
+     * Copy predator from templates, give right ID and add to the list
+     * @param predator
+     * @param idStartNumber
+     */
     public  void  addPredatorToWorld(Predator predator,int idStartNumber) {
         this.statistics[idStartNumber][100]=this.animalQuantity[idStartNumber];
         for(int q=0; q<this.animalQuantity[idStartNumber]; q++){
@@ -332,6 +344,11 @@ public class World {
         }
     }
 
+    /**
+     * Copy herbivore from templates, give right ID and add to the list
+     * @param herbivore
+     * @param idStartNumber
+     */
     public  void  addHerbivoreToWorld(Herbivore herbivore,int idStartNumber) {
         this.statistics[idStartNumber][100]=this.animalQuantity[idStartNumber];
         for(int q=0; q<this.animalQuantity[idStartNumber]; q++){
@@ -342,6 +359,10 @@ public class World {
         }
     }
 
+    /**
+     * Copy predator from templates, give right ID and add to the list
+     * @param human
+     */
     public void addPeopleToWorld(Human human){
         this.statistics[0][100]=animalQuantity[0];
         for(int q=0; q<animalQuantity[0]; q++){

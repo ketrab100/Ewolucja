@@ -24,6 +24,11 @@ public class Animal implements Cloneable {
     public Animal(){
     }
 
+    /**
+     * Setting random position
+     * @param x
+     * @param y
+     */
     public void randomInitialization(int x, int y){
         this.stomach = this.maxStomach;
         Random random = new Random();
@@ -39,6 +44,11 @@ public class Animal implements Cloneable {
         return newObject;
     }
 
+    /**
+     * Random movement depending on speed
+     * @param sizeX
+     * @param sizeY
+     */
     public void moveRandom (int sizeX, int sizeY){
         Random rand=new Random();
 
@@ -103,6 +113,10 @@ public class Animal implements Cloneable {
         }
     }
 
+    /**
+     * Searching whole list of fruits for the best fruit for this animal
+     * @param listofFruits
+     */
     void searchFruit(List<Fruit> listofFruits){
         /*
         this.target.numberOnTheList=-1;
@@ -137,6 +151,11 @@ public class Animal implements Cloneable {
         }
     }
 
+    /**
+     * Searching whole list of preys for the best food for this animal
+     * @param listofPreys
+     * @param currentList
+     */
     void searchPrey(List<? extends Animal> listofPreys, int currentList) {
 
         for (int q = 0; q < listofPreys.size(); q++) {

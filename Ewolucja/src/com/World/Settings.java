@@ -16,6 +16,9 @@ public class Settings{
         this.workInProgress=world;
     }
 
+    /**
+     * Setting all possible options
+     */
     void mainWindow(){
         while (check!=4) {
             System.out.flush();
@@ -76,6 +79,9 @@ public class Settings{
         }
     }
 
+    /**
+     * Setting quantity of each animal
+     */
     void animalQuantity(){
         System.out.println(" Animal name | Current quantity");
         System.out.println(this.workInProgress.animalTypes[0] + " | " + this.workInProgress.animalQuantity[0]);
