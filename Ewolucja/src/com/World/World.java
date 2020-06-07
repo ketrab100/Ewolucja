@@ -17,8 +17,8 @@ public class World {
     private int[] idCheckTab= new int[2500000]; //zmienić na jakiś vector czy coś
     private int[][] statistics = new int[50][2500000];
     private int[] animalQuantity = new int[50];
-    Templates templates = new Templates();
-    String[] animalTypes = new String[50];
+    protected Templates templates = new Templates();
+    protected String[] animalTypes = new String[50];
 
     private List<Predator> listofPredators = new ArrayList<Predator>();
     private List<Herbivore> listofHerbivores = new ArrayList<Herbivore>();
@@ -30,20 +30,20 @@ public class World {
     void beginGame(){
         this.quantity=(this.sizeY*this.sizeX)/150;
 
-        this.addPredatorToWorld(this.templates.Tiger,1);
-        this.addPredatorToWorld(this.templates.Wolf,2);
-        this.addPredatorToWorld(this.templates.Snake,3);
-        this.addPredatorToWorld(this.templates.Dog,4);
-        this.addPredatorToWorld(this.templates.YourAnimal1, 10);
+        this.addPredatorToWorld(this.templates.givePredator(1),1);
+        this.addPredatorToWorld(this.templates.givePredator(2),2);
+        this.addPredatorToWorld(this.templates.givePredator(3),3);
+        this.addPredatorToWorld(this.templates.givePredator(4),4);
+        this.addPredatorToWorld(this.templates.givePredator(5), 10);
 
-        this.addHerbivoreToWorld(this.templates.Goat,11);
-        this.addHerbivoreToWorld(this.templates.Cow,12);
-        this.addHerbivoreToWorld(this.templates.Sheep,13);
-        this.addHerbivoreToWorld(this.templates.Horse,14);
-        this.addHerbivoreToWorld(this.templates.YourAnimal2, 20);
+        this.addHerbivoreToWorld(this.templates.giveHerbivore(1),11);
+        this.addHerbivoreToWorld(this.templates.giveHerbivore(2),12);
+        this.addHerbivoreToWorld(this.templates.giveHerbivore(3),13);
+        this.addHerbivoreToWorld(this.templates.giveHerbivore(4),14);
+        this.addHerbivoreToWorld(this.templates.giveHerbivore(5), 20);
 
         this.templates.createHumanTemplate();
-        this.addPeopleToWorld(this.templates.Human);
+        this.addPeopleToWorld(this.templates.giveHuman());
 
         this.spawnFruits();
     }
@@ -52,7 +52,7 @@ public class World {
         this.fillanimalTypes();
         this.animalQuantity[0]=6;
 
-        for(int q=1; q<=9; q++){
+        for(int q=1; q<=10; q++){
             this.animalQuantity[q]=3;
         }
         for(int q=11; q<=19; q++){

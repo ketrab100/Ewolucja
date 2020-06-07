@@ -24,8 +24,8 @@ public class Settings{
             System.out.flush();
             System.out.println("1 - Pick map size"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
             System.out.println("2 - Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
-            System.out.println("3 - Create your predator, only one can be created, default quantity: 0");
-            System.out.println("4 - Create your herbivore, only one can be created, default quantity: 0");
+            System.out.println("3 - Create your predator, only one can be created, current quantity: "+ this.workInProgress.howMuchAnimals(10));
+            System.out.println("4 - Create your herbivore, only one can be created, current quantity: "+ this.workInProgress.howMuchAnimals(20));
             System.out.println("5 - Change quantity of animals per type"); //jeśli wciścnie to zmieni tą wartość
             System.out.println("6 - Save changes and start simulation");
 
@@ -35,7 +35,7 @@ public class Settings{
             }
             else if (check == 2) {
                 System.out.printf("Human streght: ");
-                this.workInProgress.templates.humanStrength = scanner.nextInt();
+                this.workInProgress.templates.changeHumanStrenght(scanner.nextInt());
             }
             else if(check == 3){
                 System.out.println("Pick value - how much worth in while eaten");
