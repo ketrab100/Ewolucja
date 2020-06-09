@@ -7,13 +7,13 @@ import java.util.Random;
 public class Animal implements Cloneable {
 
     protected int strenght;
-    public int id;
-    public Position position= new Position();
+    protected int id;
+    public Position position;
     protected int age=0;
-    public int stomach;
+    protected int stomach;
     protected int delivery;
     protected int value;
-    public int speed;
+    protected int speed;
     protected int maxStomach;
     protected int maxDelivery;
     protected int searchRange;
@@ -41,11 +41,11 @@ public class Animal implements Cloneable {
 
         int help = (rand.nextInt(this.speed*2+1)-this.speed);
 
-        System.out.print(this.speed + " " + this.position.getX() + " " + this.position.getY() + " " + help + "    ");
+        //System.out.print(this.speed + " " + this.position.getX() + " " + this.position.getY() + " " + help + "    ");
 
         this.position.changeX((this.position.getX()+help));
         help=this.speed-Math.abs(help);
-        System.out.print(this.position.getX() + " " + this.position.getY() + " " + help + "    ");
+        //System.out.print(this.position.getX() + " " + this.position.getY() + " " + help + "    ");
 
         if(this.position.getX()<=0){
             help+=Math.abs(this.position.getX())+1;
@@ -57,12 +57,12 @@ public class Animal implements Cloneable {
         }
         this.position.changeY((this.position.getY()+(rand.nextInt(help*2+1)-help)));
 
-        System.out.print(this.position.getX() + " " + this.position.getY() + " " + help + "    ");
+        //System.out.print(this.position.getX() + " " + this.position.getY() + " " + help + "    ");
 
         if(this.position.getY()<=0) this.position.changeY(1);
         else if(this.position.getY()>sizeY) this.position.changeY(sizeY);
 
-        System.out.println(this.position.getX() + " " + this.position.getY() + " " + help + "    ");
+        //System.out.println(this.position.getX() + " " + this.position.getY() + " " + help + "    ");
     }
 
     public boolean readyToDelivery(){
@@ -222,10 +222,8 @@ public class Animal implements Cloneable {
         return this.id;
     }
 
-    public void randomInitialization(int x, int y, int los){
+    public void randomInitialization(int x, int y){
         this.stomach = this.maxStomach;
-        Random random = new Random();
-        this.position.changeX(Math.abs((random.nextInt()*los)%x+1));
-        this.position.changeY(Math.abs((random.nextInt()*los)%y+1));
+        this.position = new Position(x, y);
     }
 }

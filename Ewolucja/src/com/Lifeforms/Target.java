@@ -2,7 +2,7 @@ package com.Lifeforms;
 
 public class Target {
 
-    public Position position = new Position();
+    public Position position = new Position(1,1);
     protected int value;
     protected int id;
     protected int numberOnTheList;

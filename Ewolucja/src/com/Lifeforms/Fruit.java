@@ -1,7 +1,7 @@
 package com.Lifeforms;
 
 public class Fruit {
-    public Position position = new Position();
+    public Position position = new Position(1,1);
     protected int value;
 
     public Fruit(int _positionX, int _positionY, int _value) {
