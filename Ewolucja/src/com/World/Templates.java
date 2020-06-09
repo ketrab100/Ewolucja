@@ -13,10 +13,10 @@ public class Templates {
     private int[] animalQuantity = {6,    3, 5, 6, 9, 0, 0, 0, 0, 0, 0,    20, 20, 30, 10, 0, 0, 0, 0, 0, 0,    0,0,0,0,0};
 
 
-    private Predator Tiger  = new Predator(15,22,8,30,30,35,32);
-    private Predator Wolf = new Predator(10,30,10,20,25,21,20);
-    private Predator Snake = new Predator(2,18,5,12,20,12,12);
-    private Predator Dog = new Predator(7,20,9,7,12,9,7);
+    private Predator Tiger  = new Predator(15,22,12,30,30,35,32);
+    private Predator Wolf = new Predator(10,30,15,20,25,21,20);
+    private Predator Snake = new Predator(2,18,8,12,20,12,12);
+    private Predator Dog = new Predator(7,20,13,7,12,9,7);
     private Predator YourAnimal1 = new Predator(7,15,9,7,12,9,7);
     private Predator[] PredatorTab = new Predator[]{Tiger, Wolf, Snake, Dog, YourAnimal1};
 
