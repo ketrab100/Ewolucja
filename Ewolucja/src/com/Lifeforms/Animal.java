@@ -8,8 +8,7 @@ public class Animal implements Cloneable {
 
     protected int strenght;
     protected int id;
-    protected int positionX;
-    protected int positionY;
+    public Position position= new Position();
     protected int age=0;
     protected int stomach;
     protected int delivery;
@@ -22,18 +21,6 @@ public class Animal implements Cloneable {
     public Target target = new Target();
 
     public Animal(){
-    }
-
-    /**
-     * Setting random position
-     * @param x
-     * @param y
-     */
-    public void randomInitialization(int x, int y){
-        this.stomach = this.maxStomach;
-        Random random = new Random();
-        this.positionX=random.nextInt(x)+1;
-        this.positionY=random.nextInt(y)+1;
     }
 
     public Object clone() {
@@ -53,20 +40,21 @@ public class Animal implements Cloneable {
         Random rand=new Random();
 
         int help = (rand.nextInt(this.speed*2+1)-this.speed);
-        this.positionX+=help;
-        help=this.speed-Math.abs(help);
-        if(this.positionX<=0){
-            help+=Math.abs(this.positionX)+1;
-            this.positionX=1;
-        }
-        else if(this.positionX>sizeX){
-            help=help-sizeX+this.positionX;
-            this.positionX=sizeX;
-        }
-        this.positionY+=(rand.nextInt(help*2+1)-help);
 
-        if(this.positionY<=0) this.positionY=1;
-        else if(this.positionY>sizeY) this.positionY=sizeY;
+        this.position.changeX((this.position.getX()+help));
+        help=this.speed-Math.abs(help);
+        if(this.position.getX()<=0){
+            help+=Math.abs(this.position.getX())+1;
+            this.position.changeX(1);
+        }
+        else if(this.position.getX()>sizeX){
+            help=help-sizeX+this.position.getX();
+            this.position.changeX(sizeX);
+        }
+        this.position.changeY((this.position.getY()+(rand.nextInt(help*2+1)-help)));
+
+        if(this.position.getY()<=0) this.position.changeY(1);
+        else if(this.position.getY()>sizeY) this.position.changeY(sizeY);
     }
 
     public boolean readyToDelivery(){
@@ -86,30 +74,30 @@ public class Animal implements Cloneable {
     }
 
     public void eatFood() {
-        if (this.target.isInRange == 1) {
+        if (this.target.isInRange == true) {
             this.stomach += this.target.value;
             this.stomach = Math.min(this.stomach, this.maxStomach);
-            this.positionY = this.target.positionY;
-            this.positionX = this.target.positionX;
+            this.position.changeY(this.target.position.getY());
+            this.position.changeX(this.target.position.getX());
         }
     }
 
     public void moveToFood(){
         int movementLeft = this.speed;
 
-        if(this.target.positionX>this.positionX){
-            movementLeft-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
-            this.positionX+=this.speed-movementLeft;
+        if(this.target.position.getX()>this.position.getX()){
+            movementLeft-=Math.min(movementLeft, Math.abs(this.target.position.getX()-this.position.getX()));
+            this.position.changeX((this.position.getX()+this.speed-movementLeft));
         }
         else{
-            this.target.isInRange-=Math.min(movementLeft, Math.abs(this.target.positionX-this.positionX));
-            this.positionX-=this.speed+movementLeft;
+            movementLeft-=Math.min(movementLeft, Math.abs(this.target.position.getX()-this.position.getX()));
+            this.position.changeX((this.position.getX()-this.speed+movementLeft));
         }
         if(movementLeft!=0){
-            if(this.target.positionY>this.positionY)
-                this.positionY+=movementLeft;
+            if(this.target.position.getY()>this.position.getY())
+                this.position.changeY((this.position.getY()+movementLeft));
             else
-                this.positionY-=movementLeft;
+                this.position.changeY((this.position.getY()-movementLeft));
         }
     }
 
@@ -118,24 +106,19 @@ public class Animal implements Cloneable {
      * @param listofFruits
      */
     void searchFruit(List<Fruit> listofFruits){
-        /*
-        this.target.numberOnTheList=-1;
-        this.target.typeOf=-1;
-        this.target.isInRange=0;
-        this.target.value=0;
-         */
+
         for(int q=0; q<listofFruits.size(); q++){
             Fruit food = listofFruits.get(q);
             if(this.checkDistancetoFruit(food)) {
-                if (this.canIgetThere(food.positionX, food.positionY)) {
+                if (this.canIgetThere(food.position.getX(), food.position.getY())) {
                     if (food.value > this.target.value) {
                         this.target.numberOnTheList = q;
                         this.target.typeOf = 0;
                         this.target.value = food.value;
-                        this.target.isInRange = 1;
+                        this.target.isInRange = true;
                     }
                 }
-                else if (this.target.isInRange == 0){
+                else if (this.target.isInRange == false){
                     if (food.value > this.target.value) {
                         this.target.numberOnTheList = q;
                         this.target.typeOf = 0;
@@ -146,8 +129,8 @@ public class Animal implements Cloneable {
         }
         if(this.target.typeOf==0) {
             this.target.id=99;
-            this.target.positionX = listofFruits.get(this.target.numberOnTheList).positionX;
-            this.target.positionY = listofFruits.get(this.target.numberOnTheList).positionY;
+            this.target.position.changeX(listofFruits.get(this.target.numberOnTheList).position.getX());
+            this.target.position.changeY(listofFruits.get(this.target.numberOnTheList).position.getY());
         }
     }
 
@@ -162,16 +145,16 @@ public class Animal implements Cloneable {
             Animal prey = listofPreys.get(q);
 
             if(this.checkDistancetoAnimal(prey)){
-                if (canIgetThere(prey.positionX, prey.positionY)) {
+                if (this.canIgetThere(prey.position.getX(), prey.position.getY())) {
                     if (prey.value > this.target.value) {
                         this.target.numberOnTheList = q;
                         this.target.typeOf=currentList;
                         this.target.value = prey.value;
                         this.target.id = prey.id;
-                        this.target.isInRange = 1;
+                        this.target.isInRange = true;
                     }
                 }
-                else if (this.target.isInRange == 0) {
+                else if (this.target.isInRange == false) {
                     if (prey.value > this.target.value) {
                         this.target.numberOnTheList = q;
                         this.target.typeOf=currentList;
@@ -182,25 +165,25 @@ public class Animal implements Cloneable {
             }
         }
         if (this.target.typeOf==currentList) {
-            this.target.positionX = listofPreys.get(this.target.numberOnTheList).positionX;
-            this.target.positionY = listofPreys.get(this.target.numberOnTheList).positionY;
+            this.target.position.changeX(listofPreys.get(this.target.numberOnTheList).position.getX());
+            this.target.position.changeY(listofPreys.get(this.target.numberOnTheList).position.getY());
         }
     }
 
     boolean checkDistancetoFruit(Fruit food){
-        if(Math.abs(food.positionX-this.positionX)+Math.abs(food.positionY-this.positionY)<=this.searchRange) return true;
+        if(Math.abs(food.position.getX()-this.position.getX())+Math.abs(food.position.getY()-this.position.getY())<=this.searchRange) return true;
         return false;
     }
 
     boolean checkDistancetoAnimal(Animal prey){
         if (this.strenght > prey.resistance) {
-            if (Math.abs(prey.positionX - this.positionX) + Math.abs(prey.positionY - this.positionY) <= this.searchRange) return true;
+            if (Math.abs(prey.position.getX() - this.position.getX()) + Math.abs(prey.position.getY() - this.position.getY()) <= this.searchRange) return true;
         }
         return false;
     }
 
     boolean canIgetThere(int X, int Y){
-        if(Math.abs(X - this.positionX) + Math.abs(Y - this.positionY) <= this.speed) return true;
+        if(Math.abs(X - this.position.getX()) + Math.abs(Y - this.position.getY()) <= this.speed) return true;
         return false;
     }
 
@@ -222,12 +205,19 @@ public class Animal implements Cloneable {
     }
 
     public boolean canIreachIt(){
-        if(this.target.isInRange==1) return true;
+        if(this.target.isInRange) return true;
         return false;
     }
 
     public int getnewID(int id){
         this.id=id;
         return this.id;
+    }
+
+    public void randomInitialization(int x, int y){
+        this.stomach = this.maxStomach;
+        Random random = new Random();
+        this.position.changeX(random.nextInt(x)+1);
+        this.position.changeY(random.nextInt(y)+1);
     }
 }

@@ -1,13 +1,13 @@
 package com.Lifeforms;
 
 public class Target {
-    protected int positionX;
-    protected int positionY;
+
+    public Position position = new Position();
     protected int value;
     protected int id;
     protected int numberOnTheList;
     protected int typeOf;
-    protected int isInRange;
+    protected boolean isInRange;
 
     public int myNumberonList(){
         return this.numberOnTheList;
@@ -19,5 +19,9 @@ public class Target {
 
     public int myID(){
         return this.id;
+    }
+
+    public int targetTypeID(){
+        return this.id%100;
     }
 }

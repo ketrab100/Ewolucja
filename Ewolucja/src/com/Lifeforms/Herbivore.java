@@ -29,7 +29,7 @@ public class Herbivore extends Animal {
     public void searchFood(List<Fruit> listofFruits){
         this.target.numberOnTheList=-1;
         this.target.typeOf=-1;
-        this.target.isInRange=0;
+        this.target.isInRange=false;
         this.target.value=0;
         this.target.id=99;
 

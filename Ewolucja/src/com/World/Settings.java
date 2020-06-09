@@ -24,8 +24,8 @@ public class Settings{
             System.out.flush();
             System.out.println("1 - Pick map size"); //jeśli wciśnie to wpisuje 2 rozmiary X Y
             System.out.println("2 - Change human strenght. Default value is 5"); //jeśli wciśnie to zmieni tą wartość
-            System.out.println("3 - Create your predator, only one can be created, current quantity: "+ this.workInProgress.howMuchAnimals(10));
-            System.out.println("4 - Create your herbivore, only one can be created, current quantity: "+ this.workInProgress.howMuchAnimals(20));
+            System.out.println("3 - Create your predator, only one can be created, current quantity: "+ this.workInProgress.templates.howMuchAnimals(10));
+            System.out.println("4 - Create your herbivore, only one can be created, current quantity: "+ this.workInProgress.templates.howMuchAnimals(20));
             System.out.println("5 - Change quantity of animals per type"); //jeśli wciścnie to zmieni tą wartość
             System.out.println("6 - Save changes and start simulation");
 
@@ -82,13 +82,13 @@ public class Settings{
      */
     void animalQuantity(){
         System.out.println(" Animal name | Current quantity");
-        System.out.println(this.workInProgress.howMuchAnimals(0) + " | " + this.workInProgress.howMuchAnimals(0));
-        this.workInProgress.changeAnimalQuantity(0, this.scanner.nextInt());
+        System.out.println(this.workInProgress.animalTypes[0] + " | " + this.workInProgress.templates.howMuchAnimals(0));
+        this.workInProgress.templates.changeAnimalQuantity(0, this.scanner.nextInt());
 
         for(int q=1; q<=20; q++){
             if(this.workInProgress.animalTypes[q]!=" Human      ") {
-                System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.howMuchAnimals(q));
-                this.workInProgress.changeAnimalQuantity(q, this.scanner.nextInt());
+                System.out.println(this.workInProgress.animalTypes[q] + " | " + this.workInProgress.templates.howMuchAnimals(q));
+                this.workInProgress.templates.changeAnimalQuantity(q, this.scanner.nextInt());
             }
         }
     }

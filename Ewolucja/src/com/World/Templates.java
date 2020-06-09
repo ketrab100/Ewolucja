@@ -10,12 +10,13 @@ import java.util.List;
 public class Templates {
 
     private int humanStrength=5;
+    private int[] animalQuantity = {6,    3, 5, 6, 9, 0, 0, 0, 0, 0, 0,    20, 20, 30, 10, 0, 0, 0, 0, 0, 0,    0,0,0,0,0};
 
 
-    private Predator Tiger  = new Predator(15,15,8,30,30,35,32);
-    private Predator Wolf = new Predator(10,20,10,20,25,21,20);
-    private Predator Snake = new Predator(2,12,5,12,20,12,12);
-    private Predator Dog = new Predator(7,15,9,7,12,9,7);
+    private Predator Tiger  = new Predator(15,22,8,30,30,35,32);
+    private Predator Wolf = new Predator(10,30,10,20,25,21,20);
+    private Predator Snake = new Predator(2,18,5,12,20,12,12);
+    private Predator Dog = new Predator(7,20,9,7,12,9,7);
     private Predator YourAnimal1 = new Predator(7,15,9,7,12,9,7);
     private Predator[] PredatorTab = new Predator[]{Tiger, Wolf, Snake, Dog, YourAnimal1};
 
@@ -27,6 +28,9 @@ public class Templates {
     private Herbivore[] HerbivoreTab = new Herbivore[]{Goat, Cow, Sheep, Horse, YourAnimal2};
 
     private Human Human;
+
+    public Templates(){
+    }
 
     /**
      * Creating new predator type whit parameters
@@ -73,4 +77,12 @@ public class Templates {
     Human giveHuman(){return this.Human;}
 
     void changeHumanStrenght(int newHumanStrenght){this.humanStrength=newHumanStrenght;}
+
+    int howMuchAnimals(int ID){
+        return this.animalQuantity[ID];
+    }
+
+    void changeAnimalQuantity(int ID, int quantity){
+        this.animalQuantity[ID]=quantity;
+    }
 }

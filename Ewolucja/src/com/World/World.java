@@ -12,11 +12,10 @@ public class World {
     private int sizeY=200;
     private int quantity;
     private int weather=3;
-    private int currentTurn=100;
+    private int currentTurn=0;
 
     private int[] idCheckTab= new int[2500000]; //zmienić na jakiś vector czy coś
-    private int[][] statistics = new int[50][2500000];
-    private int[] animalQuantity = new int[50];
+    protected Statistics statistics = new Statistics();
     protected Templates templates = new Templates();
     protected String[] animalTypes = new String[50];
 
@@ -50,17 +49,7 @@ public class World {
 
     public World(){
         this.fillanimalTypes();
-        this.animalQuantity[0]=6;
 
-        for(int q=1; q<=10; q++){
-            this.animalQuantity[q]=3;
-        }
-        for(int q=11; q<=19; q++){
-            this.animalQuantity[q]=10;
-        }
-        this.animalQuantity[3]=5;
-        this.animalQuantity[4]=8;
-        this.animalQuantity[13]=20;
     }
 
     /**
@@ -69,6 +58,7 @@ public class World {
      */
     void turn() {
         this.currentTurn++;
+        this.statistics.turnPassed();
         Random rand = new Random();
         this.weather=rand.nextInt(6);
         //pogoda 0-chmury, słaby wzrost | 1-przelotne chmury, trochę słabszy wzrost | 2-czyste niebo, normalnie
@@ -104,7 +94,7 @@ public class World {
     void herbivoreActivities (){
         for(int q=0; q<this.listofHerbivores.size(); q++){
             Herbivore act = (Herbivore) this.listofHerbivores.get(q);
-            this.statistics[act.animalTypeID()][currentTurn]++;
+            this.statistics.countMeAs(act.animalTypeID());
             act.lowerStomach();
 
             //System.out.println(act.value + " "+ act.stomach +" "+ act.maxStomach +" "+ act.id);
@@ -147,7 +137,7 @@ public class World {
     void predatorActivities (){
         for (int q=0; q<this.listofPredators.size(); q++){
             Predator act = (Predator) this.listofPredators.get(q);
-            this.statistics[act.animalTypeID()][currentTurn]++;
+            this.statistics.countMeAs(act.animalTypeID());
             act.lowerStomach();
 
             if(act.amIDead()) {
@@ -164,10 +154,10 @@ public class World {
 
                     if(act.target.myNumberonList()>=0){
                         if(act.canIreachIt()) {
-                            //System.out.print("ja jem " + act.id + " ");
+                            //System.out.print("ja jem ");
                             this.deleteTarget(act.target);
                             act.eatFood();
-                            //System.out.print(act.stomach + "\n");
+                            //System.out.print(act.stomach + " ");
                             if (act.haveItMovedThisTurn(q))
                                 q--;
                         }
@@ -176,12 +166,12 @@ public class World {
                     else{
                         act.moveRandom(this.sizeX, this.sizeY);
                     }
+                    //System.out.println(act.target.myID());
                 }
                 else
                     act.moveRandom(this.sizeX, this.sizeY);
 
                 act.increaseStats();
-                //System.out.println(this.listofPredators.size() +" "+ q);
                 this.listofPredators.set(q, act);
             }
         }
@@ -191,8 +181,9 @@ public class World {
      * Each action done by people
      */
     void humanActivities (){
-        this.statistics[0][currentTurn]=this.listofPeople.size();
+
         for(int q=0; q<this.listofPeople.size(); q++){
+            this.statistics.countMeAs(0);
             Human act= null;
             act = this.listofPeople.get(q);
             //System.out.println(this.listofPeople.get(q).age + " " + act.age + " " + q);
@@ -270,7 +261,7 @@ public class World {
 
         else{
             this.idCheckTab[target.myID()]=0;
-            //System.out.println(idCheckTab[target.id]);
+            //this.statistics.IwasEaten(target.targetTypeID());
 
             if(target.myTypeIs() ==1)
                 this.listofPredators.remove(target.myNumberonList());
@@ -288,7 +279,7 @@ public class World {
      * Writing simulation summary
      */
     void systemOut(){
-        System.out.print(" Today is: ");System.out.print(this.currentTurn-100);System.out.print(" turn, weather is:");
+        System.out.print(" Today is: ");System.out.print(this.currentTurn);System.out.print(" turn, weather is:");
         if(this.weather==0) System.out.print(" cloudy "); else if(this.weather==1) System.out.print(" foggy "); else if(this.weather==2) System.out.print(" clear "); else if(this.weather==3) System.out.print(" sunny "); else if(this.weather==4) System.out.print(" hot "); else if(this.weather==5) System.out.print(" drought ");
 
         if(!listofPeople.isEmpty())
@@ -299,7 +290,7 @@ public class World {
         System.out.print(" Animal type | This turn | Last turn | 10 turns  | 20 turns  | 50 turns  | 100 turns  | At beginning \n");
 
         for(int q=0; q<=20; q++) {
-            if (this.statistics[q][100] != 0) {
+            if (this.templates.howMuchAnimals(q) != 0) {
                 System.out.print(animalTypes[q] + " | ");
                 printout(8, q, 0);
                 printout(8, q, 1);
@@ -308,21 +299,21 @@ public class World {
                 printout(8, q, 50);
                 printout(9, q, 100);
 
-                System.out.print(this.statistics[q][100]);
+                System.out.print(this.templates.howMuchAnimals(q));
 
                 System.out.print("\n");
             }
         }
     }
 
-    void printout(int fillUp, int currentAnimal, int actualTurn){
+    void printout(int fillUp, int currentAnimalType, int actualTurn){
         int divider=1;
-        while((this.statistics[currentAnimal][this.currentTurn-actualTurn])/divider>=10){
+        while((this.statistics.giveMyStats(currentAnimalType, actualTurn))/divider>=10){
             divider*=10;
             fillUp--;
         }
         //System.out.println(fillUp + " " + divider);
-        System.out.print(this.statistics[currentAnimal][this.currentTurn-actualTurn]); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
+        System.out.print(this.statistics.giveMyStats(currentAnimalType, actualTurn)); for(int w=0; w<fillUp; w++) System.out.print(" "); System.out.print(" | ");
 
     }
 
@@ -332,11 +323,11 @@ public class World {
      * @param idStartNumber
      */
     public  void  addPredatorToWorld(Predator predator,int idStartNumber) {
-        this.statistics[idStartNumber][100]=this.animalQuantity[idStartNumber];
-        for(int q=0; q<this.animalQuantity[idStartNumber]; q++){
+
+        for(int q=0; q<this.templates.howMuchAnimals(idStartNumber); q++){
+            this.statistics.countMeAs(idStartNumber);
             Predator animal = (Predator) predator.clone();
             animal.randomInitialization(this.sizeX, this.sizeY);
-
             this.idCheckTab[animal.getnewID(idStartNumber+q*100)]=1;
             this.listofPredators.add(animal);
         }
@@ -348,8 +339,9 @@ public class World {
      * @param idStartNumber
      */
     public  void  addHerbivoreToWorld(Herbivore herbivore,int idStartNumber) {
-        this.statistics[idStartNumber][100]=this.animalQuantity[idStartNumber];
-        for(int q=0; q<this.animalQuantity[idStartNumber]; q++){
+
+        for(int q=0; q<this.templates.howMuchAnimals(idStartNumber); q++){
+            this.statistics.countMeAs(idStartNumber);
             Herbivore animal = (Herbivore) herbivore.clone();
             animal.randomInitialization(this.sizeX, this.sizeY);
             this.idCheckTab[animal.getnewID(idStartNumber+q*100)]=1;
@@ -362,21 +354,14 @@ public class World {
      * @param human
      */
     public void addPeopleToWorld(Human human){
-        this.statistics[0][100]=animalQuantity[0];
-        for(int q=0; q<animalQuantity[0]; q++){
+
+        for(int q=0; q<this.templates.howMuchAnimals(0); q++){
+            this.statistics.countMeAs(0);
             Human newHuman = (Human) human.clone();
             newHuman.randomInitialization(this.sizeX, this.sizeY);
             this.idCheckTab[newHuman.getnewID(0+q*100)]=1;
             this.listofPeople.add(newHuman);
         }
-    }
-
-    void changeAnimalQuantity(int ID, int quantity){
-        this.animalQuantity[ID]=quantity;
-    }
-
-    int howMuchAnimals(int ID){
-        return this.animalQuantity[ID];
     }
 
     void changeWorldSize(){

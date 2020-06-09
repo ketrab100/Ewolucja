@@ -1,13 +1,12 @@
 package com.Lifeforms;
 
 public class Fruit {
-    protected int positionX;
-    protected int positionY;
+    public Position position = new Position();
     protected int value;
 
     public Fruit(int _positionX, int _positionY, int _value) {
-        this.positionX = _positionX;
-        this.positionY = _positionY;
+        this.position.changeX(_positionX);
+        this.position.changeY(_positionY);
         this.value = _value;
     }
 
