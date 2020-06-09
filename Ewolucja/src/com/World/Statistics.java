@@ -3,7 +3,7 @@ package com.World;
 public class Statistics {
 
     private int[][] quantity = new int[50][200];
-
+    protected int[] idCheckTab= new int[250000000]; //zmienić na jakiś vector czy coś
 
     void turnPassed(){
 

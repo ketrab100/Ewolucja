@@ -14,7 +14,6 @@ public class World {
     private int weather=3;
     private int currentTurn=0;
 
-    private int[] idCheckTab= new int[2500000]; //zmienić na jakiś vector czy coś
     protected Statistics statistics = new Statistics();
     protected Templates templates = new Templates();
     protected String[] animalTypes = new String[50];
@@ -103,7 +102,7 @@ public class World {
                 q--;
             }
             else {
-                if (act.readyToDelivery())  this.listofHerbivores.add(act.makeChild(this.idCheckTab));
+                if (act.readyToDelivery())  this.listofHerbivores.add(act.makeChild(this.statistics.idCheckTab));
 
                 else if (act.isHungry()) {
                     act.searchFood(this.listofFruits);
@@ -149,7 +148,7 @@ public class World {
             }
 
             else{
-                if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.idCheckTab));
+                if (act.readyToDelivery()) this.listofPredators.add(act.makeChild(this.statistics.idCheckTab));
 
                 else if (act.isHungry()) {
                     //System.out.print(act.id+ " ");
@@ -197,7 +196,7 @@ public class World {
                 q--;
             }
             else{
-                if (act.readyToDelivery()) this.listofPeople.add(act.makeChild(this.idCheckTab));
+                if (act.readyToDelivery()) this.listofPeople.add(act.makeChild(this.statistics.idCheckTab));
 
                 else if (act.isHungry()) {
                     act.searchFood(this.listofFruits, this.listofPredators, this.listofHerbivores);
@@ -263,7 +262,7 @@ public class World {
             this.listofFruits.remove(target.myNumberonList());
 
         else{
-            this.idCheckTab[target.myID()]=0;
+            this.statistics.idCheckTab[target.myID()]=0;
             //this.statistics.IwasEaten(target.targetTypeID());
 
             if(target.myTypeIs() ==1)
@@ -331,7 +330,7 @@ public class World {
             this.statistics.countMeAs(idStartNumber);
             Predator animal = (Predator) predator.clone();
             animal.randomInitialization(this.sizeX, this.sizeY);
-            this.idCheckTab[animal.getnewID(idStartNumber+q*100)]=1;
+            this.statistics.idCheckTab[animal.getnewID(idStartNumber+q*100)]=1;
             this.listofPredators.add(animal);
         }
     }
@@ -347,7 +346,7 @@ public class World {
             this.statistics.countMeAs(idStartNumber);
             Herbivore animal = (Herbivore) herbivore.clone();
             animal.randomInitialization(this.sizeX, this.sizeY);
-            this.idCheckTab[animal.getnewID(idStartNumber+q*100)]=1;
+            this.statistics.idCheckTab[animal.getnewID(idStartNumber+q*100)]=1;
             this.listofHerbivores.add(animal);
         }
     }
@@ -362,7 +361,7 @@ public class World {
             this.statistics.countMeAs(0);
             Human newHuman = (Human) human.clone();
             newHuman.randomInitialization(this.sizeX, this.sizeY);
-            this.idCheckTab[newHuman.getnewID(0+q*100)]=1;
+            this.statistics.idCheckTab[newHuman.getnewID(0+q*100)]=1;
             this.listofPeople.add(newHuman);
         }
     }
